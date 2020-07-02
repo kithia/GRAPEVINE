@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_reads"
+        android:icon="@drawable/ic_outline_local_library"
+        android:title="@string/title_reads" />
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_outline_search"
+        android:title="@string/title_search" />
+
+    <item
+        android:id="@+id/navigation_bookshops"
+        android:icon="@drawable/ic_outline_location_searching"
+        android:title="@string/title_bookshops" />
+
+    <item
+        android:id="@+id/navigation_conversation"
+        android:icon="@drawable/ic_outline_forum"
+        android:title="@string/title_conversation" />
+
+</menu>

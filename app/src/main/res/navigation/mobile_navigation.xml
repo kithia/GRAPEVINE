@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_reads">
+
+    <fragment
+        android:id="@+id/navigation_reads"
+        android:name="com.thimu.grapevine.ui.reads.ReadsFragment"
+        android:label="@string/title_reads"
+        tools:layout="@layout/fragment_reads" />
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.thimu.grapevine.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+    android:id="@+id/navigation_bookshops"
+    android:name="com.thimu.grapevine.ui.bookshops.BookshopsFragment"
+    android:label="@string/title_bookshops"
+    tools:layout="@layout/fragment_bookshops" />
+
+    <fragment
+        android:id="@+id/navigation_conversation"
+        android:name="com.thimu.grapevine.ui.conversation.ConversationFragment"
+        android:label="@string/title_conversation"
+        tools:layout="@layout/fragment_conversation" />
+</navigation>
