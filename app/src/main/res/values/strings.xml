@@ -7,4 +7,8 @@
     <string name="title_search">Search</string>
     <string name="title_bookshops">Bookshops</string>
     <string name="title_conversation">Conversation</string>
+    <string name="search_your_books">Search your books</string>
+    <string name="search_by_title_author_or_ISBN">Search by title, author or ISBN</string>
+    <string name="group">Group</string>
+    <string name="sort">Sort</string>
 </resources>

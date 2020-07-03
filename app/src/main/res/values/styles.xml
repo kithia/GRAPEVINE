@@ -1,16 +1,20 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeNoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
 
-    <style name="AppThemeActionBar" parent="Theme.AppCompat.Light">
+    <style name="AppThemeActionBar" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
 
 </resources>

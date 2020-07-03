@@ -27,6 +27,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" /> -->
 
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:iconifiedByDefault="false"
+        android:queryBackground="@android:color/transparent"
+        android:queryHint="@string/search_your_books"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -49,17 +65,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_outline_add" />
 
-    <SearchView
-        android:layout_width="54dp"
-        android:layout_height="54dp"
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipSort"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/sort"
+        android:textAlignment="center"
+        app:chipBackgroundColor="@color/colorWhite"
+        app:chipIcon="@drawable/ic_outline_sort"
+        app:chipIconEnabled="true"
+        app:chipIconVisible="true"
+        app:chipStrokeColor="@color/colorPrimary"
+        app:chipStrokeWidth="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:textStartPadding="-24dp" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+        android:fontFamily="@font/roboto"
+        android:text="@string/group"
+        android:textAlignment="center"
+        app:chipBackgroundColor="@color/colorWhite"
+        app:chipIcon="@drawable/ic_outline_group_work"
+        app:chipIconEnabled="true"
+        app:chipIconVisible="true"
+        app:chipStrokeColor="@color/colorPrimary"
+        app:chipStrokeWidth="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:textStartPadding="-24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
