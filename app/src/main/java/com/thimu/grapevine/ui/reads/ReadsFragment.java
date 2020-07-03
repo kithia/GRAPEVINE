@@ -18,12 +18,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.thimu.grapevine.R;
 
 /**
- * The reads fragment
+ * A fragment to display the user's book library
  *
  * @author Obed Ngigi
  * @version 03.07.2020
  */
 public class ReadsFragment extends Fragment {
+
+    // Attributes of the fragment
     private Toolbar toolbar;
     private SearchView searchView;
     private ChipGroup chipBar;
@@ -31,6 +33,13 @@ public class ReadsFragment extends Fragment {
     private Chip chipGroup;
     private FloatingActionButton floatingActionButton;
 
+    /**
+     * Create the fragment
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return the fragment view
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Window window = requireActivity().getWindow();
         window.setStatusBarColor(Color.TRANSPARENT);
