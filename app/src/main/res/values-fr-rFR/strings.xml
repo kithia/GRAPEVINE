@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_reads">Livres</string>
+    <string name="title_search">Chercher</string>
+    <string name="title_bookshops">Librairies</string>
+    <string name="title_conversation">Conversation</string>
+    <string name="add_book">Ajouter un livre</string>
+    <string name="search_shops">Chercher des magasins</string>
+    <string name="post">Publier</string>
+    <string name="group">Grouper</string>
+    <string name="sort">Trier</string>
+    <string name="search_by_title_author_or_ISBN">Rechercher par titre, l\&apos;auteur ou l\&apos;ISBN</string>
+    <string name="search_your_books">Rechercher vos livres</string>
+</resources>

@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_search" />
 
     <fragment
-    android:id="@+id/navigation_bookshops"
-    android:name="com.thimu.grapevine.ui.bookshops.BookshopsFragment"
-    android:label="@string/title_bookshops"
-    tools:layout="@layout/fragment_bookshops" />
+        android:id="@+id/navigation_bookshops"
+        android:name="com.thimu.grapevine.ui.bookshops.BookshopsFragment"
+        android:label="@string/title_bookshops"
+        tools:layout="@layout/fragment_bookshops" />
 
     <fragment
         android:id="@+id/navigation_conversation"
