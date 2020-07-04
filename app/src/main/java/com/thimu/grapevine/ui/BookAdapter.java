@@ -42,7 +42,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
         Book currentBook = books.get(position);
         holder.textViewPublisher.setText(currentBook.getPublisher());
         holder.textViewTitle.setText(currentBook.getTitle());
-        holder.textViewAuthor.setText(currentBook.getAuthor());
+        holder.textViewAuthor.setText(currentBook.getAuthors());
         holder.textViewGenre.setText(currentBook.getGenre()); }
 
     @Override

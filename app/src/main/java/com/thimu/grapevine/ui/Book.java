@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * A room library modelling a book entity
  *
@@ -18,14 +20,14 @@ public class Book {
     private int identification;
     private String ISBN;
     private String publisher;
-    private int publishedYear;
+    private String publishedYear;
     @NonNull
     private String title;
-    private String author;
+    private String authors;
     private String genre;
     private String description;
     private String language;
-    private int pages;
+    private String pages;
 
     /**
      * Create a book entity
@@ -33,18 +35,18 @@ public class Book {
      * @param publisher the publisher of the book
      * @param publishedYear the year the book was published
      * @param title the title of the book
-     * @param author the author(s) of the book
+     * @param authors the author(s) of the book
      * @param genre the genre of the book
      * @param description the description of the book
      * @param language the language of the book
      * @param pages the number of pages of the book
      */
-    public Book(String ISBN, String publisher, int publishedYear, @org.jetbrains.annotations.NotNull String title, String author, String genre, String description, String language, int pages) {
+    public Book(String ISBN, String publisher, String publishedYear, @org.jetbrains.annotations.NotNull String title, String authors, String genre, String description, String language, String pages) {
         this.ISBN = ISBN;
         this.publisher = publisher;
         this.publishedYear = publishedYear;
         this.title = title;
-        this.author = author;
+        this.authors = authors;
         this.genre = genre;
         this.description = description;
         this.language = language;
@@ -82,13 +84,14 @@ public class Book {
      * Return the year the book was published
      * @return the year the book was published
      */
-    public int getPublishedYear() {
+    public String getPublishedYear() {
         return publishedYear; }
 
     /**
      * Return the title of the book
      * @return the title of the book
      */
+    @NotNull
     public String getTitle() {
         return title; }
 
@@ -96,8 +99,8 @@ public class Book {
      * Return the author(s) of the book
      * @return the author(s) of the book
      */
-    public String getAuthor() {
-        return author; }
+    public String getAuthors() {
+        return authors; }
 
     /**
      * Return the genre of the book
@@ -124,6 +127,6 @@ public class Book {
      * Return the number of pages of the book
      * @return the number of pages of the book
      */
-    public int getPages() {
+    public String getPages() {
         return pages; }
 }

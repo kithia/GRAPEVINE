@@ -1,5 +1,6 @@
 package com.thimu.grapevine.ui.reads;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -21,12 +23,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.thimu.grapevine.ManualAddBookActivity;
 import com.thimu.grapevine.R;
 import com.thimu.grapevine.ui.Book;
 import com.thimu.grapevine.ui.BookAdapter;
 import com.thimu.grapevine.ui.BookViewModel;
 
 import java.util.List;
+import java.util.Objects;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A fragment to display the user's book library
@@ -36,13 +42,19 @@ import java.util.List;
  */
 public class ReadsFragment extends Fragment {
 
-    // Attributes of the fragment
+    //
+    public static final int ADD_BOOK_REQUEST = 0;
+
+    // Elements of the fragment
     private Toolbar toolbar;
     private SearchView searchView;
     private ChipGroup chipBar;
     private Chip chipSort;
     private Chip chipGroup;
     private FloatingActionButton floatingActionButton;
+
+    //
+    private BookViewModel bookViewModel;
 
     /**
      * Create the fragment
@@ -63,13 +75,19 @@ public class ReadsFragment extends Fragment {
         chipGroup = view.findViewById(R.id.readsChipGroup);
         floatingActionButton = view.findViewById(R.id.readsFloatingActionButton);
 
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ManualAddBookActivity.class);
+                startActivityForResult(intent, ADD_BOOK_REQUEST); } });
+
         RecyclerView recyclerView = view.findViewById(R.id.readsRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.ic_divider_margin));
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider_margin));
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         final BookAdapter adapter = new BookAdapter();
@@ -91,13 +109,32 @@ public class ReadsFragment extends Fragment {
                 else if (dy < 0 && floatingActionButton.getVisibility() != View.VISIBLE) {
                     floatingActionButton.show(); } } });
 
-        BookViewModel bookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
+        bookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
         bookViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
             @Override
             public void onChanged(List<Book> books) {
                 adapter.setBooks(books); } });
         return view;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ADD_BOOK_REQUEST && resultCode == RESULT_OK) {
+            String ISBN = data.getStringExtra(ManualAddBookActivity.EXTRA_ISBN);
+            String publisher = data.getStringExtra(ManualAddBookActivity.EXTRA_PUBLISHER);
+            String publishYear = data.getStringExtra(ManualAddBookActivity.EXTRA_PUBLISH_YEAR);
+            String title = data.getStringExtra(ManualAddBookActivity.EXTRA_TITLE);
+            String authors = data.getStringExtra(ManualAddBookActivity.EXTRA_AUTHORS);
+            String genre = data.getStringExtra(ManualAddBookActivity.EXTRA_GENRE);
+            String language = data.getStringExtra(ManualAddBookActivity.EXTRA_LANGUAGE);
+            String pages = data.getStringExtra(ManualAddBookActivity.EXTRA_PAGES);
+
+            Book book = new Book(ISBN, publisher, publishYear, Objects.requireNonNull(title), authors, genre, null, language, pages);
+            bookViewModel.insert(book);
+
+            Toast.makeText(getContext(), "Saved", Toast.LENGTH_LONG).show(); } }
 
     /**
      * Set the elevation of the appbar

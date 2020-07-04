@@ -15,4 +15,14 @@
     <string name="publisher">Publisher</string>
     <string name="author">Author</string>
     <string name="genre">Genre</string>
+    <string name="enter_ISBN" tools:ignore="MissingTranslation">Enter ISBN</string>
+    <string name="enter_title" tools:ignore="MissingTranslation">Enter title</string>
+    <string name="enter_authors" tools:ignore="MissingTranslation">Enter authors</string>
+    <string name="enter_genre" tools:ignore="MissingTranslation">Enter genre</string>
+    <string name="enter_publisher" tools:ignore="MissingTranslation">Enter publisher</string>
+    <string name="enter_publish_year" tools:ignore="MissingTranslation">Enter publish year</string>
+    <string name="enter_language" tools:ignore="MissingTranslation">Enter language</string>
+    <string name="enter_pages" tools:ignore="MissingTranslation">Enter pages</string>
+    <string name="save" tools:ignore="MissingTranslation">Save</string>
+    <string name="please_enter_title" tools:ignore="MissingTranslation">Please enter title</string>
 </resources>
