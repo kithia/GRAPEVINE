@@ -11,4 +11,8 @@
     <string name="add_book">Add book</string>
     <string name="search_shops">Search shops</string>
     <string name="post">Post</string>
+    <string name="title">Title</string>
+    <string name="publisher">Publisher</string>
+    <string name="author">Author</string>
+    <string name="genre">Genre</string>
 </resources>

@@ -11,8 +11,8 @@
     <string name="add_book">Add book</string>
     <string name="search_shops">Search shops</string>
     <string name="post">Post</string>
-    <string name="title" tools:ignore="MissingTranslation">Title</string>
-    <string name="publisher" tools:ignore="MissingTranslation">Publisher</string>
-    <string name="author" tools:ignore="MissingTranslation">Author</string>
-    <string name="genre" tools:ignore="MissingTranslation">Genre</string>
+    <string name="title">Title</string>
+    <string name="publisher">Publisher</string>
+    <string name="author">Author</string>
+    <string name="genre">Genre</string>
 </resources>

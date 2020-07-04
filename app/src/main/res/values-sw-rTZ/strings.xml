@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_reads">Vitabu</string>
+    <string name="title_search">Tafuta</string>
+    <string name="title_bookshops">Maduka ya vitabu</string>
+    <string name="title_conversation">Mazungumzo</string>
+    <string name="title">Kichwa</string>
+    <string name="author">Mwandishi</string>
+    <string name="genre">Aina</string>
+    <string name="publisher">Mchapishaji</string>
+    <string name="post">Chapisho</string>
+    <string name="add_book">Ongeza kitabu</string>
+    <string name="search_shops">Tafuta maduka</string>
+    <string name="sort">Kupanga</string>
+    <string name="group">Panga katika vikudi</string>
+    <string name="search_your_books">Tafuta vitabu vyako</string>
+    <string name="search_by_title_author_or_ISBN">Tafuta kwa kichwa, mwandishi ama ISBN</string>
+</resources>
