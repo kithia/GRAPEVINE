@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">Grapevine</string>
     <string name="title_reads">Reads</string>
     <string name="title_search">Search</string>
@@ -11,4 +11,8 @@
     <string name="add_book">Add book</string>
     <string name="search_shops">Search shops</string>
     <string name="post">Post</string>
+    <string name="title" tools:ignore="MissingTranslation">Title</string>
+    <string name="publisher" tools:ignore="MissingTranslation">Publisher</string>
+    <string name="author" tools:ignore="MissingTranslation">Author</string>
+    <string name="genre" tools:ignore="MissingTranslation">Genre</string>
 </resources>

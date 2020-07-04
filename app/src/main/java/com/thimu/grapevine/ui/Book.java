@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
  * A room library modelling a book entity
  *
  * @author Obed Ngigi
- * @version 03.07.2020
+ * @version 04.07.2020
  */
 @Entity(tableName = "BOOK_TABLE")
 public class Book {
@@ -18,6 +18,7 @@ public class Book {
     private int identification;
     private String ISBN;
     private String publisher;
+    private int publishedYear;
     @NonNull
     private String title;
     private String author;
@@ -30,6 +31,7 @@ public class Book {
      * Create a book entity
      * @param ISBN the ISBN of the book
      * @param publisher the publisher of the book
+     * @param publishedYear the year the book was published
      * @param title the title of the book
      * @param author the author(s) of the book
      * @param genre the genre of the book
@@ -37,9 +39,10 @@ public class Book {
      * @param language the language of the book
      * @param pages the number of pages of the book
      */
-    public Book(String ISBN, String publisher, String title, String author, String genre, String description, String language, int pages) {
+    public Book(String ISBN, String publisher, int publishedYear, @org.jetbrains.annotations.NotNull String title, String author, String genre, String description, String language, int pages) {
         this.ISBN = ISBN;
         this.publisher = publisher;
+        this.publishedYear = publishedYear;
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -78,6 +81,14 @@ public class Book {
      */
     public String getPublisher() {
         return publisher;
+    }
+
+    /**
+     * Return the year the book was published
+     * @return the year the book was published
+     */
+    public int getPublishedYear() {
+        return publishedYear;
     }
 
     /**

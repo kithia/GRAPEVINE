@@ -18,7 +18,7 @@ import java.util.List;
 @Dao
 public interface BookDAO {
 
-    // Operations of the database
+    // Data-manipulation operations of the database
     @Insert
     void insert(Book book);
 

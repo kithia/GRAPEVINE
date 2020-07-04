@@ -9,6 +9,7 @@
         android:id="@+id/readsToolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/white"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +46,7 @@
         android:id="@+id/readsChipBar"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/readsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,10 +94,12 @@
         android:id="@+id/readsRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/readsChipSort" />
+        app:layout_constraintTop_toBottomOf="@+id/readsChipSort"
+        tools:listitem="@layout/book_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/readsFloatingActionButton"
