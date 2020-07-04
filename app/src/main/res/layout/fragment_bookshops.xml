@@ -38,6 +38,7 @@
         android:clickable="true"
         android:contentDescription="@string/search_shops"
         app:backgroundTint="@color/colorPrimary"
+        app:fabSize="auto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_outline_search" />
