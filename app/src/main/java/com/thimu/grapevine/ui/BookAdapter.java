@@ -35,8 +35,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
     public BookHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.book_item, parent, false);
-        return new BookHolder(itemView);
-    }
+        return new BookHolder(itemView); }
 
     @Override
     public void onBindViewHolder(@NonNull BookHolder holder, int position) {
@@ -44,8 +43,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
         holder.textViewPublisher.setText(currentBook.getPublisher());
         holder.textViewTitle.setText(currentBook.getTitle());
         holder.textViewAuthor.setText(currentBook.getAuthor());
-        holder.textViewGenre.setText(currentBook.getGenre());
-    }
+        holder.textViewGenre.setText(currentBook.getGenre()); }
 
     @Override
     public int getItemCount() {
@@ -54,8 +52,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
 
     public void setBooks(List<Book> books) {
         this.books = books;
-        notifyDataSetChanged();
-    }
+        notifyDataSetChanged(); }
 
     class BookHolder extends RecyclerView.ViewHolder {
         private TextView textViewPublisher;
@@ -68,8 +65,5 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
             textViewPublisher = itemView.findViewById(R.id.bookPublisher);
             textViewTitle = itemView.findViewById(R.id.bookTitle);
             textViewAuthor = itemView.findViewById(R.id.bookAuthor);
-            textViewGenre = itemView.findViewById(R.id.bookGenre);
-
-        }
-    }
+            textViewGenre = itemView.findViewById(R.id.bookGenre); } }
 }

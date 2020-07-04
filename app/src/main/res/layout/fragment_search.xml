@@ -28,7 +28,7 @@
         android:queryBackground="@android:color/transparent"
         android:queryHint="@string/search_by_title_author_or_ISBN"
         app:layout_constraintBottom_toBottomOf="@+id/searchToolbar"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/searchToolbar"
         app:layout_constraintStart_toStartOf="@+id/searchToolbar"
         app:layout_constraintTop_toTopOf="@+id/searchToolbar" />
 

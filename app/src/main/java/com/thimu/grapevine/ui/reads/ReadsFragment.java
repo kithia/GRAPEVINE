@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,8 +27,6 @@ import com.thimu.grapevine.ui.BookAdapter;
 import com.thimu.grapevine.ui.BookViewModel;
 
 import java.util.List;
-
-//import android.widget.SearchView;
 
 /**
  * A fragment to display the user's book library
@@ -65,8 +64,13 @@ public class ReadsFragment extends Fragment {
         floatingActionButton = view.findViewById(R.id.readsFloatingActionButton);
 
         RecyclerView recyclerView = view.findViewById(R.id.readsRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                layoutManager.getOrientation());
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.ic_divider_margin));
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         final BookAdapter adapter = new BookAdapter();
         recyclerView.setAdapter(adapter);
@@ -77,27 +81,21 @@ public class ReadsFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
                 if (recyclerView.canScrollVertically(-1)) {
                     // Show elevation
-                    setAppBarElevation(4);
-                } else {
+                    setAppBarElevation(4); }
+                else {
                     // Remove elevation
-                    setAppBarElevation(0);
-                }
+                    setAppBarElevation(0); }
 
                 if (dy > 0 && floatingActionButton.getVisibility() == View.VISIBLE) {
-                    floatingActionButton.hide();
-                } else if (dy < 0 && floatingActionButton.getVisibility() != View.VISIBLE) {
-                    floatingActionButton.show();
-                }
-            }
-        });
+                    floatingActionButton.hide(); }
+                else if (dy < 0 && floatingActionButton.getVisibility() != View.VISIBLE) {
+                    floatingActionButton.show(); } } });
 
         BookViewModel bookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
         bookViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
             @Override
             public void onChanged(List<Book> books) {
-                adapter.setBooks(books);
-            }
-        });
+                adapter.setBooks(books); } });
         return view;
     }
 
@@ -112,6 +110,5 @@ public class ReadsFragment extends Fragment {
         searchView.setElevation(floatElevation);
         chipBar.setElevation(floatElevation);
         chipSort.setElevation(floatElevation);
-        chipGroup.setElevation(floatElevation);
-    }
+        chipGroup.setElevation(floatElevation); }
 }

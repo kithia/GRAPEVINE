@@ -28,24 +28,19 @@ public abstract class BookDatabase extends RoomDatabase {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     BookDatabase.class, "BOOK_DATABASE")
                     .fallbackToDestructiveMigration().addCallback(roomCallback)
-                    .build();
-        }
-        return instance;
-    }
+                    .build(); }
+        return instance; }
 
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PopulationDbAsyncTask(instance).execute();
-        }
-    };
+            new PopulationDbAsyncTask(instance).execute(); } };
 
     private static class PopulationDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private BookDAO bookDAO;
         private PopulationDbAsyncTask(BookDatabase db) {
-            bookDAO = db.bookDAO();
-        }
+            bookDAO = db.bookDAO(); }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -57,7 +52,5 @@ public abstract class BookDatabase extends RoomDatabase {
             bookDAO.insert(new Book("978-1-4063-7215-1", "Walker Books", 2017, "The Hate U Give", "Angie Thomas", "Crime", "Sixteen-year-old Starr lives in two worlds: the poor neighbourhood where she was born and raised and her posh high school in the suburbs. The uneasy balance between them is shattered when Starr is the only witness to the fatal shooting of her unarmed best friend, Khalil, by a police officer. Now what Starr says could destroy her community. It could also get her killed.\n" +
                     "\n" + "Inspired by the Black Lives Matter movement, this is a powerful and gripping YA novel about one girl's struggle for justice.", "English", 437));
             bookDAO.insert(new Book("978-0-0072-5976-2", "HarperCollins Publishers", 2011, "Holy Bible: King James Version", "Various Authors", "Scripture", "Written in 1611, the KJV is regarded as one of the most accurate translations of the Bible into the English language. The translation is often requested for ceremonial events and given to mark special occasions.", "English", 1152));
-            return null;
-        }
-    }
+            return null; } }
 }

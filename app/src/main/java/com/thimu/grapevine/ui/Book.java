@@ -48,94 +48,82 @@ public class Book {
         this.genre = genre;
         this.description = description;
         this.language = language;
-        this.pages = pages;
-    }
+        this.pages = pages; }
 
     /**
      * Set the ID of the book
      * @param identification the ID of the book
      */
     public void setIdentification(int identification) {
-        this.identification = identification;
-    }
+        this.identification = identification; }
 
     /**
      * Return the ID of the book
      * @return the ID of the book
      */
     public int getIdentification() {
-        return identification;
-    }
+        return identification; }
 
     /**
      * Return the ISBN of the book
      * @return the ISBN of the book
      */
     public String getISBN() {
-        return ISBN;
-    }
+        return ISBN; }
 
     /**
      * Return the publisher of the book
      * @return the publisher of the book
      */
     public String getPublisher() {
-        return publisher;
-    }
+        return publisher; }
 
     /**
      * Return the year the book was published
      * @return the year the book was published
      */
     public int getPublishedYear() {
-        return publishedYear;
-    }
+        return publishedYear; }
 
     /**
      * Return the title of the book
      * @return the title of the book
      */
     public String getTitle() {
-        return title;
-    }
+        return title; }
 
     /**
      * Return the author(s) of the book
      * @return the author(s) of the book
      */
     public String getAuthor() {
-        return author;
-    }
+        return author; }
 
     /**
      * Return the genre of the book
      * @return the genre of the book
      */
     public String getGenre() {
-        return genre;
-    }
+        return genre; }
 
     /**
      * Return the description of the book
      * @return the description of the book
      */
     public String getDescription() {
-        return description;
-    }
+        return description; }
 
     /**
      * Return the language of the book
      * @return the language of the book
      */
     public String getLanguage() {
-        return language;
-    }
+        return language; }
 
     /**
      * Return the number of pages of the book
      * @return the number of pages of the book
      */
     public int getPages() {
-        return pages;
-    }
+        return pages; }
 }

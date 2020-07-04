@@ -5,4 +5,5 @@
     <color name="colorPrimaryDark">#64489B</color>
     <color name="colorAccent">@android:color/black</color>
     <color name="colorSearchView">#F5F5F5</color>
+    <color name="colorDivider">#C7C7C7</color>
 </resources>

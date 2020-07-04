@@ -27,26 +27,20 @@ public class BookViewModel extends AndroidViewModel {
     public BookViewModel(@NonNull Application application) {
         super(application);
         repository = new BookRepository(application);
-        allBooks = repository.getAllBooks();
-    }
+        allBooks = repository.getAllBooks(); }
 
     public void insert(Book book) {
-        repository.insert(book);
-    }
+        repository.insert(book); }
 
     public void update(Book book) {
-        repository.update(book);
-    }
+        repository.update(book); }
 
     public void delete(Book book) {
-        repository.delete(book);
-    }
+        repository.delete(book); }
 
     public void deleteAllBook() {
-        repository.deleteAllNotes();
-    }
+        repository.deleteAllNotes(); }
 
     public LiveData<List<Book>> getAllBooks() {
-        return allBooks;
-    }
+        return allBooks; }
 }
