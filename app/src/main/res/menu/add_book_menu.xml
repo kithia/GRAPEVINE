@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/save_book"
-        android:icon="@drawable/ic_outline_library_add"
+        android:icon="@drawable/ic_outline_add"
         android:iconTint="@android:color/black"
         android:title="@string/save"
         app:showAsAction="ifRoom" />

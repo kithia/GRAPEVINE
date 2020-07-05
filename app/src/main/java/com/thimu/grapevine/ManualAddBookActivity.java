@@ -1,10 +1,15 @@
 package com.thimu.grapevine;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewTreeObserver;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +23,7 @@ import java.util.Objects;
  *
  *
  * @author Obed Ngigi
- * @version 04.07.2020
+ * @version 05.07.2020
  */
 public class ManualAddBookActivity extends AppCompatActivity {
 
@@ -41,6 +46,8 @@ public class ManualAddBookActivity extends AppCompatActivity {
             "com.thimu.grapevine.EXTRA_PAGES";
 
     // Elements of the activity
+    private ScrollView scrollView;
+
     private TextInputLayout textInputLayoutISBN;
     private TextInputLayout textInputLayoutTitle;
 
@@ -62,7 +69,19 @@ public class ManualAddBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_add_book);
 
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_outline_close);
+
+        scrollView = findViewById(R.id.manualAddBookScrollView);
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if (scrollView.canScrollVertically(-1)) {
+                    // Show elevation
+                    setActionBarElevation(4); }
+                else {
+                    // Remove elevation
+                    setActionBarElevation(0); } } });
 
         textInputLayoutISBN = findViewById(R.id.textInputLayoutISBN);
         textInputLayoutTitle = findViewById(R.id.textInputLayoutTitle);
@@ -78,6 +97,15 @@ public class ManualAddBookActivity extends AppCompatActivity {
     }
 
     /**
+     * Set the elevation of the actionbar
+     * @param elevation the dp value of the elevation
+     */
+    public void setActionBarElevation (int elevation) {
+        float floatElevation = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, elevation,
+                this.getResources().getDisplayMetrics() );
+        Objects.requireNonNull(getSupportActionBar()).setElevation(floatElevation); }
+
+    /**
      *
      */
     private void saveBook() {
@@ -90,25 +118,25 @@ public class ManualAddBookActivity extends AppCompatActivity {
         String language = Objects.requireNonNull(textInputLanguage.getText()).toString();
         String pages = Objects.requireNonNull(textInputPages.getText()).toString();
 
-        if (!title.trim().isEmpty()) {
-        textInputLayoutTitle.setError(null); }
+        if (title.trim().isEmpty()) {
+            textInputLayoutTitle.setError(getString(R.string.please_enter_title)); }
         else {
-        textInputLayoutTitle.setError(getString(R.string.please_enter_title)); }
+            textInputLayoutTitle.setError(null);
 
-        Intent data = new Intent();
-        data.putExtra(EXTRA_ISBN, ISBN);
-        data.putExtra(EXTRA_PUBLISHER, publisher);
-        data.putExtra(EXTRA_PUBLISH_YEAR, publishYear);
-        data.putExtra(EXTRA_TITLE, publisher);
-        data.putExtra(EXTRA_AUTHORS, authors);
-        data.putExtra(EXTRA_GENRE, genre);
-        data.putExtra(EXTRA_LANGUAGE, language);
-        data.putExtra(EXTRA_PAGES, pages);
+            Intent data = new Intent();
+            data.putExtra(EXTRA_ISBN, ISBN);
+            data.putExtra(EXTRA_PUBLISHER, publisher);
+            data.putExtra(EXTRA_PUBLISH_YEAR, publishYear);
+            data.putExtra(EXTRA_TITLE, publisher);
+            data.putExtra(EXTRA_AUTHORS, authors);
+            data.putExtra(EXTRA_GENRE, genre);
+            data.putExtra(EXTRA_LANGUAGE, language);
+            data.putExtra(EXTRA_PAGES, pages);
 
-        // Indicates if whether the input was successful (save button was selected)
-        setResult(RESULT_OK);
-        // Close the activity
-        finish(); }
+            // Indicates if whether the input was successful (save button was selected)
+            setResult(RESULT_OK);
+            // Close the activity
+            finish(); } }
 
     /**
      *
@@ -128,10 +156,10 @@ public class ManualAddBookActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.save_book:
-                saveBook();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item); } }
+        if (item.getItemId() == R.id.save_book) {
+            saveBook();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

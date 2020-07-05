@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.thimu.grapevine.ManualAddBookActivity;
 import com.thimu.grapevine.R;
 import com.thimu.grapevine.ui.Book;
@@ -51,7 +51,7 @@ public class ReadsFragment extends Fragment {
     private ChipGroup chipBar;
     private Chip chipSort;
     private Chip chipGroup;
-    private FloatingActionButton floatingActionButton;
+    private ExtendedFloatingActionButton extendedFloatingActionButton;
 
     //
     private BookViewModel bookViewModel;
@@ -73,9 +73,9 @@ public class ReadsFragment extends Fragment {
         chipBar = view.findViewById(R.id.readsChipBar);
         chipSort = view.findViewById(R.id.readsChipSort);
         chipGroup = view.findViewById(R.id.readsChipGroup);
-        floatingActionButton = view.findViewById(R.id.readsFloatingActionButton);
+        extendedFloatingActionButton = view.findViewById(R.id.readsExtendedFloatingActionButton);
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ManualAddBookActivity.class);
@@ -84,7 +84,7 @@ public class ReadsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.readsRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider_margin));
@@ -99,15 +99,14 @@ public class ReadsFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
                 if (recyclerView.canScrollVertically(-1)) {
                     // Show elevation
-                    setAppBarElevation(4); }
+                    setAppBarElevation(4);
+                    // Collapse fab
+                    extendedFloatingActionButton.shrink(); }
                 else {
                     // Remove elevation
-                    setAppBarElevation(0); }
-
-                if (dy > 0 && floatingActionButton.getVisibility() == View.VISIBLE) {
-                    floatingActionButton.hide(); }
-                else if (dy < 0 && floatingActionButton.getVisibility() != View.VISIBLE) {
-                    floatingActionButton.show(); } } });
+                    setAppBarElevation(0);
+                    // Extend fab
+                    extendedFloatingActionButton.extend(); } } });
 
         bookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
         bookViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
