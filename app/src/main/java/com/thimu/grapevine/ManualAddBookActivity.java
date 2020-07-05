@@ -69,14 +69,15 @@ public class ManualAddBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_add_book);
 
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_outline_close);
+        setActionBarElevation(0);
 
         scrollView = findViewById(R.id.manualAddBookScrollView);
         scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                if (scrollView.canScrollVertically(-1)) {
+                if(scrollView.canScrollVertically(-1)) {
                     // Show elevation
                     setActionBarElevation(4); }
                 else {
@@ -158,8 +159,6 @@ public class ManualAddBookActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.save_book) {
             saveBook();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+            return true; }
+        return super.onOptionsItemSelected(item); }
 }
