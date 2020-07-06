@@ -123,7 +123,7 @@ public class ReadsFragment extends Fragment {
         if (requestCode == ADD_BOOK_REQUEST && resultCode == RESULT_OK) {
             String ISBN = data.getStringExtra(ManualAddBookActivity.EXTRA_ISBN);
             String publisher = data.getStringExtra(ManualAddBookActivity.EXTRA_PUBLISHER);
-            String publishYear = data.getStringExtra(ManualAddBookActivity.EXTRA_PUBLISH_YEAR);
+            String publishYear = data.getStringExtra(ManualAddBookActivity.EXTRA_PUBLISH_DATE);
             String title = data.getStringExtra(ManualAddBookActivity.EXTRA_TITLE);
             String authors = data.getStringExtra(ManualAddBookActivity.EXTRA_AUTHORS);
             String genre = data.getStringExtra(ManualAddBookActivity.EXTRA_GENRE);

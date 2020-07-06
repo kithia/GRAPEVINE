@@ -111,6 +111,7 @@
         android:contentDescription="@string/add_book"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/add_book"
+        android:textAllCaps="false"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="auto"
         app:icon="@drawable/ic_outline_add"

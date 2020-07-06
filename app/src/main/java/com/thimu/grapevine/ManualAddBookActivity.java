@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 
@@ -23,7 +26,7 @@ import java.util.Objects;
  *
  *
  * @author Obed Ngigi
- * @version 05.07.2020
+ * @version 06.07.2020
  */
 public class ManualAddBookActivity extends AppCompatActivity {
 
@@ -32,7 +35,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
             "com.thimu.grapevine.EXTRA_ISBN";
     public static final String EXTRA_PUBLISHER =
             "com.thimu.grapevine.EXTRA_PUBLISHER";
-    public static final String EXTRA_PUBLISH_YEAR =
+    public static final String EXTRA_PUBLISH_DATE =
             "com.thimu.grapevine.EXTRA_PUBLISH_YEAR";
     public static final String EXTRA_TITLE =
             "com.thimu.grapevine.EXTRA_TITLE";
@@ -56,7 +59,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
     private TextInputEditText textInputAuthors;
     private TextInputEditText textInputGenre;
     private TextInputEditText textInputPublisher;
-    private TextInputEditText textInputPublishYear;
+    private TextInputEditText textInputPublishDate;
     private TextInputEditText textInputLanguage;
     private TextInputEditText textInputPages;
 
@@ -92,9 +95,10 @@ public class ManualAddBookActivity extends AppCompatActivity {
         textInputAuthors = findViewById(R.id.textInputEnterAuthors);
         textInputGenre = findViewById(R.id.textInputEnterGenre);
         textInputPublisher = findViewById(R.id.textInputEnterPublisher);
-        textInputPublishYear = findViewById(R.id.textInputEnterPublishedYear);
+        textInputPublishDate = findViewById(R.id.textInputEnterPublishDate);
         textInputLanguage = findViewById(R.id.textInputEnterLanguage);
         textInputPages = findViewById(R.id.textInputEnterPages);
+
     }
 
     /**
@@ -110,24 +114,61 @@ public class ManualAddBookActivity extends AppCompatActivity {
      *
      */
     private void saveBook() {
-        String ISBN = Objects.requireNonNull(textInputISBN.getText()).toString();
-        String title = Objects.requireNonNull(textInputTitle.getText()).toString();
+        String ISBN = Objects.requireNonNull(textInputISBN.getText()).toString().trim();
+        final String title = Objects.requireNonNull(textInputTitle.getText()).toString();
         String authors = Objects.requireNonNull(textInputAuthors.getText()).toString();
         String genre = Objects.requireNonNull(textInputGenre.getText()).toString();
         String publisher = Objects.requireNonNull(textInputPublisher.getText()).toString();
-        String publishYear = Objects.requireNonNull(textInputPublishYear.getText()).toString();
+        String publishDate = Objects.requireNonNull(textInputPublishDate.getText()).toString();
         String language = Objects.requireNonNull(textInputLanguage.getText()).toString();
         String pages = Objects.requireNonNull(textInputPages.getText()).toString();
 
+        textInputLayoutISBN.setErrorEnabled(true);
+        if (!ISBN.isEmpty()) {
+            switch (ISBN.length()) {
+                case 10:
+                case 13:
+                    break;
+                default:
+                    textInputLayoutISBN.setError(getString(R.string.please_enter_valid_ISBN));
+                    textInputISBN.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            textInputLayoutISBN.setErrorEnabled(false); }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) { } });
+
+                    textInputISBN.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View view, boolean b) {
+                            textInputLayoutISBN.setErrorEnabled(false); } });
+                    break; } }
+        else { textInputLayoutISBN.setError(null); }
+
+        textInputLayoutTitle.setErrorEnabled(true);
         if (title.trim().isEmpty()) {
-            textInputLayoutTitle.setError(getString(R.string.please_enter_title)); }
+            textInputLayoutTitle.setError(getString(R.string.please_enter_title));
+            textInputTitle.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    textInputLayoutTitle.setErrorEnabled(false); }
+
+                @Override
+                public void afterTextChanged(Editable editable) { } }); }
         else {
             textInputLayoutTitle.setError(null);
 
             Intent data = new Intent();
             data.putExtra(EXTRA_ISBN, ISBN);
             data.putExtra(EXTRA_PUBLISHER, publisher);
-            data.putExtra(EXTRA_PUBLISH_YEAR, publishYear);
+            data.putExtra(EXTRA_PUBLISH_DATE, publishDate);
             data.putExtra(EXTRA_TITLE, publisher);
             data.putExtra(EXTRA_AUTHORS, authors);
             data.putExtra(EXTRA_GENRE, genre);

@@ -20,9 +20,11 @@
     <string name="enter_authors" tools:ignore="MissingTranslation">Enter authors</string>
     <string name="enter_genre" tools:ignore="MissingTranslation">Enter genre</string>
     <string name="enter_publisher" tools:ignore="MissingTranslation">Enter publisher</string>
-    <string name="enter_publish_year" tools:ignore="MissingTranslation">Enter publish year</string>
+    <string name="enter_publish_date" tools:ignore="MissingTranslation">Enter publish date</string>
     <string name="enter_language" tools:ignore="MissingTranslation">Enter language</string>
     <string name="enter_pages" tools:ignore="MissingTranslation">Enter pages</string>
     <string name="save" tools:ignore="MissingTranslation">Save</string>
+    <string name="please_enter_valid_ISBN" tools:ignore="MissingTranslation">Please enter valid ISBN</string>
     <string name="please_enter_title" tools:ignore="MissingTranslation">Please enter title</string>
+    <string name="optional">(Optional)</string>
 </resources>
