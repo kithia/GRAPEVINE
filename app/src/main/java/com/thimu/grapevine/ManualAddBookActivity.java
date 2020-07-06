@@ -71,7 +71,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_outline_close);
-        setActionBarElevation(0);
+        Objects.requireNonNull(getSupportActionBar()).setElevation(0);
 
         scrollView = findViewById(R.id.manualAddBookScrollView);
         scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {

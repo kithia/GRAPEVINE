@@ -5,5 +5,6 @@
     <color name="colorPrimaryDark">#64489B</color>
     <color name="colorAccent">@android:color/black</color>
     <color name="colorSearchView">#F5F5F5</color>
+    <color name="colorTextInputLayout">@color/colorSearchView</color>
     <color name="colorDivider">#CFCFCF</color>
 </resources>
