@@ -123,7 +123,6 @@ public class ManualAddBookActivity extends AppCompatActivity {
         String language = Objects.requireNonNull(textInputLanguage.getText()).toString();
         String pages = Objects.requireNonNull(textInputPages.getText()).toString();
 
-        textInputLayoutISBN.setErrorEnabled(true);
         if (!ISBN.isEmpty()) {
             switch (ISBN.length()) {
                 case 10:
@@ -137,7 +136,8 @@ public class ManualAddBookActivity extends AppCompatActivity {
 
                         @Override
                         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                            textInputLayoutISBN.setErrorEnabled(false); }
+                            textInputLayoutISBN.setErrorEnabled(false);
+                            textInputLayoutISBN.setErrorEnabled(true); }
 
                         @Override
                         public void afterTextChanged(Editable editable) { } });
@@ -145,11 +145,11 @@ public class ManualAddBookActivity extends AppCompatActivity {
                     textInputISBN.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                         @Override
                         public void onFocusChange(View view, boolean b) {
-                            textInputLayoutISBN.setErrorEnabled(false); } });
+                            textInputLayoutISBN.setErrorEnabled(false);
+                            textInputLayoutISBN.setErrorEnabled(true); } });
                     break; } }
         else { textInputLayoutISBN.setError(null); }
 
-        textInputLayoutTitle.setErrorEnabled(true);
         if (title.trim().isEmpty()) {
             textInputLayoutTitle.setError(getString(R.string.please_enter_title));
             textInputTitle.addTextChangedListener(new TextWatcher() {
@@ -158,7 +158,8 @@ public class ManualAddBookActivity extends AppCompatActivity {
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    textInputLayoutTitle.setErrorEnabled(false); }
+                    textInputLayoutTitle.setErrorEnabled(false);
+                    textInputLayoutTitle.setErrorEnabled(true); }
 
                 @Override
                 public void afterTextChanged(Editable editable) { } }); }
