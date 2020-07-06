@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.thimu.grapevine.ManualAddBookActivity;
 import com.thimu.grapevine.R;
 import com.thimu.grapevine.ui.Book;
@@ -51,7 +51,7 @@ public class ReadsFragment extends Fragment {
     private ChipGroup chipBar;
     private Chip chipSort;
     private Chip chipGroup;
-    private ExtendedFloatingActionButton extendedFloatingActionButton;
+    private FloatingActionButton floatingActionButton;
 
     //
     private BookViewModel bookViewModel;
@@ -73,9 +73,9 @@ public class ReadsFragment extends Fragment {
         chipBar = view.findViewById(R.id.readsChipBar);
         chipSort = view.findViewById(R.id.readsChipSort);
         chipGroup = view.findViewById(R.id.readsChipGroup);
-        extendedFloatingActionButton = view.findViewById(R.id.readsExtendedFloatingActionButton);
+        floatingActionButton = view.findViewById(R.id.readsFloatingActionButton);
 
-        extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ManualAddBookActivity.class);
@@ -99,14 +99,15 @@ public class ReadsFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
                 if (recyclerView.canScrollVertically(-1)) {
                     // Show elevation
-                    setAppBarElevation(4);
-                    // Collapse fab
-                    extendedFloatingActionButton.shrink(); }
+                    setAppBarElevation(4); }
                 else {
                     // Remove elevation
-                    setAppBarElevation(0);
-                    // Extend fab
-                    extendedFloatingActionButton.extend(); } } });
+                    setAppBarElevation(0); }
+
+                if (dy < 0) {
+                    floatingActionButton.show(); }
+                else {
+                    floatingActionButton.hide(); } } });
 
         bookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
         bookViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {

@@ -101,21 +101,18 @@
         app:layout_constraintTop_toBottomOf="@+id/readsChipSort"
         tools:listitem="@layout/book_item" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/readsExtendedFloatingActionButton"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/readsFloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:contentDescription="@string/add_book"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/add_book"
-        android:textAllCaps="false"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="auto"
-        app:icon="@drawable/ic_outline_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_outline_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
