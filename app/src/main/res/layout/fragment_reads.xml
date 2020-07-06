@@ -109,6 +109,7 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:contentDescription="@string/add_book"
+        android:visibility="visible"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="auto"
         app:layout_constraintBottom_toBottomOf="parent"

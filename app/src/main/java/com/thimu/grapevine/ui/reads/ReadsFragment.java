@@ -104,10 +104,10 @@ public class ReadsFragment extends Fragment {
                     // Remove elevation
                     setAppBarElevation(0); }
 
-                if (dy < 0) {
-                    floatingActionButton.show(); }
+                if (dy > 0) {
+                    floatingActionButton.hide(); }
                 else {
-                    floatingActionButton.hide(); } } });
+                    floatingActionButton.show(); } } });
 
         bookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
         bookViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
