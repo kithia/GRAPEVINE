@@ -4,17 +4,20 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,7 +26,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.thimu.grapevine.ManualAddBookActivity;
 import com.thimu.grapevine.R;
@@ -89,7 +91,7 @@ public class ReadsFragment extends Fragment {
         recyclerView.setHasFixedSize(false);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider_margin));
+        dividerItemDecoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(requireContext(), R.drawable.divider_margin)));
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         final BookAdapter adapter = new BookAdapter();
@@ -111,7 +113,7 @@ public class ReadsFragment extends Fragment {
                 else {
                     floatingActionButton.show(); } } });
 
-        bookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
+        bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
         bookViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
             @Override
             public void onChanged(List<Book> books) {
@@ -127,15 +129,15 @@ public class ReadsFragment extends Fragment {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 final Book swipedBook = adapter.getBookAt(viewHolder.getAdapterPosition());
                 bookViewModel.remove(swipedBook);
-                Snackbar.make(requireView(), swipedBook.getTitle() + getString(R.string.lc_was_removed_from) + getString(R.string.lc_your_library), Snackbar.LENGTH_LONG)
+                Snackbar bookRemovedSnackbar = Snackbar.make(requireView(), swipedBook.getTitle() + getString(R.string.lc_was_removed_from)
+                        + getString(R.string.lc_your_library), Snackbar.LENGTH_LONG)
                         .setAction(getString(R.string.undo), new View.OnClickListener() {
                             @Override
                             public void onClick(View view) { bookViewModel.insert(swipedBook); } })
-                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                         .setBackgroundTint(Color.WHITE)
-                        .setTextColor(getResources().getColor(R.color.colorPrimary))
-                        .setActionTextColor(getResources().getColor(R.color.colorPrimary))
-                        .show(); } }).attachToRecyclerView(recyclerView);
+                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                        .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary));
+                setSnackbarGravityTop(bookRemovedSnackbar); } }).attachToRecyclerView(recyclerView);
 
         return view;
     }
@@ -157,13 +159,12 @@ public class ReadsFragment extends Fragment {
             Book book = new Book(ISBN, publisher, publishYear, Objects.requireNonNull(title), authors, genre, null, language, pages);
             bookViewModel.insert(book);
 
-            Snackbar.make(requireView(), book.getTitle() + getString(R.string.lc_was_saved_to)
-                    + getString(R.string.lc_your_library), Snackbar.LENGTH_LONG)
-                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+            Snackbar bookSavedSnackbar = Snackbar.make(requireView(), book.getTitle() + getString(R.string.lc_was_saved_to)
+                    + getString(R.string.lc_your_library), Snackbar.LENGTH_SHORT)
                     .setBackgroundTint(Color.WHITE)
-                    .setTextColor(getResources().getColor(R.color.colorPrimary))
-                    .setActionTextColor(getResources().getColor(R.color.colorPrimary))
-                    .show(); } }
+                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                    .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary));
+            setSnackbarGravityTop(bookSavedSnackbar); } }
 
     /**
      * Set the elevation of the appbar
@@ -177,4 +178,15 @@ public class ReadsFragment extends Fragment {
         chipBar.setElevation(floatElevation);
         chipSort.setElevation(floatElevation);
         chipGroup.setElevation(floatElevation); }
+
+    /**
+     * Set and show a snackbar at the top of the view
+     * @param snackbar
+     */
+    private void setSnackbarGravityTop(Snackbar snackbar) {
+        View snackbarView = snackbar.getView();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
+        params.gravity = Gravity.TOP;
+        snackbarView.setLayoutParams(params);
+        snackbar.show(); }
 }
