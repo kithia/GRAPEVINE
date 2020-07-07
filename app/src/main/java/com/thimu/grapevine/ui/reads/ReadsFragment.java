@@ -2,18 +2,17 @@ package com.thimu.grapevine.ui.reads;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.FrameLayout;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -24,7 +23,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.thimu.grapevine.ManualAddBookActivity;
@@ -37,6 +35,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
+import static androidx.core.content.ContextCompat.getColor;
 
 /**
  * A fragment to display the user's book library
@@ -50,9 +49,8 @@ public class ReadsFragment extends Fragment {
     public static final int ADD_BOOK_REQUEST = 0;
 
     // Elements of the fragment
-    private Toolbar toolbar;
     private SearchView searchView;
-    private ChipGroup chipBar;
+    private View chipbar;
     private Chip chipSort;
     private Chip chipGroup;
     private FloatingActionButton floatingActionButton;
@@ -68,13 +66,17 @@ public class ReadsFragment extends Fragment {
      * @return the fragment view
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Window window = requireActivity().getWindow();
-        window.setStatusBarColor(Color.TRANSPARENT);
+        requireActivity().getWindow().setStatusBarColor(Color.WHITE);
+
+        // Configure custom actionbar
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), R.color.colorWhite)));
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayShowCustomEnabled(true);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setCustomView(R.layout.fragment_reads_toolbar);
 
         View view = inflater.inflate(R.layout.fragment_reads, container, false);
-        toolbar = view.findViewById(R.id.readsToolbar);
         searchView = view.findViewById(R.id.readsSearchView);
-        chipBar = view.findViewById(R.id.readsChipBar);
+        chipbar = view.findViewById(R.id.readsChipbar);
         chipSort = view.findViewById(R.id.readsChipSort);
         chipGroup = view.findViewById(R.id.readsChipGroup);
         floatingActionButton = view.findViewById(R.id.readsFloatingActionButton);
@@ -101,17 +103,13 @@ public class ReadsFragment extends Fragment {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (recyclerView.canScrollVertically(-1)) {
-                    // Show elevation
-                    setAppBarElevation(4); }
-                else {
-                    // Remove elevation
-                    setAppBarElevation(0); }
+                // Show & remove elevation
+                if (recyclerView.canScrollVertically(-1)) { setChipbarElevation(4); }
+                else { setChipbarElevation(0); }
 
-                if (dy > 0) {
-                    floatingActionButton.hide(); }
-                else {
-                    floatingActionButton.show(); } } });
+                // Show & hide fab
+                if (dy > 0) { floatingActionButton.hide(); }
+                else { floatingActionButton.show(); } } });
 
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
         bookViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
@@ -129,15 +127,15 @@ public class ReadsFragment extends Fragment {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 final Book swipedBook = adapter.getBookAt(viewHolder.getAdapterPosition());
                 bookViewModel.remove(swipedBook);
-                Snackbar bookRemovedSnackbar = Snackbar.make(requireView(), swipedBook.getTitle() + getString(R.string.lc_was_removed_from)
+                Snackbar.make(requireView(), swipedBook.getTitle() + getString(R.string.lc_was_removed_from)
                         + getString(R.string.lc_your_library), Snackbar.LENGTH_LONG)
                         .setAction(getString(R.string.undo), new View.OnClickListener() {
                             @Override
                             public void onClick(View view) { bookViewModel.insert(swipedBook); } })
                         .setBackgroundTint(Color.WHITE)
-                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-                        .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary));
-                setSnackbarGravityTop(bookRemovedSnackbar); } }).attachToRecyclerView(recyclerView);
+                        .setTextColor(getColor(requireContext(), R.color.colorPrimary))
+                        .setActionTextColor(getColor(requireContext(), R.color.colorPrimary))
+                        .show(); } }).attachToRecyclerView(recyclerView);
 
         return view;
     }
@@ -159,34 +157,19 @@ public class ReadsFragment extends Fragment {
             Book book = new Book(ISBN, publisher, publishYear, Objects.requireNonNull(title), authors, genre, null, language, pages);
             bookViewModel.insert(book);
 
-            Snackbar bookSavedSnackbar = Snackbar.make(requireView(), book.getTitle() + getString(R.string.lc_was_saved_to)
+            Snackbar.make(requireView(), book.getTitle() + getString(R.string.lc_was_saved_to)
                     + getString(R.string.lc_your_library), Snackbar.LENGTH_LONG)
                     .setBackgroundTint(Color.WHITE)
-                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-                    .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary));
-            setSnackbarGravityTop(bookSavedSnackbar); } }
+                    .setTextColor(getColor(requireContext(), R.color.colorPrimary))
+                    .setActionTextColor(getColor(requireContext(), R.color.colorPrimary))
+                    .show(); } }
 
     /**
-     * Set the elevation of the appbar
+     * Set the elevation of the chipbar
      * @param elevation the dp value of the elevation
      */
-    public void setAppBarElevation (int elevation) {
+    public void setChipbarElevation(int elevation) {
         float floatElevation = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, elevation,
                 requireContext().getResources().getDisplayMetrics() );
-        toolbar.setElevation(floatElevation);
-        searchView.setElevation(floatElevation);
-        chipBar.setElevation(floatElevation);
-        chipSort.setElevation(floatElevation);
-        chipGroup.setElevation(floatElevation); }
-
-    /**
-     * Set and show a snackbar at the top of the view
-     * @param snackbar
-     */
-    private void setSnackbarGravityTop(Snackbar snackbar) {
-        View snackbarView = snackbar.getView();
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
-        params.gravity = Gravity.TOP;
-        snackbarView.setLayoutParams(params);
-        snackbar.show(); }
+        chipbar.setElevation(floatElevation); }
 }

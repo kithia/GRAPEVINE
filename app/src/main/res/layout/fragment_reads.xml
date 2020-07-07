@@ -5,90 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/readsToolbar"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/white"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <SearchView
-        android:id="@+id/readsSearchView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/searchview_round"
-        android:iconifiedByDefault="false"
-        android:queryBackground="@android:color/transparent"
-        android:queryHint="@string/search_your_books"
-        app:layout_constraintBottom_toBottomOf="@+id/readsToolbar"
-        app:layout_constraintEnd_toEndOf="@+id/readsToolbar"
-        app:layout_constraintStart_toStartOf="@+id/readsToolbar"
-        app:layout_constraintTop_toTopOf="@+id/readsToolbar" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/readsGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_begin="205dp"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/readsChipBar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/readsRecyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/readsToolbar">
-
-    </com.google.android.material.chip.ChipGroup>
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/readsChipSort"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="4dp"
-        android:fontFamily="@font/roboto"
-        android:text="@string/sort"
-        android:textAlignment="center"
-        app:chipBackgroundColor="@android:color/white"
-        app:chipIcon="@drawable/ic_outline_sort"
-        app:chipStrokeColor="@color/colorPrimary"
-        app:chipStrokeWidth="1dp"
-        app:layout_constraintEnd_toStartOf="@+id/readsGuideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/readsToolbar"
-        app:textStartPadding="-24dp" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/readsChipGroup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/roboto"
-        android:text="@string/group"
-        android:textAlignment="center"
-        app:chipBackgroundColor="@android:color/white"
-        app:chipIcon="@drawable/ic_outline_group_work"
-        app:chipStrokeColor="@color/colorPrimary"
-        app:chipStrokeWidth="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/readsGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/readsToolbar"
-        app:textStartPadding="-24dp" />
+    <include
+        android:id="@+id/readsChipbar"
+        layout="@layout/fragment_reads_chipbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/readsRecyclerView"
@@ -98,8 +19,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/readsChipSort"
-        tools:listitem="@layout/book_item" />
+        app:layout_constraintTop_toBottomOf="@+id/readsChipbar"
+        tools:listitem="@layout/fragment_reads_book_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/readsFloatingActionButton"

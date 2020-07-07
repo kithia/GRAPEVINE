@@ -7,6 +7,6 @@
     <color name="colorSearchView">#F5F5F5</color>
     <color name="colorTextInputLayout">@color/colorSearchView</color>
     <color name="colorDivider">#CFCFCF</color>
-    <!-- <color name="colorWhite">@android:color/white</color>
-    <color name="colorBlack">@android:color/black</color> -->
+    <color name="colorWhite">@android:color/white</color>
+    <color name="colorBlack">@android:color/black</color>
 </resources>
