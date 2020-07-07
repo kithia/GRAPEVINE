@@ -160,7 +160,7 @@ public class ReadsFragment extends Fragment {
             bookViewModel.insert(book);
 
             Snackbar bookSavedSnackbar = Snackbar.make(requireView(), book.getTitle() + getString(R.string.lc_was_saved_to)
-                    + getString(R.string.lc_your_library), Snackbar.LENGTH_SHORT)
+                    + getString(R.string.lc_your_library), Snackbar.LENGTH_LONG)
                     .setBackgroundTint(Color.WHITE)
                     .setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
                     .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary));
