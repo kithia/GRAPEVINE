@@ -1,6 +1,5 @@
 package com.thimu.grapevine.ui.conversation;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +28,7 @@ public class ConversationFragment extends Fragment {
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Window window = requireActivity().getWindow();
-        window.setStatusBarColor(Color.rgb(149, 117, 205));
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
 
         return inflater.inflate(R.layout.fragment_conversation, container, false);
     }

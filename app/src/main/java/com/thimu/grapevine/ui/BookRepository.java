@@ -34,11 +34,11 @@ public class BookRepository {
     public void update(Book book) {
         new UpdateBookAsyncTask(bookDAO).execute(book); }
 
-    public void delete(Book book) {
-        new DeleteBookAsyncTask(bookDAO).execute(book); }
+    public void remove(Book book) {
+        new RemoveBookAsyncTask(bookDAO).execute(book); }
 
-    public void deleteAllNotes() {
-        new DeleteAllBooksAsyncTask(bookDAO).execute(); }
+    public void removeAllBooks() {
+        new RemoveAllBooksAsyncTask(bookDAO).execute(); }
 
     public LiveData<List<Book>> getAllBooks() {
         return allBooks; }
@@ -65,25 +65,25 @@ public class BookRepository {
             bookDAO.update(books[0]);
             return null; } }
 
-    private static class DeleteBookAsyncTask extends AsyncTask<Book, Void, Void> {
+    private static class RemoveBookAsyncTask extends AsyncTask<Book, Void, Void> {
         private BookDAO bookDAO;
 
-        private DeleteBookAsyncTask(BookDAO bookDAO) {
+        private RemoveBookAsyncTask(BookDAO bookDAO) {
             this.bookDAO = bookDAO; }
 
         @Override
         protected Void doInBackground(Book... books) {
-            bookDAO.delete(books[0]);
+            bookDAO.remove(books[0]);
             return null; } }
 
-    private static class DeleteAllBooksAsyncTask extends AsyncTask<Void, Void, Void> {
+    private static class RemoveAllBooksAsyncTask extends AsyncTask<Void, Void, Void> {
         private BookDAO bookDAO;
 
-        private DeleteAllBooksAsyncTask(BookDAO bookDAO) {
+        private RemoveAllBooksAsyncTask(BookDAO bookDAO) {
             this.bookDAO = bookDAO; }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            bookDAO.deleteALLBooks();
+            bookDAO.removeAllBooks();
             return null; } }
 }

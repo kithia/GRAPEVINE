@@ -26,10 +26,10 @@ public interface BookDAO {
     void update(Book book);
 
     @Delete
-    void delete(Book book);
+    void remove(Book book);
 
     @Query("DELETE FROM BOOK_TABLE")
-    void deleteALLBooks();
+    void removeAllBooks();
 
     @Query("SELECT * FROM BOOK_TABLE ORDER BY identification DESC")
     LiveData<List<Book>> getAllBooks();

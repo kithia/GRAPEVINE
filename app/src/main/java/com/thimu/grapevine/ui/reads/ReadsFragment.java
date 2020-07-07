@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -23,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.thimu.grapevine.ManualAddBookActivity;
 import com.thimu.grapevine.R;
 import com.thimu.grapevine.ui.Book;
@@ -43,7 +44,7 @@ import static android.app.Activity.RESULT_OK;
 public class ReadsFragment extends Fragment {
 
     //
-    public static final int ADD_BOOK_REQUEST = 0;
+    public static final int ADD_BOOK_REQUEST = 1;
 
     // Elements of the fragment
     private Toolbar toolbar;
@@ -134,7 +135,15 @@ public class ReadsFragment extends Fragment {
             Book book = new Book(ISBN, publisher, publishYear, Objects.requireNonNull(title), authors, genre, null, language, pages);
             bookViewModel.insert(book);
 
-            Toast.makeText(getContext(), "Saved", Toast.LENGTH_LONG).show(); } }
+            Snackbar.make(requireView(), book.getTitle() + " " + getString(R.string.lc_saved_to_library), Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.undo), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) { } })
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                    .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
+                    .setTextColor(Color.WHITE)
+                    .setActionTextColor(Color.WHITE)
+                    .show(); } }
 
     /**
      * Set the elevation of the appbar

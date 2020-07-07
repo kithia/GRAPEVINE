@@ -26,7 +26,7 @@ import java.util.Objects;
  *
  *
  * @author Obed Ngigi
- * @version 06.07.2020
+ * @version 07.07.2020
  */
 public class ManualAddBookActivity extends AppCompatActivity {
 
@@ -72,7 +72,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_add_book);
 
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_outline_close);
         Objects.requireNonNull(getSupportActionBar()).setElevation(0);
 
@@ -98,7 +98,6 @@ public class ManualAddBookActivity extends AppCompatActivity {
         textInputPublishDate = findViewById(R.id.textInputEnterPublishDate);
         textInputLanguage = findViewById(R.id.textInputEnterLanguage);
         textInputPages = findViewById(R.id.textInputEnterPages);
-
     }
 
     /**
@@ -111,11 +110,11 @@ public class ManualAddBookActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setElevation(floatElevation); }
 
     /**
-     *
+     *  Add book to library
      */
     private void saveBook() {
-        String ISBN = Objects.requireNonNull(textInputISBN.getText()).toString().trim();
-        final String title = Objects.requireNonNull(textInputTitle.getText()).toString();
+        String ISBN = Objects.requireNonNull(textInputISBN.getText()).toString();
+        String title = Objects.requireNonNull(textInputTitle.getText()).toString();
         String authors = Objects.requireNonNull(textInputAuthors.getText()).toString();
         String genre = Objects.requireNonNull(textInputGenre.getText()).toString();
         String publisher = Objects.requireNonNull(textInputPublisher.getText()).toString();
@@ -124,33 +123,46 @@ public class ManualAddBookActivity extends AppCompatActivity {
         String pages = Objects.requireNonNull(textInputPages.getText()).toString();
 
         if (!ISBN.isEmpty()) {
-            switch (ISBN.length()) {
-                case 10:
-                case 13:
-                    break;
-                default:
-                    textInputLayoutISBN.setError(getString(R.string.please_enter_valid_ISBN));
-                    textInputISBN.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            // Permit ISBN-10 and ISBN-13 only
+            String regex = getString(R.string.regex_ISBN);
+            if (!ISBN.matches(regex)) {
+                 textInputLayoutISBN.setError(getString(R.string.please_enter_valid_ISBN));
+                 textInputISBN.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
-                        @Override
-                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                            textInputLayoutISBN.setErrorEnabled(false);
-                            textInputLayoutISBN.setErrorEnabled(true); }
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        textInputLayoutISBN.setErrorEnabled(false); }
 
-                        @Override
-                        public void afterTextChanged(Editable editable) { } });
+                    @Override
+                    public void afterTextChanged(Editable editable) { } });
 
-                    textInputISBN.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                        @Override
-                        public void onFocusChange(View view, boolean b) {
-                            textInputLayoutISBN.setErrorEnabled(false);
-                            textInputLayoutISBN.setErrorEnabled(true); } });
-                    break; } }
-        else { textInputLayoutISBN.setError(null); }
+                 textInputISBN.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+                        textInputLayoutISBN.setErrorEnabled(false); } });
 
-        if (title.trim().isEmpty()) {
+                 textInputLayoutISBN.setErrorEnabled(true); } }
+
+        if (!title.trim().isEmpty()) {
+            textInputLayoutTitle.setError(null);
+
+            Intent bookData = new Intent();
+            bookData.putExtra(EXTRA_ISBN, ISBN.trim());
+            bookData.putExtra(EXTRA_PUBLISHER, publisher);
+            bookData.putExtra(EXTRA_PUBLISH_DATE, publishDate);
+            bookData.putExtra(EXTRA_TITLE, title);
+            bookData.putExtra(EXTRA_AUTHORS, authors);
+            bookData.putExtra(EXTRA_GENRE, genre);
+            bookData.putExtra(EXTRA_LANGUAGE, language);
+            bookData.putExtra(EXTRA_PAGES, pages);
+
+            // Indicates if whether the input was successful (save button was selected)
+            setResult(RESULT_OK, bookData);
+            // Close the activity
+            finish(); }
+        else {
             textInputLayoutTitle.setError(getString(R.string.please_enter_title));
             textInputTitle.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -158,28 +170,12 @@ public class ManualAddBookActivity extends AppCompatActivity {
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    textInputLayoutTitle.setErrorEnabled(false);
-                    textInputLayoutTitle.setErrorEnabled(true); }
+                    textInputLayoutTitle.setErrorEnabled(false); }
 
                 @Override
-                public void afterTextChanged(Editable editable) { } }); }
-        else {
-            textInputLayoutTitle.setError(null);
-
-            Intent data = new Intent();
-            data.putExtra(EXTRA_ISBN, ISBN);
-            data.putExtra(EXTRA_PUBLISHER, publisher);
-            data.putExtra(EXTRA_PUBLISH_DATE, publishDate);
-            data.putExtra(EXTRA_TITLE, publisher);
-            data.putExtra(EXTRA_AUTHORS, authors);
-            data.putExtra(EXTRA_GENRE, genre);
-            data.putExtra(EXTRA_LANGUAGE, language);
-            data.putExtra(EXTRA_PAGES, pages);
-
-            // Indicates if whether the input was successful (save button was selected)
-            setResult(RESULT_OK);
-            // Close the activity
-            finish(); } }
+                public void afterTextChanged(Editable editable) { } });
+            textInputLayoutTitle.setErrorEnabled(true); }
+    }
 
     /**
      *
@@ -202,5 +198,5 @@ public class ManualAddBookActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.save_book) {
             saveBook();
             return true; }
-        return super.onOptionsItemSelected(item); }
+        else { return super.onOptionsItemSelected(item); } }
 }

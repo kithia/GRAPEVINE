@@ -35,11 +35,11 @@ public class BookViewModel extends AndroidViewModel {
     public void update(Book book) {
         repository.update(book); }
 
-    public void delete(Book book) {
-        repository.delete(book); }
+    public void remove(Book book) {
+        repository.remove(book); }
 
-    public void deleteAllBook() {
-        repository.deleteAllNotes(); }
+    public void removeAllBooks() {
+        repository.removeAllBooks(); }
 
     public LiveData<List<Book>> getAllBooks() {
         return allBooks; }

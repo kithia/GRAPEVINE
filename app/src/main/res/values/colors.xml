@@ -7,4 +7,6 @@
     <color name="colorSearchView">#F5F5F5</color>
     <color name="colorTextInputLayout">@color/colorSearchView</color>
     <color name="colorDivider">#CFCFCF</color>
+    <color name="colorWhite">#FFF</color>
+    <color name="colorBlack">#000</color>
 </resources>
