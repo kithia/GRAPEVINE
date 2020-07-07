@@ -15,4 +15,20 @@
     <string name="publisher">Publisher</string>
     <string name="author">Author</string>
     <string name="genre">Genre</string>
+    <string name="enter_ISBN">Enter ISBN</string>
+    <string name="enter_title">Enter title</string>
+    <string name="enter_authors">Enter authors</string>
+    <string name="enter_genre">Enter genre</string>
+    <string name="enter_publisher">Enter publisher</string>
+    <string name="enter_publish_date">Enter publisher date</string>
+    <string name="enter_language">Enter language</string>
+    <string name="enter_pages">Enter pages</string>
+    <string name="save">Save</string>
+    <string name="please_enter_valid_ISBN">Please enter valid ISBN</string>
+    <string name="please_enter_title">Please enter title</string>
+    <string name="optional">(Optional)</string>
+    <string name="lc_was_saved_to">" was saved to"</string>
+    <string name="lc_was_removed_from">" was removed from"</string>
+    <string name="undo">Undo</string>
+    <string name="lc_your_library">" your library"</string>
 </resources>

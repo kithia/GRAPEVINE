@@ -1,5 +1,6 @@
 package com.thimu.grapevine;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
@@ -122,10 +124,12 @@ public class ManualAddBookActivity extends AppCompatActivity {
         String language = Objects.requireNonNull(textInputLanguage.getText()).toString();
         String pages = Objects.requireNonNull(textInputPages.getText()).toString();
 
+        boolean isAcceptableISBN = true;
         if (!ISBN.isEmpty()) {
             // Permit ISBN-10 and ISBN-13 only
             String regex = getString(R.string.regex_ISBN);
-            if (!ISBN.matches(regex)) {
+            if (ISBN.matches(regex)) isAcceptableISBN = true;
+            else {
                  textInputLayoutISBN.setError(getString(R.string.please_enter_valid_ISBN));
                  textInputISBN.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -143,11 +147,29 @@ public class ManualAddBookActivity extends AppCompatActivity {
                     public void onFocusChange(View view, boolean b) {
                         textInputLayoutISBN.setErrorEnabled(false); } });
 
-                 textInputLayoutISBN.setErrorEnabled(true); } }
+                 textInputLayoutISBN.setErrorEnabled(true);
+                 isAcceptableISBN = false; }
+        }
 
+        boolean isAcceptableTitle = false;
         if (!title.trim().isEmpty()) {
-            textInputLayoutTitle.setError(null);
+                textInputLayoutTitle.setError(null);
+                isAcceptableTitle = true; }
+        else {
+                    textInputLayoutTitle.setError(getString(R.string.please_enter_title));
+                    textInputTitle.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            textInputLayoutTitle.setErrorEnabled(false); }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) { } });
+                    textInputLayoutTitle.setErrorEnabled(true); }
+
+        if (isAcceptableTitle && isAcceptableISBN) {
             Intent bookData = new Intent();
             bookData.putExtra(EXTRA_ISBN, ISBN.trim());
             bookData.putExtra(EXTRA_PUBLISHER, publisher);
@@ -158,23 +180,11 @@ public class ManualAddBookActivity extends AppCompatActivity {
             bookData.putExtra(EXTRA_LANGUAGE, language);
             bookData.putExtra(EXTRA_PAGES, pages);
 
-            // Indicates if whether the input was successful (save button was selected)
+            // Indicates whether the input was successful (save button was selected)
             setResult(RESULT_OK, bookData);
             // Close the activity
+            hideVirtualKeyboard(this);
             finish(); }
-        else {
-            textInputLayoutTitle.setError(getString(R.string.please_enter_title));
-            textInputTitle.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    textInputLayoutTitle.setErrorEnabled(false); }
-
-                @Override
-                public void afterTextChanged(Editable editable) { } });
-            textInputLayoutTitle.setErrorEnabled(true); }
     }
 
     /**
@@ -199,4 +209,17 @@ public class ManualAddBookActivity extends AppCompatActivity {
             saveBook();
             return true; }
         else { return super.onOptionsItemSelected(item); } }
+
+    /**
+     * Hide the onscreen keyboard
+     * @param activity
+     */
+    public static void hideVirtualKeyboard(Activity activity) {
+        InputMethodManager IMM = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        // Find the currently focused view so the correct window token can be taken from it
+        View view = activity.getCurrentFocus();
+        // If no view currently has focus, create a new one; the window token can be taken from it
+        if (view == null) {
+            view = new View(activity); }
+        IMM.hideSoftInputFromWindow(view.getWindowToken(), 0); }
 }

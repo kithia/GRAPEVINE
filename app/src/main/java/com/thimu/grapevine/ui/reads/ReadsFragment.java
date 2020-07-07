@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,12 +40,12 @@ import static android.app.Activity.RESULT_OK;
  * A fragment to display the user's book library
  *
  * @author Obed Ngigi
- * @version 04.07.2020
+ * @version 07.07.2020
  */
 public class ReadsFragment extends Fragment {
 
     //
-    public static final int ADD_BOOK_REQUEST = 1;
+    public static final int ADD_BOOK_REQUEST = 0;
 
     // Elements of the fragment
     private Toolbar toolbar;
@@ -115,6 +116,27 @@ public class ReadsFragment extends Fragment {
             @Override
             public void onChanged(List<Book> books) {
                 adapter.setBooks(books); } });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                final Book swipedBook = adapter.getBookAt(viewHolder.getAdapterPosition());
+                bookViewModel.remove(swipedBook);
+                Snackbar.make(requireView(), swipedBook.getTitle() + getString(R.string.lc_was_removed_from) + getString(R.string.lc_your_library), Snackbar.LENGTH_LONG)
+                        .setAction(getString(R.string.undo), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) { bookViewModel.insert(swipedBook); } })
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                        .setBackgroundTint(Color.WHITE)
+                        .setTextColor(getResources().getColor(R.color.colorPrimary))
+                        .setActionTextColor(getResources().getColor(R.color.colorPrimary))
+                        .show(); } }).attachToRecyclerView(recyclerView);
+
         return view;
     }
 
@@ -135,14 +157,12 @@ public class ReadsFragment extends Fragment {
             Book book = new Book(ISBN, publisher, publishYear, Objects.requireNonNull(title), authors, genre, null, language, pages);
             bookViewModel.insert(book);
 
-            Snackbar.make(requireView(), book.getTitle() + " " + getString(R.string.lc_saved_to_library), Snackbar.LENGTH_LONG)
-                    .setAction(getString(R.string.undo), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) { } })
+            Snackbar.make(requireView(), book.getTitle() + getString(R.string.lc_was_saved_to)
+                    + getString(R.string.lc_your_library), Snackbar.LENGTH_LONG)
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
-                    .setBackgroundTint(getResources().getColor(R.color.colorPrimary))
-                    .setTextColor(Color.WHITE)
-                    .setActionTextColor(Color.WHITE)
+                    .setBackgroundTint(Color.WHITE)
+                    .setTextColor(getResources().getColor(R.color.colorPrimary))
+                    .setActionTextColor(getResources().getColor(R.color.colorPrimary))
                     .show(); } }
 
     /**

@@ -54,6 +54,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> {
         this.books = books;
         notifyDataSetChanged(); }
 
+    public Book getBookAt(int position) {
+        return books.get(position); }
+
     class BookHolder extends RecyclerView.ViewHolder {
         private TextView textViewPublisher;
         private TextView textViewTitle;
