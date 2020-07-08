@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -25,7 +26,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 /**
- *
+ * A fragment for the user to manually add a book to their library
  *
  * @author Obed Ngigi
  * @version 07.07.2020
@@ -74,9 +75,11 @@ public class ManualAddBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_add_book);
 
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_outline_close);
-        Objects.requireNonNull(getSupportActionBar()).setElevation(0);
+        // Configure actionbar
+        ActionBar toolbar = Objects.requireNonNull(getSupportActionBar());
+        toolbar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        toolbar.setHomeAsUpIndicator(R.drawable.ic_outline_close);
+        toolbar.setElevation(0);
 
         scrollView = findViewById(R.id.manualAddBookScrollView);
         scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {

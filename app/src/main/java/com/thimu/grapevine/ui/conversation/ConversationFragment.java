@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -33,11 +34,13 @@ public class ConversationFragment extends Fragment {
      * @return the fragment view
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        requireActivity().getWindow().setStatusBarColor(getColor(requireContext(), R.color.colorPrimary));
+        Window window = requireActivity().getWindow();
+        window.setStatusBarColor(getColor(requireContext(), R.color.colorPrimary));
 
         // Configure actionbar
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), R.color.colorPrimary)));
+        ActionBar toolbar = Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar());
+        toolbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
+        toolbar.setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), R.color.colorPrimary)));
 
         return inflater.inflate(R.layout.fragment_conversation, container, false);
     }

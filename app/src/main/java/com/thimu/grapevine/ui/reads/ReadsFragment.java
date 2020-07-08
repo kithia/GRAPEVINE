@@ -8,6 +8,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.thimu.grapevine.ManualAddBookActivity;
 import com.thimu.grapevine.R;
@@ -66,13 +68,15 @@ public class ReadsFragment extends Fragment {
      * @return the fragment view
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        requireActivity().getWindow().setStatusBarColor(Color.WHITE);
+        Window window = requireActivity().getWindow();
+        window.setStatusBarColor(Color.WHITE);
 
         // Configure custom actionbar
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), R.color.colorWhite)));
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayShowCustomEnabled(true);
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setCustomView(R.layout.fragment_reads_toolbar);
+        ActionBar toolbar = Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar());
+        toolbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        toolbar.setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), R.color.colorWhite)));
+        toolbar.setDisplayShowCustomEnabled(true);
+        toolbar.setCustomView(R.layout.fragment_reads_toolbar);
 
         View view = inflater.inflate(R.layout.fragment_reads, container, false);
         searchView = view.findViewById(R.id.readsSearchView);
@@ -98,18 +102,7 @@ public class ReadsFragment extends Fragment {
 
         final BookAdapter adapter = new BookAdapter();
         recyclerView.setAdapter(adapter);
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                // Show & remove elevation
-                if (recyclerView.canScrollVertically(-1)) { setChipbarElevation(4); }
-                else { setChipbarElevation(0); }
-
-                // Show & hide fab
-                if (dy > 0) { floatingActionButton.hide(); }
-                else { floatingActionButton.show(); } } });
+        recyclerViewScrollListener(recyclerView);
 
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
         bookViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
@@ -132,6 +125,7 @@ public class ReadsFragment extends Fragment {
                         .setAction(getString(R.string.undo), new View.OnClickListener() {
                             @Override
                             public void onClick(View view) { bookViewModel.insert(swipedBook); } })
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                         .setBackgroundTint(Color.WHITE)
                         .setTextColor(getColor(requireContext(), R.color.colorPrimary))
                         .setActionTextColor(getColor(requireContext(), R.color.colorPrimary))
@@ -140,6 +134,31 @@ public class ReadsFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Set custom onScrollListener
+     * @param recyclerView
+     */
+    private void recyclerViewScrollListener(RecyclerView recyclerView) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                // Show & remove elevation
+                if (recyclerView.canScrollVertically(-1)) { setElevation(chipbar, 4); }
+                else { setElevation(chipbar,0); }
+
+                // Show & hide fab
+                if (dy > 0) { if (recyclerView.canScrollVertically(1)) { floatingActionButton.hide(); }
+                else { floatingActionButton.show(); } }
+                else { floatingActionButton.show(); } } });
+    }
+
+    /**
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -158,18 +177,20 @@ public class ReadsFragment extends Fragment {
             bookViewModel.insert(book);
 
             Snackbar.make(requireView(), book.getTitle() + getString(R.string.lc_was_saved_to)
-                    + getString(R.string.lc_your_library), Snackbar.LENGTH_LONG)
+                    + getString(R.string.lc_your_library), Snackbar.LENGTH_SHORT)
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setBackgroundTint(Color.WHITE)
                     .setTextColor(getColor(requireContext(), R.color.colorPrimary))
                     .setActionTextColor(getColor(requireContext(), R.color.colorPrimary))
                     .show(); } }
 
     /**
-     * Set the elevation of the chipbar
+     * Set the elevation of a view
      * @param elevation the dp value of the elevation
+     * @param view the view to be de/elevated
      */
-    public void setChipbarElevation(int elevation) {
+    public void setElevation(View view, int elevation) {
         float floatElevation = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, elevation,
                 requireContext().getResources().getDisplayMetrics() );
-        chipbar.setElevation(floatElevation); }
+        view.setElevation(floatElevation); }
 }
