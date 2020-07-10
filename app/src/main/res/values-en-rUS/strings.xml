@@ -35,4 +35,5 @@
     <string name="close_double_quotation_mark">\"</string>
     <string name="book_cover">Book cover</string>
     <string name="remove">Remove</string>
+    <string name="clear">Clear</string>
 </resources>

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -69,7 +70,6 @@ public class ManualAddBookActivity extends AppCompatActivity {
 
     private TextInputLayout textInputLayoutISBN;
     private TextInputLayout textInputLayoutTitle;
-    private TextInputLayout textInputLayoutPublishDate;
 
     private TextInputEditText textInputISBN;
     private TextInputEditText textInputTitle;
@@ -77,7 +77,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
     private TextInputEditText textInputGenre;
     private TextInputEditText textInputPublisher;
     private TextInputEditText textInputPublishDate;
-    private TextInputEditText textInputPublishDateSQL;
+    private String publishDateSQL;
     private TextInputEditText textInputLanguage;
     private TextInputEditText textInputPages;
 
@@ -105,7 +105,6 @@ public class ManualAddBookActivity extends AppCompatActivity {
 
         textInputLayoutISBN = findViewById(R.id.textInputLayoutISBN);
         textInputLayoutTitle = findViewById(R.id.textInputLayoutTitle);
-        textInputLayoutPublishDate = findViewById(R.id.textInputLayoutPublishDate);
 
         textInputISBN = findViewById(R.id.textInputEnterISBN);
         textInputTitle = findViewById(R.id.textInputEnterTitle);
@@ -113,7 +112,6 @@ public class ManualAddBookActivity extends AppCompatActivity {
         textInputGenre = findViewById(R.id.textInputEnterGenre);
         textInputPublisher = findViewById(R.id.textInputEnterPublisher);
         textInputPublishDate = findViewById(R.id.textInputEnterPublishDate);
-        textInputPublishDateSQL = textInputPublishDate;
         textInputLanguage = findViewById(R.id.textInputEnterLanguage);
         textInputPages = findViewById(R.id.textInputEnterPages);
 
@@ -136,8 +134,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
                 Date publishDate = calendar.getTime();
                 // SQL date format for input into Book database
                 @SuppressLint("SimpleDateFormat") DateFormat SQLDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String publishDateSQLString = SQLDateFormat.format(publishDate);
-                textInputPublishDateSQL.setText(publishDateSQLString);
+                publishDateSQL = SQLDateFormat.format(publishDate);
 
                 // Locale date format for UI output
                 Locale locale = ConfigurationCompat.getLocales(Resources.getSystem()
@@ -145,6 +142,17 @@ public class ManualAddBookActivity extends AppCompatActivity {
                 DateFormat localeDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
                 String publishDateString = localeDateFormat.format(publishDate);
                 textInputPublishDate.setText(publishDateString); } }, year, month, day);
+
+        // Set clear button on date picker dialog
+        publishDatePickerDialog.setButton(DialogInterface.BUTTON_NEUTRAL, getString(R.string.clear), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                textInputPublishDate.setText(null); } });
+
+        publishDatePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                textInputLanguage.requestFocus(); } });
 
         textInputPublishDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -176,7 +184,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
         String authors = Objects.requireNonNull(textInputAuthors.getText()).toString();
         String genre = Objects.requireNonNull(textInputGenre.getText()).toString();
         String publisher = Objects.requireNonNull(textInputPublisher.getText()).toString();
-        String publishDate = Objects.requireNonNull(textInputPublishDateSQL.getText()).toString();
+        String publishDate = publishDateSQL;
         String language = Objects.requireNonNull(textInputLanguage.getText()).toString();
         String pages = Objects.requireNonNull(textInputPages.getText()).toString();
 
@@ -240,7 +248,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
 
             // Indicates whether the input was successful (save button was selected)
             setResult(RESULT_OK, bookData);
-            // Close the activity
+            // Hide the soft keyboard and close the activity
             hideSoftKeyboard(ManualAddBookActivity.this);
             finish(); }
     }
