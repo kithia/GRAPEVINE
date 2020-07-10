@@ -143,6 +143,9 @@ public class ManualAddBookActivity extends AppCompatActivity {
                 String publishDateString = localeDateFormat.format(publishDate);
                 textInputPublishDate.setText(publishDateString); } }, year, month, day);
 
+        // Set maximum date to today
+        publishDatePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
+
         // Set clear button on date picker dialog
         publishDatePickerDialog.setButton(DialogInterface.BUTTON_NEUTRAL, getString(R.string.clear), new DialogInterface.OnClickListener() {
             @Override
