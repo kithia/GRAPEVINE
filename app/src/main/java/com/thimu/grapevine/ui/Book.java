@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * A room library modelling a book entity
  *
  * @author Obed Ngigi
- * @version 04.07.2020
+ * @version 09.07.2020
  */
 @Entity(tableName = "BOOK_TABLE")
 public class Book {
@@ -19,8 +19,9 @@ public class Book {
     @PrimaryKey(autoGenerate = true)
     private int identification;
     private String ISBN;
+    private int cover;
     private String publisher;
-    private String publishedDate;
+    private String publishDate;
     @NonNull
     private String title;
     private String authors;
@@ -32,8 +33,9 @@ public class Book {
     /**
      * Create a book entity
      * @param ISBN the ISBN of the book
+     * @param cover the cover of the book
      * @param publisher the publisher of the book
-     * @param publishedDate the year the book was published
+     * @param publishDate the year the book was published
      * @param title the title of the book
      * @param authors the author(s) of the book
      * @param genre the genre of the book
@@ -41,10 +43,11 @@ public class Book {
      * @param language the language of the book
      * @param pages the number of pages of the book
      */
-    public Book(String ISBN, String publisher, String publishedDate, @org.jetbrains.annotations.NotNull String title, String authors, String genre, String description, String language, String pages) {
+    public Book(String ISBN, int cover, String publisher, String publishDate, @org.jetbrains.annotations.NotNull String title, String authors, String genre, String description, String language, String pages) {
         this.ISBN = ISBN;
+        this.cover = cover;
         this.publisher = publisher;
-        this.publishedDate = publishedDate;
+        this.publishDate = publishDate;
         this.title = title;
         this.authors = authors;
         this.genre = genre;
@@ -74,6 +77,13 @@ public class Book {
         return ISBN; }
 
     /**
+     * Return the cover of the book
+     * @return the cover of the book
+     */
+    public int getCover() {
+        return cover; }
+
+    /**
      * Return the publisher of the book
      * @return the publisher of the book
      */
@@ -84,8 +94,8 @@ public class Book {
      * Return the date the book was published
      * @return the date the book was published
      */
-    public String getPublishedDate() {
-        return publishedDate; }
+    public String getPublishDate() {
+        return publishDate; }
 
     /**
      * Return the title of the book

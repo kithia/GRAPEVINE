@@ -20,7 +20,7 @@
     <string name="enter_authors">Enter authors</string>
     <string name="enter_genre">Enter genre</string>
     <string name="enter_publisher">Enter publisher</string>
-    <string name="enter_publish_date">Enter publisher date</string>
+    <string name="enter_publish_date">Enter publish date</string>
     <string name="enter_language">Enter language</string>
     <string name="enter_pages">Enter pages</string>
     <string name="save">Save</string>
@@ -31,4 +31,8 @@
     <string name="lc_was_removed_from">" was removed from"</string>
     <string name="undo">Undo</string>
     <string name="lc_your_library">" your library"</string>
+    <string name="open_double_quotation_mark">\"</string>
+    <string name="close_double_quotation_mark">\"</string>
+    <string name="book_cover">Book cover</string>
+    <string name="remove">Remove</string>
 </resources>

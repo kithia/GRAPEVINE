@@ -1,6 +1,7 @@
 package com.thimu.grapevine.ui.reads;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -36,6 +37,8 @@ import com.thimu.grapevine.ui.BookViewModel;
 import java.util.List;
 import java.util.Objects;
 
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
+
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getColor;
 
@@ -43,7 +46,7 @@ import static androidx.core.content.ContextCompat.getColor;
  * A fragment to display the user's book library
  *
  * @author Obed Ngigi
- * @version 07.07.2020
+ * @version 10.07.2020
  */
 public class ReadsFragment extends Fragment {
 
@@ -58,6 +61,7 @@ public class ReadsFragment extends Fragment {
     private FloatingActionButton floatingActionButton;
 
     //
+    private BookAdapter adapter;
     private BookViewModel bookViewModel;
 
     /**
@@ -100,7 +104,7 @@ public class ReadsFragment extends Fragment {
         dividerItemDecoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(requireContext(), R.drawable.divider_margin)));
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        final BookAdapter adapter = new BookAdapter();
+        adapter = new BookAdapter();
         recyclerView.setAdapter(adapter);
         recyclerViewScrollListener(recyclerView);
 
@@ -110,17 +114,26 @@ public class ReadsFragment extends Fragment {
             public void onChanged(List<Book> books) {
                 adapter.setBooks(books); } });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        /* searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false; }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false; } }); */
+
+        ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
+                return false; }
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 final Book swipedBook = adapter.getBookAt(viewHolder.getAdapterPosition());
                 bookViewModel.remove(swipedBook);
-                Snackbar.make(requireView(), swipedBook.getTitle() + getString(R.string.lc_was_removed_from)
+                Snackbar.make(requireView(), getString(R.string.open_double_quotation_mark) + swipedBook.getTitle() + getString(R.string.close_double_quotation_mark) + getString(R.string.lc_was_removed_from)
                         + getString(R.string.lc_your_library), Snackbar.LENGTH_LONG)
                         .setAction(getString(R.string.undo), new View.OnClickListener() {
                             @Override
@@ -129,7 +142,22 @@ public class ReadsFragment extends Fragment {
                         .setBackgroundTint(Color.WHITE)
                         .setTextColor(getColor(requireContext(), R.color.colorPrimary))
                         .setActionTextColor(getColor(requireContext(), R.color.colorPrimary))
-                        .show(); } }).attachToRecyclerView(recyclerView);
+                        .show(); }
+
+            // Configure swipe decoration
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorError))
+                        .addSwipeLeftActionIcon(R.drawable.ic_outline_remove_circle_outline)
+                        .setSwipeLeftActionIconTint(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+                        .addSwipeLeftLabel(getString(R.string.remove))
+                        .setSwipeLeftLabelColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+                        .create()
+                        .decorate();
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive); } };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         return view;
     }
@@ -166,17 +194,17 @@ public class ReadsFragment extends Fragment {
         if (requestCode == ADD_BOOK_REQUEST && resultCode == RESULT_OK) {
             String ISBN = data.getStringExtra(ManualAddBookActivity.EXTRA_ISBN);
             String publisher = data.getStringExtra(ManualAddBookActivity.EXTRA_PUBLISHER);
-            String publishYear = data.getStringExtra(ManualAddBookActivity.EXTRA_PUBLISH_DATE);
+            String publishDate = data.getStringExtra(ManualAddBookActivity.EXTRA_PUBLISH_DATE);
             String title = data.getStringExtra(ManualAddBookActivity.EXTRA_TITLE);
             String authors = data.getStringExtra(ManualAddBookActivity.EXTRA_AUTHORS);
             String genre = data.getStringExtra(ManualAddBookActivity.EXTRA_GENRE);
             String language = data.getStringExtra(ManualAddBookActivity.EXTRA_LANGUAGE);
             String pages = data.getStringExtra(ManualAddBookActivity.EXTRA_PAGES);
 
-            Book book = new Book(ISBN, publisher, publishYear, Objects.requireNonNull(title), authors, genre, null, language, pages);
+            Book book = new Book(ISBN, R.drawable.ic_kenya_square, publisher, publishDate, Objects.requireNonNull(title), authors, genre, null, language, pages);
             bookViewModel.insert(book);
 
-            Snackbar.make(requireView(), book.getTitle() + getString(R.string.lc_was_saved_to)
+            Snackbar.make(requireView(), getString(R.string.open_double_quotation_mark) + book.getTitle() + getString(R.string.close_double_quotation_mark) + getString(R.string.lc_was_saved_to)
                     + getString(R.string.lc_your_library), Snackbar.LENGTH_SHORT)
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setBackgroundTint(Color.WHITE)

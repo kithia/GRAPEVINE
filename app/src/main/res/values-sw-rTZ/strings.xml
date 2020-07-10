@@ -15,4 +15,11 @@
     <string name="group">Panga katika vikudi</string>
     <string name="search_your_books">Tafuta vitabu vyako</string>
     <string name="search_by_title_author_or_ISBN">Tafuta kwa kichwa, mwandishi ama ISBN</string>
+    <string name="open_double_quotation_mark">\"</string>
+    <string name="close_double_quotation_mark">\"</string>
+    <string name="remove">Ondoa</string>
+    <string name="undo">Tendua</string>
+    <string name="book_cover">Jalada la kitabu</string>
+    <string name="optional">(Hiari)</string>
+    <string name="save">Kuokoa</string>
 </resources>

@@ -9,4 +9,7 @@
     <color name="colorDivider">#CFCFCF</color>
     <color name="colorWhite">@android:color/white</color>
     <color name="colorBlack">@android:color/black</color>
+    <color name="colorTransparent">@android:color/transparent</color>
+    <!-- <color name="colorError">#B00020</color> -->
+    <color name="colorError">#CF6679</color>
 </resources>

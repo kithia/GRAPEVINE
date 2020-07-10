@@ -13,7 +13,7 @@ import java.util.List;
  * An interface to define interactions with the database
  *
  * @author Obed Ngigi
- * @version 03.07.2020
+ * @version 09.07.2020
  */
 @Dao
 public interface BookDAO {
@@ -32,5 +32,26 @@ public interface BookDAO {
     void removeAllBooks();
 
     @Query("SELECT * FROM BOOK_TABLE ORDER BY identification DESC")
-    LiveData<List<Book>> getAllBooks();
+    LiveData<List<Book>> getAllBooksIdentificationDescending();
+
+    @Query("SELECT * FROM BOOK_TABLE ORDER BY identification ASC")
+    LiveData<List<Book>> getAllBooksIdentificationAscending();
+
+    @Query("SELECT * FROM BOOK_TABLE ORDER BY title DESC")
+    LiveData<List<Book>> getAllBooksTitleDescending();
+
+    @Query("SELECT * FROM BOOK_TABLE ORDER BY title ASC")
+    LiveData<List<Book>> getAllBooksTitleAscending();
+
+    @Query("SELECT * FROM BOOK_TABLE ORDER BY authors DESC")
+    LiveData<List<Book>> getAllBooksAuthorsDescending();
+
+    @Query("SELECT * FROM BOOK_TABLE ORDER BY authors ASC")
+    LiveData<List<Book>> getAllBooksAuthorsAscending();
+
+    @Query("SELECT * FROM BOOK_TABLE ORDER BY publisher DESC")
+    LiveData<List<Book>> getAllBooksPublisherDescending();
+
+    @Query("SELECT * FROM BOOK_TABLE ORDER BY publisher ASC")
+    LiveData<List<Book>> getAllBooksPublisherAscending();
 }

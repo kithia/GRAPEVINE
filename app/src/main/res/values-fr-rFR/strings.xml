@@ -15,4 +15,11 @@
     <string name="publisher">Éditeur</string>
     <string name="author">Auteur</string>
     <string name="genre">Genre</string>
+    <string name="open_double_quotation_mark">«</string>
+    <string name="close_double_quotation_mark">»</string>
+    <string name="remove">Retirer</string>
+    <string name="undo">Annuler</string>
+    <string name="book_cover">Couverture de livre</string>
+    <string name="optional">«Optionnel»</string>
+    <string name="save">Enregister</string>
 </resources>

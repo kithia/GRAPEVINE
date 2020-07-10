@@ -26,7 +26,7 @@ public class BookRepository {
     public BookRepository(Application application) {
         BookDatabase database = BookDatabase.getInstance(application);
         bookDAO = database.bookDAO();
-        allBooks = bookDAO.getAllBooks(); }
+        allBooks = bookDAO.getAllBooksIdentificationDescending(); }
 
     public void insert(Book book) {
         new InsertBookAsyncTask(bookDAO).execute(book); }
