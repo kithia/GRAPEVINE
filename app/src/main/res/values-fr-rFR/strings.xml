@@ -15,12 +15,24 @@
     <string name="publisher">Éditeur</string>
     <string name="author">Auteur</string>
     <string name="genre">Genre</string>
-    <string name="open_double_quotation_mark">«</string>
-    <string name="close_double_quotation_mark">»</string>
+    <string name="open_single_quotation_mark">«</string>
+    <string name="close_single_quotation_mark">»</string>
     <string name="remove">Retirer</string>
     <string name="undo">Annuler</string>
     <string name="book_cover">Couverture de livre</string>
-    <string name="optional">«Optionnel»</string>
+    <string name="optional">(Optionnel)</string>
     <string name="save">Enregister</string>
     <string name="clear">Nette</string>
+    <string name="lc_your_library">" votre bibliothèque"</string>
+    <string name="lc_was_saved_to">" a été enregistré dans"</string>
+    <string name="lc_was_removed_from">" a été supprimé de"</string>
+    <string name="finish">Terminer</string>
+    <string name="please_enter_valid_ISBN">Veuillez entrer un ISBN valide</string>
+    <string name="please_enter_title">Veuillez entrer un titre</string>
+    <string name="write_summary">Veuillez résumer l\'œuvre</string>
+    <string name="summary">Résumé</string>
+    <string name="cancel">Annuler</string>
+    <string name="discard">Jeter</string>
+    <string name="discard_book_question">Jeter le livre?</string>
+    <string name="select_publish_date">Sélectionner la date de publication</string>
 </resources>

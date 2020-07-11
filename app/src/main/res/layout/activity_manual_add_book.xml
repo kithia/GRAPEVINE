@@ -140,7 +140,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:descendantFocusability="blocksDescendants"
             app:boxBackgroundColor="@color/colorTextInputLayout"
+            app:endIconDrawable="@drawable/ic_outline_clear"
+            app:endIconMode="clear_text"
             app:helperText="@string/optional"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -151,8 +154,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_publish_date"
-                android:imeOptions="actionNext"
                 android:inputType="date"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutSummary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:descendantFocusability="blocksDescendants"
+            app:boxBackgroundColor="@color/colorTextInputLayout"
+            app:endIconDrawable="@drawable/ic_outline_navigate_next"
+            app:endIconMode="custom"
+            app:helperText="@string/optional"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPublishDate">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEnterSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:hint="@string/enter_summary"
+                android:inputType="text"
+                android:scrollHorizontally="true"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -167,7 +196,7 @@
             app:helperText="@string/optional"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPublishDate">
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutSummary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEnterLanguage"

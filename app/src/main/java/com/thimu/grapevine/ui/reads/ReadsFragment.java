@@ -46,7 +46,7 @@ import static androidx.core.content.ContextCompat.getColor;
  * A fragment to display the user's book library
  *
  * @author Obed Ngigi
- * @version 10.07.2020
+ * @version 11.07.2020
  */
 public class ReadsFragment extends Fragment {
 
@@ -124,7 +124,7 @@ public class ReadsFragment extends Fragment {
                 adapter.getFilter().filter(s);
                 return false; } }); */
 
-        ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false; }
@@ -133,7 +133,7 @@ public class ReadsFragment extends Fragment {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 final Book swipedBook = adapter.getBookAt(viewHolder.getAdapterPosition());
                 bookViewModel.remove(swipedBook);
-                Snackbar.make(requireView(), getString(R.string.open_double_quotation_mark) + swipedBook.getTitle() + getString(R.string.close_double_quotation_mark) + getString(R.string.lc_was_removed_from)
+                Snackbar.make(requireView(), getString(R.string.open_single_quotation_mark) + swipedBook.getTitle() + getString(R.string.close_single_quotation_mark) + getString(R.string.lc_was_removed_from)
                         + getString(R.string.lc_your_library), Snackbar.LENGTH_LONG)
                         .setAction(getString(R.string.undo), new View.OnClickListener() {
                             @Override
@@ -148,11 +148,11 @@ public class ReadsFragment extends Fragment {
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorError))
-                        .addSwipeLeftActionIcon(R.drawable.ic_outline_remove_circle_outline)
-                        .setSwipeLeftActionIconTint(ContextCompat.getColor(requireContext(), R.color.colorBlack))
-                        .addSwipeLeftLabel(getString(R.string.remove))
-                        .setSwipeLeftLabelColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+                        .addSwipeRightBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorError))
+                        .addSwipeRightActionIcon(R.drawable.ic_outline_delete)
+                        .setSwipeRightActionIconTint(ContextCompat.getColor(requireContext(), R.color.colorBlack))
+                        .addSwipeRightLabel(getString(R.string.remove))
+                        .setSwipeRightLabelColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
                         .create()
                         .decorate();
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive); } };
@@ -178,8 +178,7 @@ public class ReadsFragment extends Fragment {
                 // Show & hide fab
                 if (dy > 0) { if (recyclerView.canScrollVertically(1)) { floatingActionButton.hide(); }
                 else { floatingActionButton.show(); } }
-                else { floatingActionButton.show(); } } });
-    }
+                else { floatingActionButton.show(); } } }); }
 
     /**
      *
@@ -198,18 +197,18 @@ public class ReadsFragment extends Fragment {
             String title = data.getStringExtra(ManualAddBookActivity.EXTRA_TITLE);
             String authors = data.getStringExtra(ManualAddBookActivity.EXTRA_AUTHORS);
             String genre = data.getStringExtra(ManualAddBookActivity.EXTRA_GENRE);
+            String summary = data.getStringExtra(ManualAddBookActivity.EXTRA_SUMMARY);
             String language = data.getStringExtra(ManualAddBookActivity.EXTRA_LANGUAGE);
             String pages = data.getStringExtra(ManualAddBookActivity.EXTRA_PAGES);
 
-            Book book = new Book(ISBN, R.drawable.ic_kenya_square, publisher, publishDate, Objects.requireNonNull(title), authors, genre, null, language, pages);
+            Book book = new Book(ISBN, R.drawable.ic_kenya_square, publisher, publishDate, Objects.requireNonNull(title), authors, genre, summary, language, pages);
             bookViewModel.insert(book);
 
-            Snackbar.make(requireView(), getString(R.string.open_double_quotation_mark) + book.getTitle() + getString(R.string.close_double_quotation_mark) + getString(R.string.lc_was_saved_to)
+            Snackbar.make(requireView(), getString(R.string.open_single_quotation_mark) + book.getTitle() + getString(R.string.close_single_quotation_mark) + getString(R.string.lc_was_saved_to)
                     + getString(R.string.lc_your_library), Snackbar.LENGTH_SHORT)
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setBackgroundTint(Color.WHITE)
                     .setTextColor(getColor(requireContext(), R.color.colorPrimary))
-                    .setActionTextColor(getColor(requireContext(), R.color.colorPrimary))
                     .show(); } }
 
     /**

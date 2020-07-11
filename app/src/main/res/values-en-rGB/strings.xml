@@ -31,9 +31,17 @@
     <string name="lc_was_removed_from">" was removed from"</string>
     <string name="undo">Undo</string>
     <string name="lc_your_library">" your library"</string>
-    <string name="open_double_quotation_mark">\"</string>
-    <string name="close_double_quotation_mark">\"</string>
     <string name="book_cover">Book cover</string>
     <string name="remove">Remove</string>
     <string name="clear">Clear</string>
+    <string name="enter_summary">Enter summary</string>
+    <string name="open_single_quotation_mark">\'</string>
+    <string name="close_single_quotation_mark">\'</string>
+    <string name="write_summary">Write summary</string>
+    <string name="finish">Finish</string>
+    <string name="summary">Summary</string>
+    <string name="select_publish_date">Select publish date</string>
+    <string name="cancel">Cancel</string>
+    <string name="discard">Discard</string>
+    <string name="discard_book_question">Discard book?</string>
 </resources>

@@ -26,7 +26,7 @@ public class Book {
     private String title;
     private String authors;
     private String genre;
-    private String description;
+    private String summary;
     private String language;
     private String pages;
 
@@ -39,11 +39,11 @@ public class Book {
      * @param title the title of the book
      * @param authors the author(s) of the book
      * @param genre the genre of the book
-     * @param description the description of the book
+     * @param summary the summary of the book
      * @param language the language of the book
      * @param pages the number of pages of the book
      */
-    public Book(String ISBN, int cover, String publisher, String publishDate, @org.jetbrains.annotations.NotNull String title, String authors, String genre, String description, String language, String pages) {
+    public Book(String ISBN, int cover, String publisher, String publishDate, @org.jetbrains.annotations.NotNull String title, String authors, String genre, String summary, String language, String pages) {
         this.ISBN = ISBN;
         this.cover = cover;
         this.publisher = publisher;
@@ -51,7 +51,7 @@ public class Book {
         this.title = title;
         this.authors = authors;
         this.genre = genre;
-        this.description = description;
+        this.summary = summary;
         this.language = language;
         this.pages = pages; }
 
@@ -120,11 +120,11 @@ public class Book {
         return genre; }
 
     /**
-     * Return the description of the book
-     * @return the description of the book
+     * Return the summary of the book
+     * @return the summary of the book
      */
-    public String getDescription() {
-        return description; }
+    public String getSummary() {
+        return summary; }
 
     /**
      * Return the language of the book
