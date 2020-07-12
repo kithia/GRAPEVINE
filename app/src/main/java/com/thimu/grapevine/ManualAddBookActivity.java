@@ -160,7 +160,6 @@ public class ManualAddBookActivity extends AppCompatActivity {
             public void onClick(View view) {
                 currentFocus = getCurrentFocus();
                 if (currentFocus == null) { currentFocus = textInputISBN; }
-                // publishDatePickerDialog.show();
                 publishDatePicker.show(getSupportFragmentManager(), getString(R.string.enter_publish_date)); } });
 
         textInputSummary.setOnClickListener(new View.OnClickListener() {
