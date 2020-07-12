@@ -41,7 +41,7 @@ public class SearchFragment extends Fragment {
         // Configure custom actionbar
         ActionBar toolbar = Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar());
         toolbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        toolbar.setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), R.color.colorWhite)));
+        toolbar.setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), android.R.color.white)));
         toolbar.setDisplayShowCustomEnabled(true);
         toolbar.setCustomView(R.layout.fragment_search_toolbar);
 

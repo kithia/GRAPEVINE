@@ -33,6 +33,19 @@
     <string name="summary">Résumé</string>
     <string name="cancel">Annuler</string>
     <string name="discard">Jeter</string>
-    <string name="discard_book_question">Jeter le livre?</string>
-    <string name="select_publish_date">Sélectionner la date de publication</string>
+    <string name="discard_book">Jeter le livre</string>
+    <string name="select_publish_date">Sélectionnez la date de publication</string>
+    <string name="enter_title">Entrez le titre</string>
+    <string name="enter_ISBN">Entrez l\&apos;ISBN</string>
+    <string name="enter_authors">Entrez les auteurs</string>
+    <string name="enter_genre">Entrez le genre</string>
+    <string name="enter_publisher">Entrez l\&apos;éditeur</string>
+    <string name="enter_publish_date">Entrez la date de publication</string>
+    <string name="enter_summary">Entrez le résumé</string>
+    <string name="enter_language">Entrez la langue</string>
+    <string name="enter_pages">Entrez le nombre de pages</string>
+    <string name="discard_changes">Jeter vos modifications</string>
+    <string name="question_mark">\?</string>
+    <string name="remove_book">Retirer le livre</string>
+    <string name="are_you_sure_you_want_to_remove">"Êtes-vous sûr de vouloir retirer "</string>
 </resources>

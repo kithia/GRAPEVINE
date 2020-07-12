@@ -16,13 +16,13 @@ import java.util.Objects;
  * The main activity
  *
  * @author Android Studio, Obed Ngigi
- * @version 03.07.2020
+ * @version 12.07.2020
  */
 public class MainActivity extends AppCompatActivity {
 
     /**
      * Create the activity
-     * @param savedInstanceState
+     * @param savedInstanceState the last saved state of the activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

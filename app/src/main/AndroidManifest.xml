@@ -14,7 +14,8 @@
             android:label="@string/summary"
             android:parentActivityName=".ManualAddBookActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeActionBarPrimaryAccent" />
+            android:theme="@style/AppThemeActionBarPrimaryAccent"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ManualAddBookActivity"
             android:label="@string/add_book"

@@ -3,6 +3,7 @@
     <string name="regex_ISBN" translatable="false">^(?:ISBN(?:-1[03])?:?●)?(?=[0-9X]{10}$|(?=(?:[0-9]+[-●]){3})[-●0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-●]){4})[-●0-9]{17}$)(?:97[89][-●]?)?[0-9]{1,5}[-●]?[0-9]+[-●]?[0-9]+[-●]?[0-9X]$</string>
     <string name="open_single_quotation_mark">\'</string>
     <string name="close_single_quotation_mark">\'</string>
+    <string name="question_mark">\?</string>
     <string name="title_reads">Reads</string>
     <string name="title_search">Search</string>
     <string name="title_bookshops">Bookshops</string>
@@ -43,6 +44,10 @@
     <string name="summary">Summary</string>
     <string name="cancel">Cancel</string>
     <string name="discard">Discard</string>
-    <string name="discard_book_question">Discard book?</string>
+    <string name="discard_book">Discard book</string>
+    <string name="discard_changes">Discard changes</string>
+    <string name="book_discarded" tools:ignore="MissingTranslation">Book discarded</string>
     <string name="select_publish_date">Select publish date</string>
+    <string name="remove_book">Remove book</string>
+    <string name="are_you_sure_you_want_to_remove" tools:ignore="MissingTranslation">"Are you sure you want to remove "</string>
 </resources>

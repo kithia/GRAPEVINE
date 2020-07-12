@@ -43,5 +43,10 @@
     <string name="select_publish_date">Select publish date</string>
     <string name="cancel">Cancel</string>
     <string name="discard">Discard</string>
-    <string name="discard_book_question">Discard book?</string>
+    <string name="discard_book">Discard book</string>
+    <string name="discard_changes">Discard changes</string>
+    <string name="are_you_sure_you_want_to_remove">"Are you sure you want to remove "</string>
+    <string name="remove_book">Remove book</string>
+    <string name="question_mark">\?</string>
+    <string name="book_discarded">Book discarded</string>
 </resources>

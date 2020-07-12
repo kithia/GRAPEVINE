@@ -180,9 +180,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:hint="@string/enter_summary"
-                android:inputType="text"
-                android:scrollHorizontally="true"
-                android:singleLine="true" />
+                android:minLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

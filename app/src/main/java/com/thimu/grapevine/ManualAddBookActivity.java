@@ -198,43 +198,9 @@ public class ManualAddBookActivity extends AppCompatActivity {
         String language = Objects.requireNonNull(textInputLanguage.getText()).toString();
         String pages = Objects.requireNonNull(textInputPages.getText()).toString();
 
-        boolean isAcceptableISBN = true;
-        if (!ISBN.isEmpty()) {
-            // Permit ISBN-10 and ISBN-13 only
-            String regex = getString(R.string.regex_ISBN);
-            if (ISBN.matches(regex)) isAcceptableISBN = true;
-            else {
-                 textInputLayoutISBN.setError(getString(R.string.please_enter_valid_ISBN));
-                 textInputISBN.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+        boolean isAcceptableISBN = isAcceptableISBN(ISBN);
 
-                    @Override
-                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                        textInputLayoutISBN.setErrorEnabled(false); }
-
-                    @Override
-                    public void afterTextChanged(Editable editable) { } });
-                 textInputLayoutISBN.setErrorEnabled(true);
-                 isAcceptableISBN = false; } }
-
-        boolean isAcceptableTitle = false;
-        if (!title.trim().isEmpty()) {
-                textInputLayoutTitle.setError(null);
-                isAcceptableTitle = true; }
-        else {
-            textInputLayoutTitle.setError(getString(R.string.please_enter_title));
-            textInputTitle.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    textInputLayoutTitle.setErrorEnabled(false); }
-
-                @Override
-                public void afterTextChanged(Editable editable) { } });
-            textInputLayoutTitle.setErrorEnabled(true); }
+        boolean isAcceptableTitle = isAcceptableTitle(title);
 
         if (!isAcceptableTitle) {
             scrollView.smoothScrollTo(textInputTitle.getScrollX(), textInputTitle.getScrollY());
@@ -259,6 +225,59 @@ public class ManualAddBookActivity extends AppCompatActivity {
             // Hide the soft keyboard and close the activity
             hideSoftKeyboard(ManualAddBookActivity.this);
             finish(); } }
+
+    /**
+     *
+     * @param title
+     * @return
+     */
+    private boolean isAcceptableTitle(String title) {
+        boolean isAcceptableTitle = false;
+        if (!title.trim().isEmpty()) {
+                textInputLayoutTitle.setError(null);
+                isAcceptableTitle = true; }
+        else {
+            textInputLayoutTitle.setError(getString(R.string.please_enter_title));
+            textInputTitle.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    textInputLayoutTitle.setErrorEnabled(false); }
+
+                @Override
+                public void afterTextChanged(Editable editable) { } });
+            textInputLayoutTitle.setErrorEnabled(true); }
+        return isAcceptableTitle;
+    }
+
+    /**
+     *
+     * @param ISBN
+     * @return
+     */
+    private boolean isAcceptableISBN(String ISBN) {
+        boolean isAcceptableISBN = true;
+        if (!ISBN.isEmpty()) {
+            // Permit ISBN-10 and ISBN-13 only
+            String regex = getString(R.string.regex_ISBN);
+            if (ISBN.matches(regex)) isAcceptableISBN = true;
+            else {
+                 textInputLayoutISBN.setError(getString(R.string.please_enter_valid_ISBN));
+                 textInputISBN.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        textInputLayoutISBN.setErrorEnabled(false); }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) { } });
+                 textInputLayoutISBN.setErrorEnabled(true);
+                 isAcceptableISBN = false; } }
+        return isAcceptableISBN; }
 
     /**
      *
@@ -299,7 +318,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
         else { onExit(); }
         return true; }
 
-        /**
+    /**
      * Decide what to do when back button is pressed
      */
     @Override
@@ -313,11 +332,14 @@ public class ManualAddBookActivity extends AppCompatActivity {
         currentFocus = getCurrentFocus();
         if(!checkAddBookEmpty()) {
             final MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(ManualAddBookActivity.this);
-            alertDialogBuilder.setMessage(getString(R.string.discard_book_question));
-            alertDialogBuilder.setIcon(R.drawable.ic_outline_delete);
+            alertDialogBuilder.setMessage(getString(R.string.discard_book) + getString(R.string.question_mark));
             alertDialogBuilder.setPositiveButton(getString(R.string.discard), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    /* Bundle bookDiscardBundle = new Bundle();
+                    bookDiscardBundle.putBoolean(EXTRA_BOOK_DISCARD, true);
+                    ReadsFragment readsFragmentObject = new ReadsFragment();
+                    readsFragmentObject.setArguments(bookDiscardBundle); */
                     hideSoftKeyboard(ManualAddBookActivity.this);
                     finish(); } });
 

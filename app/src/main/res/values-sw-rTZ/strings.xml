@@ -31,7 +31,11 @@
     <string name="please_enter_title">Tafadhali ingiza kichwa</string>
     <string name="summary">Muhtasari</string>
     <string name="discard">Tupa</string>
-    <string name="discard_book_question">Tupa kitabu?</string>
+    <string name="discard_book">Tupa kitabu</string>
     <string name="select_publish_date">Chagua tarehe ya kuchapisha</string>
     <string name="cancel">Ondoa</string>
+    <string name="discard_changes">Tupa mabadiliko</string>
+    <string name="question_mark">\?</string>
+    <string name="remove_book">Ondoa kitabu</string>
+    <string name="are_you_sure_you_want_to_remove">"Una uhakika unataka kuondoa "</string>
 </resources>

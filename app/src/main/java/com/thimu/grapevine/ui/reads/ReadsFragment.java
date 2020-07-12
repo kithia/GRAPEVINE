@@ -1,5 +1,6 @@
 package com.thimu.grapevine.ui.reads;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -19,12 +20,12 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -46,7 +47,7 @@ import static androidx.core.content.ContextCompat.getColor;
  * A fragment to display the user's book library
  *
  * @author Obed Ngigi
- * @version 11.07.2020
+ * @version 12.07.2020
  */
 public class ReadsFragment extends Fragment {
 
@@ -78,7 +79,7 @@ public class ReadsFragment extends Fragment {
         // Configure custom actionbar
         ActionBar toolbar = Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar());
         toolbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        toolbar.setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), R.color.colorWhite)));
+        toolbar.setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), android.R.color.white)));
         toolbar.setDisplayShowCustomEnabled(true);
         toolbar.setCustomView(R.layout.fragment_reads_toolbar);
 
@@ -99,10 +100,6 @@ public class ReadsFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(false);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                layoutManager.getOrientation());
-        dividerItemDecoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(requireContext(), R.drawable.divider_margin)));
-        recyclerView.addItemDecoration(dividerItemDecoration);
 
         adapter = new BookAdapter();
         recyclerView.setAdapter(adapter);
@@ -113,6 +110,8 @@ public class ReadsFragment extends Fragment {
             @Override
             public void onChanged(List<Book> books) {
                 adapter.setBooks(books); } });
+
+        /* onBookDiscard(); */
 
         /* searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -130,37 +129,80 @@ public class ReadsFragment extends Fragment {
                 return false; }
 
             @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
                 final Book swipedBook = adapter.getBookAt(viewHolder.getAdapterPosition());
-                bookViewModel.remove(swipedBook);
-                Snackbar.make(requireView(), getString(R.string.open_single_quotation_mark) + swipedBook.getTitle() + getString(R.string.close_single_quotation_mark) + getString(R.string.lc_was_removed_from)
-                        + getString(R.string.lc_your_library), Snackbar.LENGTH_LONG)
-                        .setAction(getString(R.string.undo), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) { bookViewModel.insert(swipedBook); } })
-                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
-                        .setBackgroundTint(Color.WHITE)
-                        .setTextColor(getColor(requireContext(), R.color.colorPrimary))
-                        .setActionTextColor(getColor(requireContext(), R.color.colorPrimary))
-                        .show(); }
+
+                final MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(requireContext());
+                alertDialogBuilder.setTitle(R.string.remove_book);
+                alertDialogBuilder.setMessage(getString(R.string.are_you_sure_you_want_to_remove)
+                + getString(R.string.open_single_quotation_mark) + swipedBook.getTitle()
+                + getString(R.string.close_single_quotation_mark) + getString(R.string.question_mark));
+                alertDialogBuilder.setPositiveButton(getString(R.string.remove), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        bookViewModel.remove(swipedBook);
+                        adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                        adapter.notifyItemRangeChanged(viewHolder.getAdapterPosition(), adapter.getItemCount());
+
+                        Snackbar.make(requireView(), getString(R.string.open_single_quotation_mark) + swipedBook.getTitle()
+                                + getString(R.string.close_single_quotation_mark) + getString(R.string.lc_was_removed_from)
+                                + getString(R.string.lc_your_library), Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.undo), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        bookViewModel.insert(swipedBook);
+                                        adapter.notifyItemInserted(viewHolder.getAdapterPosition());
+                                        adapter.notifyItemRangeChanged(viewHolder.getAdapterPosition(), adapter.getItemCount());
+                                        adapter.notifyDataSetChanged(); } })
+                                .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                                .setBackgroundTint(Color.WHITE)
+                                .setTextColor(getColor(requireContext(), R.color.colorPrimary))
+                                .setActionTextColor(getColor(requireContext(), R.color.colorPrimary))
+                                .show(); } });
+
+                alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        adapter.notifyItemChanged(viewHolder.getAdapterPosition()); } });
+
+                alertDialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        adapter.notifyItemChanged(viewHolder.getAdapterPosition()); } });
+
+                alertDialogBuilder.show(); }
 
             // Configure swipe decoration
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                        .addSwipeRightBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorError))
-                        .addSwipeRightActionIcon(R.drawable.ic_outline_delete)
-                        .setSwipeRightActionIconTint(ContextCompat.getColor(requireContext(), R.color.colorBlack))
-                        .addSwipeRightLabel(getString(R.string.remove))
-                        .setSwipeRightLabelColor(ContextCompat.getColor(requireContext(), R.color.colorBlack))
-                        .create()
-                        .decorate();
+                    .addSwipeRightBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+                    .addSwipeRightActionIcon(R.drawable.ic_outline_delete)
+                    .setSwipeRightActionIconTint(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                    .addSwipeRightLabel(getString(R.string.remove))
+                    .setSwipeRightLabelColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                    .create()
+                    .decorate();
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive); } };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         return view;
     }
+
+    /**
+     *
+     */
+    private void onBookDiscard() {
+        if(getArguments() != null) {
+            boolean bookDiscarded = getArguments().getBoolean(ManualAddBookActivity.EXTRA_BOOK_DISCARD);
+            if (bookDiscarded) {
+                Snackbar.make(requireView(), getString(R.string.book_discarded)
+                    , Snackbar.LENGTH_SHORT)
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                    .setBackgroundTint(Color.WHITE)
+                    .setTextColor(getColor(requireContext(), R.color.colorPrimary))
+                    .show(); } } }
 
     /**
      * Set custom onScrollListener
@@ -170,15 +212,15 @@ public class ReadsFragment extends Fragment {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                // Show & remove elevation
-                if (recyclerView.canScrollVertically(-1)) { setElevation(chipbar, 4); }
-                else { setElevation(chipbar,0); }
+            super.onScrolled(recyclerView, dx, dy);
+            // Show & remove elevation
+            if (recyclerView.canScrollVertically(-1)) { setElevation(chipbar, 4); }
+            else { setElevation(chipbar,0); }
 
-                // Show & hide fab
-                if (dy > 0) { if (recyclerView.canScrollVertically(1)) { floatingActionButton.hide(); }
-                else { floatingActionButton.show(); } }
-                else { floatingActionButton.show(); } } }); }
+            // Show & hide fab
+            if (dy > 0) { if (recyclerView.canScrollVertically(1)) { floatingActionButton.hide(); }
+            else { floatingActionButton.show(); } }
+            else { floatingActionButton.show(); } } }); }
 
     /**
      *
@@ -203,13 +245,17 @@ public class ReadsFragment extends Fragment {
 
             Book book = new Book(ISBN, R.drawable.ic_kenya_square, publisher, publishDate, Objects.requireNonNull(title), authors, genre, summary, language, pages);
             bookViewModel.insert(book);
+            adapter.notifyItemInserted(0);
+            adapter.notifyDataSetChanged();
 
             Snackbar.make(requireView(), getString(R.string.open_single_quotation_mark) + book.getTitle() + getString(R.string.close_single_quotation_mark) + getString(R.string.lc_was_saved_to)
-                    + getString(R.string.lc_your_library), Snackbar.LENGTH_SHORT)
-                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
-                    .setBackgroundTint(Color.WHITE)
-                    .setTextColor(getColor(requireContext(), R.color.colorPrimary))
-                    .show(); } }
+                + getString(R.string.lc_your_library), Snackbar.LENGTH_SHORT)
+                .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                .setBackgroundTint(Color.WHITE)
+                .setTextColor(getColor(requireContext(), R.color.colorPrimary))
+                .show(); }
+
+         /* onBookDiscard(); */ }
 
     /**
      * Set the elevation of a view
@@ -217,7 +263,7 @@ public class ReadsFragment extends Fragment {
      * @param view the view to be de/elevated
      */
     public void setElevation(View view, int elevation) {
-        float floatElevation = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, elevation,
-                requireContext().getResources().getDisplayMetrics() );
+        float floatElevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, elevation,
+                requireContext().getResources().getDisplayMetrics());
         view.setElevation(floatElevation); }
 }

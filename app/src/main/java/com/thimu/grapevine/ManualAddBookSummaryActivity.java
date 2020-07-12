@@ -1,5 +1,6 @@
 package com.thimu.grapevine;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -9,13 +10,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewTreeObserver;
-import android.widget.ScrollView;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Objects;
 
@@ -23,7 +25,7 @@ import java.util.Objects;
  * An activity for the user to attribute the summary of a book
  *
  * @author Obed Ngigi
- * @version 11.07.2020
+ * @version 12.07.2020
  */
 public class ManualAddBookSummaryActivity extends AppCompatActivity {
 
@@ -33,10 +35,15 @@ public class ManualAddBookSummaryActivity extends AppCompatActivity {
 
     // Elements of the activity
     private ActionBar toolbar;
-    private ScrollView scrollView;
+    private NestedScrollView nestedScrollView;
 
-    private TextInputEditText textInputWriteSummary;
+    private EditText textInputWriteSummary;
+    private String previousSummary;
 
+    /**
+     * Create the activity
+     * @param savedInstanceState the last saved state of the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,17 +54,17 @@ public class ManualAddBookSummaryActivity extends AppCompatActivity {
         toolbar.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         toolbar.setElevation(0);
 
-        scrollView = findViewById(R.id.manualAddBookSummaryScrollView);
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+        nestedScrollView = findViewById(R.id.manualAddBookSummaryNestedScrollView);
+        nestedScrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                if(scrollView.canScrollVertically(-1)) { setActionBarElevation(4); }
+                if (nestedScrollView.canScrollVertically(-1)) { setActionBarElevation(4); }
                 else { setActionBarElevation(0); } } });
 
         Intent bookSummaryIntent = getIntent();
-        String summary = bookSummaryIntent.getStringExtra(ManualAddBookActivity.EXTRA_SUMMARY);
+        previousSummary = bookSummaryIntent.getStringExtra(ManualAddBookActivity.EXTRA_SUMMARY);
         textInputWriteSummary = findViewById(R.id.textInputEnterWriteSummary);
-        textInputWriteSummary.setText(summary);
+        textInputWriteSummary.setText(previousSummary);
     }
 
     /**
@@ -101,8 +108,37 @@ public class ManualAddBookSummaryActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.save_book_summary) {
-            saveBookSummary();
-            return true; }
-        else { return super.onOptionsItemSelected(item); } }
+        if (item.getItemId() == R.id.save_book_summary) { saveBookSummary(); }
+        else { onExit(); }
+        return true; }
+
+    /**
+     * Decide what to do when back button is pressed
+     */
+    @Override
+    public void onBackPressed() {
+        onExit(); }
+
+    /**
+     * Decide what to do when the user tires to exit
+     */
+    private void onExit() {
+        if(!previousSummary.contentEquals(textInputWriteSummary.getText().toString())) {
+            final MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(ManualAddBookSummaryActivity.this);
+            alertDialogBuilder.setMessage(getString(R.string.discard_changes) + getString(R.string.question_mark));
+            alertDialogBuilder.setPositiveButton(getString(R.string.discard), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish(); } });
+
+            alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {} });
+
+            alertDialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialogInterface) {} });
+
+            alertDialogBuilder.show(); }
+        else { finish(); } }
 }
