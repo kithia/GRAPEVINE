@@ -178,9 +178,9 @@ public class ReadsFragment extends Fragment {
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                     .addSwipeRightBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.white))
                     .addSwipeRightActionIcon(R.drawable.ic_outline_delete)
-                    .setSwipeRightActionIconTint(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                    .setSwipeRightActionIconTint(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
                     .addSwipeRightLabel(getString(R.string.remove))
-                    .setSwipeRightLabelColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                    .setSwipeRightLabelColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
                     .create()
                     .decorate();
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive); } };
@@ -201,7 +201,7 @@ public class ReadsFragment extends Fragment {
                     , Snackbar.LENGTH_SHORT)
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setBackgroundTint(Color.WHITE)
-                    .setTextColor(getColor(requireContext(), R.color.colorPrimary))
+                    .setTextColor(getColor(requireContext(), R.color.colorPrimaryDark))
                     .show(); } } }
 
     /**
@@ -252,7 +252,7 @@ public class ReadsFragment extends Fragment {
                 + getString(R.string.lc_your_library), Snackbar.LENGTH_SHORT)
                 .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                 .setBackgroundTint(Color.WHITE)
-                .setTextColor(getColor(requireContext(), R.color.colorPrimary))
+                .setTextColor(getColor(requireContext(), R.color.colorPrimaryDark))
                 .show(); }
 
          /* onBookDiscard(); */ }
