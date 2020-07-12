@@ -74,7 +74,7 @@ public class ReadsFragment extends Fragment {
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Window window = requireActivity().getWindow();
-        window.setStatusBarColor(Color.WHITE);
+        window.setStatusBarColor(getColor(requireContext(), android.R.color.white));
 
         // Configure custom actionbar
         ActionBar toolbar = Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar());
@@ -156,8 +156,8 @@ public class ReadsFragment extends Fragment {
                                         adapter.notifyDataSetChanged(); } })
                                 .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                                 .setBackgroundTint(Color.WHITE)
-                                .setTextColor(getColor(requireContext(), R.color.colorPrimary))
-                                .setActionTextColor(getColor(requireContext(), R.color.colorPrimary))
+                                .setTextColor(getColor(requireContext(), R.color.colorPrimaryDark))
+                                .setActionTextColor(getColor(requireContext(), R.color.colorPrimaryDark))
                                 .show(); } });
 
                 alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {

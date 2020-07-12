@@ -1,6 +1,5 @@
 package com.thimu.grapevine.ui.search;
 
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -36,7 +35,7 @@ public class SearchFragment extends Fragment {
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Window window = requireActivity().getWindow();
-        window.setStatusBarColor(Color.WHITE);
+        window.setStatusBarColor(getColor(requireContext(), android.R.color.white));
 
         // Configure custom actionbar
         ActionBar toolbar = Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar());

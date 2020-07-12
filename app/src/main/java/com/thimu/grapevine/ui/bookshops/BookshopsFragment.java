@@ -35,12 +35,12 @@ public class BookshopsFragment extends Fragment {
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Window window = requireActivity().getWindow();
-        window.setStatusBarColor(getColor(requireContext(), R.color.colorPrimary));
+        window.setStatusBarColor(getColor(requireContext(), android.R.color.white));
 
         // Configure actionbar
         ActionBar toolbar = Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar());
         toolbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
-        toolbar.setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), R.color.colorPrimary)));
+        toolbar.setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), android.R.color.white)));
 
         return inflater.inflate(R.layout.fragment_bookshops, container, false);
     }
