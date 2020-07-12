@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white">
@@ -16,7 +15,7 @@
         android:textAlignment="center"
         app:chipBackgroundColor="@android:color/white"
         app:chipIcon="@drawable/ic_outline_sort"
-        app:chipStrokeColor="@color/colorPrimary"
+        app:chipStrokeColor="@color/colorPrimaryDark"
         app:chipStrokeWidth="1dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +32,7 @@
         android:textAlignment="center"
         app:chipBackgroundColor="@android:color/white"
         app:chipIcon="@drawable/ic_outline_group_work"
-        app:chipStrokeColor="@color/colorPrimary"
+        app:chipStrokeColor="@color/colorPrimaryDark"
         app:chipStrokeWidth="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
