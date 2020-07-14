@@ -104,7 +104,7 @@
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/textInputEnterGenre"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="64dp"
                 android:gravity="bottom"
                 android:hint="@string/enter_genre"
                 android:imeOptions="actionNext"
