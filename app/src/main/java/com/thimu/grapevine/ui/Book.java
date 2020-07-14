@@ -1,6 +1,7 @@
 package com.thimu.grapevine.ui;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
  * A room library modelling a book entity
  *
  * @author Obed Ngigi
- * @version 09.07.2020
+ * @version 14.07.2020
  */
 @Entity(tableName = "BOOK_TABLE")
 public class Book {
@@ -29,6 +30,8 @@ public class Book {
     private String summary;
     private String language;
     private String pages;
+    @ColumnInfo(name = "pages_read")
+    private int pagesRead;
 
     /**
      * Create a book entity
@@ -42,8 +45,9 @@ public class Book {
      * @param summary the summary of the book
      * @param language the language of the book
      * @param pages the number of pages of the book
+     * @param pagesRead the number of pages the user has read
      */
-    public Book(String ISBN, int cover, String publisher, String publishDate, @org.jetbrains.annotations.NotNull String title, String authors, String genre, String summary, String language, String pages) {
+    public Book(String ISBN, int cover, String publisher, String publishDate, @org.jetbrains.annotations.NotNull String title, String authors, String genre, String summary, String language, String pages, int pagesRead) {
         this.ISBN = ISBN;
         this.cover = cover;
         this.publisher = publisher;
@@ -53,7 +57,8 @@ public class Book {
         this.genre = genre;
         this.summary = summary;
         this.language = language;
-        this.pages = pages; }
+        this.pages = pages;
+        this.pagesRead = pagesRead; }
 
     /**
      * Set the ID of the book
@@ -139,4 +144,11 @@ public class Book {
      */
     public String getPages() {
         return pages; }
+
+    /**
+     * Return the number of pages the user has read
+     * @return the number of pages the user has read
+     */
+    public int getPagesRead() {
+        return pagesRead; }
 }

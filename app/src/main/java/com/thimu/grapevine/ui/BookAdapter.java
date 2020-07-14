@@ -6,21 +6,24 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.thimu.grapevine.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * The book adapter
  *
  * @author Obed Ngigi
- * @version 09.07.2020
+ * @version 14.07.2020
  */
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> implements Filterable {
 
@@ -44,11 +47,16 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
     @Override
     public void onBindViewHolder(@NonNull BookHolder holder, int position) {
         Book currentBook = books.get(position);
+
+        // Generate random number inclusively between 0-100
+        Random randomNumber = new Random();
+
         holder.imageViewCover.setImageResource(currentBook.getCover());
         holder.textViewPublisher.setText(currentBook.getPublisher());
         holder.textViewTitle.setText(currentBook.getTitle());
         holder.textViewAuthor.setText(currentBook.getAuthors());
-        holder.textViewGenre.setText(currentBook.getGenre()); }
+        holder.textViewGenre.setText(currentBook.getGenre());
+        holder.progressBar.setProgress(randomNumber.nextInt(100), true); }
 
     @Override
     public int getItemCount() {
@@ -97,18 +105,38 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
             books.addAll((List) filterResults.values);
             notifyDataSetChanged(); } };
 
-    class BookHolder extends RecyclerView.ViewHolder {
+    static class BookHolder extends RecyclerView.ViewHolder {
+        private MaterialCardView cardViewBook;
+
         private ImageView imageViewCover;
         private TextView textViewPublisher;
         private TextView textViewTitle;
         private TextView textViewAuthor;
         private TextView textViewGenre;
+        private ProgressBar progressBar;
 
         public BookHolder(@NonNull View itemView) {
             super(itemView);
+            cardViewBook = itemView.findViewById(R.id.readsCardView);
+
             imageViewCover = itemView.findViewById(R.id.bookCover);
             textViewPublisher = itemView.findViewById(R.id.bookPublisher);
             textViewTitle = itemView.findViewById(R.id.bookTitle);
             textViewAuthor = itemView.findViewById(R.id.bookAuthor);
-            textViewGenre = itemView.findViewById(R.id.bookGenre); } }
+            textViewGenre = itemView.findViewById(R.id.bookGenre);
+            progressBar = itemView.findViewById(R.id.bookProgress);
+
+            cardViewBook.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // TODO
+
+                    Random randomNumber = new Random();
+                    progressBar.setProgress(randomNumber.nextInt(100), true); } });
+
+            cardViewBook.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    cardViewBook.setChecked(!cardViewBook.isChecked());
+                    return false; } }); } }
 }

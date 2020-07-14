@@ -47,7 +47,7 @@ import static androidx.core.content.ContextCompat.getColor;
  * A fragment to display the user's book library
  *
  * @author Obed Ngigi
- * @version 12.07.2020
+ * @version 14.07.2020
  */
 public class ReadsFragment extends Fragment {
 
@@ -243,7 +243,7 @@ public class ReadsFragment extends Fragment {
             String language = data.getStringExtra(ManualAddBookActivity.EXTRA_LANGUAGE);
             String pages = data.getStringExtra(ManualAddBookActivity.EXTRA_PAGES);
 
-            Book book = new Book(ISBN, R.drawable.ic_kenya_square, publisher, publishDate, Objects.requireNonNull(title), authors, genre, summary, language, pages);
+            Book book = new Book(ISBN, R.drawable.ic_kenya_square, publisher, publishDate, Objects.requireNonNull(title), authors, genre, summary, language, pages, 0);
             bookViewModel.insert(book);
             adapter.notifyItemInserted(0);
             adapter.notifyDataSetChanged();

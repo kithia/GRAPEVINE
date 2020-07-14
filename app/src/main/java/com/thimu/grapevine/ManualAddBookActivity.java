@@ -1,5 +1,6 @@
 package com.thimu.grapevine;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
@@ -39,7 +43,7 @@ import java.util.Objects;
  * An activity for the user to manually add a book to their library
  *
  * @author Obed Ngigi
- * @version 11.07.2020
+ * @version 14.07.2020
  */
 public class ManualAddBookActivity extends AppCompatActivity {
 
@@ -78,7 +82,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
     private TextInputEditText textInputISBN;
     private TextInputEditText textInputTitle;
     private TextInputEditText textInputAuthors;
-    private TextInputEditText textInputGenre;
+    private AutoCompleteTextView textInputGenre;
     private TextInputEditText textInputPublisher;
     private TextInputEditText textInputPublishDate;
     private String publishDateSQL;
@@ -92,6 +96,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
      * Create the activity
      * @param savedInstanceState the last saved state of the activity
      */
+    @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,10 +129,45 @@ public class ManualAddBookActivity extends AppCompatActivity {
         textInputLanguage = findViewById(R.id.textInputEnterLanguage);
         textInputPages = findViewById(R.id.textInputEnterPages);
 
+        String[] dropdownGenre = new String[]{getString(R.string.action_and_adventure)
+                , getString(R.string.autobiography_biography)
+                , getString(R.string.classic)
+                , getString(R.string.comic_book_graphic_novel)
+                , getString(R.string.cookbook)
+                , getString(R.string.crime_fiction)
+                , getString(R.string.detective_and_mystery)
+                , getString(R.string.essay)
+                , getString(R.string.fantasy)
+                , getString(R.string.historical_fiction)
+                , getString(R.string.history)
+                , getString(R.string.horror)
+                , getString(R.string.journalism)
+                , getString(R.string.literary_fiction)
+                , getString(R.string.memoir)
+                , getString(R.string.poetry)
+                , getString(R.string.prayer)
+                , getString(R.string.religion)
+                , getString(R.string.romance)
+                , getString(R.string.science_fiction)
+                , getString(R.string.self_help)
+                , getString(R.string.short_story)
+                , getString(R.string.suspense_and_thriller)
+                , getString(R.string.textbook)
+                , getString(R.string.travel)
+                , getString(R.string.true_crime)
+                , getString(R.string.womens_fiction)};
+
+        ArrayAdapter<String> genreStringAdapter = new ArrayAdapter<>(ManualAddBookActivity.this,
+                R.layout.book_genre_dropdown, dropdownGenre);
+
+        AutoCompleteTextView editTextEnterGenreDropdown = findViewById(R.id.textInputEnterGenre);
+        editTextEnterGenreDropdown.setAdapter(genreStringAdapter);
+
         // Hide soft keyboard
         textInputPublishDate.setInputType(InputType.TYPE_NULL);
         textInputSummary.setInputType(InputType.TYPE_NULL);
 
+        // Bug: UTC time, not local-time
         long currentDate = System.currentTimeMillis();
 
         CalendarConstraints.Builder publishDateConstraintsBuilder = new CalendarConstraints.Builder();
@@ -361,7 +401,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
      * @return whether there is any entry into the activity
      */
     public boolean checkAddBookEmpty() {
-        ArrayList<TextInputEditText> textInputEditTexts = new ArrayList<>();
+        ArrayList<EditText> textInputEditTexts = new ArrayList<>();
         textInputEditTexts.add(textInputISBN);
         textInputEditTexts.add(textInputTitle);
         textInputEditTexts.add(textInputAuthors);
@@ -373,7 +413,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
         textInputEditTexts.add(textInputPages);
 
         boolean isAddBookEmpty = true;
-            for(TextInputEditText bookAttribute : textInputEditTexts) {
+            for(EditText bookAttribute : textInputEditTexts) {
                 if (!Objects.requireNonNull(bookAttribute.getText()).toString().isEmpty()) {
                     isAddBookEmpty = false; } }
             return isAddBookEmpty; }

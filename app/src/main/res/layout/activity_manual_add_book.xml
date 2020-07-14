@@ -34,7 +34,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="text|textCapSentences"
                 android:scrollHorizontally="true"
-                android:singleLine="true" />
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -58,7 +58,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="text|textCapSentences|textCapWords"
                 android:scrollHorizontally="true"
-                android:singleLine="true" />
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -82,31 +82,40 @@
                 android:imeOptions="actionNext"
                 android:inputType="textPersonName|textCapSentences"
                 android:scrollHorizontally="true"
-                android:singleLine="true" />
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutGenre"
+            style="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:boxBackgroundColor="@color/colorTextInputLayout"
+            app:endIconDrawable="@drawable/ic_outline_arrow_drop_down"
+            app:endIconMode="dropdown_menu"
             app:helperText="@string/optional"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayoutAuthors">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/textInputEnterGenre"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="64dp"
+                android:gravity="bottom"
                 android:hint="@string/enter_genre"
                 android:imeOptions="actionNext"
                 android:inputType="text|textCapSentences"
+                android:maxLines="1"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="12dp"
                 android:scrollHorizontally="true"
-                android:singleLine="true" />
+                android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -130,7 +139,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="text|textCapSentences"
                 android:scrollHorizontally="true"
-                android:singleLine="true" />
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -155,7 +164,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_publish_date"
                 android:inputType="date"
-                android:singleLine="true" />
+                android:scrollHorizontally="true"
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -180,7 +190,8 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:hint="@string/enter_summary"
-                android:minLines="1" />
+                android:minLines="1"
+                android:scrollHorizontally="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -204,7 +215,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="text|textCapSentences"
                 android:scrollHorizontally="true"
-                android:singleLine="true" />
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -229,7 +240,8 @@
                 android:hint="@string/enter_pages"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:singleLine="true" />
+                android:scrollHorizontally="true"
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
