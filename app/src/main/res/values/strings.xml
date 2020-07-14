@@ -58,12 +58,13 @@
     <string name="autobiography" tools:ignore="MissingTranslation">Autobiography</string>
     <string name="biography" tools:ignore="MissingTranslation">Biography</string>
     <string name="classic" tools:ignore="MissingTranslation">Classic</string>
-    <string name="comic_book_graphic_novel" tools:ignore="MissingTranslation">Comic Book/ Graphic Novel</string>
+    <string name="comic_book" tools:ignore="MissingTranslation">Comic Book</string>
     <string name="cookbook" tools:ignore="MissingTranslation">Cookbook</string>
     <string name="crime_fiction" tools:ignore="MissingTranslation">Crime Fiction</string>
     <string name="detective_and_mystery" tools:ignore="MissingTranslation">Detective &amp; Mystery</string>
     <string name="essay" tools:ignore="MissingTranslation">Essay</string>
     <string name="fantasy" tools:ignore="MissingTranslation">Fantasy</string>
+    <string name="graphic_novel" tools:ignore="MissingTranslation">Graphic Novel</string>
     <string name="historical_fiction" tools:ignore="MissingTranslation">Historical Fiction</string>
     <string name="history" tools:ignore="MissingTranslation">History</string>
     <string name="horror" tools:ignore="MissingTranslation">Horror</string>
@@ -81,6 +82,6 @@
     <string name="textbook" tools:ignore="MissingTranslation">Textbook</string>
     <string name="travel" tools:ignore="MissingTranslation">Travel</string>
     <string name="true_crime" tools:ignore="MissingTranslation">True Crime</string>
-    <string name="womens_fiction" tools:ignore="MissingTranslation">Women\'s Fiction</string>
+    <string name="womens_fiction" tools:ignore="MissingTranslation">Women\&apos;s Fiction</string>
 
 </resources>

@@ -140,12 +140,13 @@ public class ManualAddBookActivity extends AppCompatActivity {
             dropdownGenre.add(getString(R.string.autobiography));
             dropdownGenre.add(getString(R.string.biography));
             dropdownGenre.add(getString(R.string.classic));
-            dropdownGenre.add(getString(R.string.comic_book_graphic_novel));
+            dropdownGenre.add(getString(R.string.comic_book));
             dropdownGenre.add(getString(R.string.cookbook));
             dropdownGenre.add(getString(R.string.crime_fiction));
             dropdownGenre.add(getString(R.string.detective_and_mystery));
             dropdownGenre.add(getString(R.string.essay));
             dropdownGenre.add(getString(R.string.fantasy));
+            dropdownGenre.add(getString(R.string.graphic_novel));
             dropdownGenre.add(getString(R.string.historical_fiction));
             dropdownGenre.add(getString(R.string.history));
             dropdownGenre.add(getString(R.string.horror));

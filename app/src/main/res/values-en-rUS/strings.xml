@@ -52,7 +52,7 @@
     <string name="action_and_adventure">Action &amp; Adventure</string>
     <string name="autobiography">Autobiography</string>
     <string name="classic">Classic</string>
-    <string name="comic_book_graphic_novel">Comic Book/ Graphic Novel</string>
+    <string name="comic_book">Comic Book/ Graphic Novel</string>
     <string name="cookbook">Cookbook</string>
     <string name="detective_and_mystery">Detective &amp; Mystery</string>
     <string name="essay">Essay</string>
@@ -79,4 +79,5 @@
     <string name="biography">Biography</string>
     <string name="read">Read</string>
     <string name="reading">Reading</string>
+    <string name="graphic_novel">Graphic Novel</string>
 </resources>
