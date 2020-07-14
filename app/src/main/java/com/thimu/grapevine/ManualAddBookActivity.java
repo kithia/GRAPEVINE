@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
@@ -69,6 +70,8 @@ public class ManualAddBookActivity extends AppCompatActivity {
             "com.thimu.grapevine.EXTRA_LANGUAGE";
     public static final String EXTRA_PAGES =
             "com.thimu.grapevine.EXTRA_PAGES";
+    public static final String EXTRA_READ =
+            "com.thimu.grapevine.EXTRA_READ";
     public static final String EXTRA_BOOK_DISCARD =
             "com.thimu.grapevine.EXTRA_BOOK_DISCARD";
 
@@ -83,12 +86,14 @@ public class ManualAddBookActivity extends AppCompatActivity {
     private TextInputEditText textInputTitle;
     private TextInputEditText textInputAuthors;
     private AutoCompleteTextView textInputGenre;
+    private ArrayList<String> dropdownGenre;
     private TextInputEditText textInputPublisher;
     private TextInputEditText textInputPublishDate;
     private String publishDateSQL;
     private TextInputEditText textInputSummary;
     private TextInputEditText textInputLanguage;
     private TextInputEditText textInputPages;
+    private RadioButton readRadioButton;
 
     private View currentFocus;
 
@@ -128,37 +133,40 @@ public class ManualAddBookActivity extends AppCompatActivity {
         textInputSummary = findViewById(R.id.textInputEnterSummary);
         textInputLanguage = findViewById(R.id.textInputEnterLanguage);
         textInputPages = findViewById(R.id.textInputEnterPages);
+        readRadioButton = findViewById(R.id.radioButtonRead);
 
-        String[] dropdownGenre = new String[]{getString(R.string.action_and_adventure)
-                , getString(R.string.autobiography_biography)
-                , getString(R.string.classic)
-                , getString(R.string.comic_book_graphic_novel)
-                , getString(R.string.cookbook)
-                , getString(R.string.crime_fiction)
-                , getString(R.string.detective_and_mystery)
-                , getString(R.string.essay)
-                , getString(R.string.fantasy)
-                , getString(R.string.historical_fiction)
-                , getString(R.string.history)
-                , getString(R.string.horror)
-                , getString(R.string.journalism)
-                , getString(R.string.literary_fiction)
-                , getString(R.string.memoir)
-                , getString(R.string.poetry)
-                , getString(R.string.prayer)
-                , getString(R.string.religion)
-                , getString(R.string.romance)
-                , getString(R.string.science_fiction)
-                , getString(R.string.self_help)
-                , getString(R.string.short_story)
-                , getString(R.string.suspense_and_thriller)
-                , getString(R.string.textbook)
-                , getString(R.string.travel)
-                , getString(R.string.true_crime)
-                , getString(R.string.womens_fiction)};
+        dropdownGenre = new ArrayList<>();
+            dropdownGenre.add(getString(R.string.action_and_adventure));
+            dropdownGenre.add(getString(R.string.autobiography));
+            dropdownGenre.add(getString(R.string.biography));
+            dropdownGenre.add(getString(R.string.classic));
+            dropdownGenre.add(getString(R.string.comic_book_graphic_novel));
+            dropdownGenre.add(getString(R.string.cookbook));
+            dropdownGenre.add(getString(R.string.crime_fiction));
+            dropdownGenre.add(getString(R.string.detective_and_mystery));
+            dropdownGenre.add(getString(R.string.essay));
+            dropdownGenre.add(getString(R.string.fantasy));
+            dropdownGenre.add(getString(R.string.historical_fiction));
+            dropdownGenre.add(getString(R.string.history));
+            dropdownGenre.add(getString(R.string.horror));
+            dropdownGenre.add(getString(R.string.journalism));
+            dropdownGenre.add(getString(R.string.literary_fiction));
+            dropdownGenre.add(getString(R.string.memoir));
+            dropdownGenre.add(getString(R.string.poetry));
+            dropdownGenre.add(getString(R.string.prayer));
+            dropdownGenre.add(getString(R.string.religion));
+            dropdownGenre.add(getString(R.string.romance));
+            dropdownGenre.add(getString(R.string.science_fiction));
+            dropdownGenre.add(getString(R.string.self_help));
+            dropdownGenre.add(getString(R.string.short_story));
+            dropdownGenre.add(getString(R.string.suspense_and_thriller));
+            dropdownGenre.add(getString(R.string.textbook));
+            dropdownGenre.add(getString(R.string.travel));
+            dropdownGenre.add(getString(R.string.true_crime));
+            dropdownGenre.add(getString(R.string.womens_fiction));
 
         ArrayAdapter<String> genreStringAdapter = new ArrayAdapter<>(ManualAddBookActivity.this,
-                R.layout.book_genre_dropdown, dropdownGenre);
+                R.layout.dropdown_menu_item, dropdownGenre);
 
         AutoCompleteTextView editTextEnterGenreDropdown = findViewById(R.id.textInputEnterGenre);
         editTextEnterGenreDropdown.setAdapter(genreStringAdapter);
@@ -211,6 +219,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
                 String bookSummary = Objects.requireNonNull(textInputSummary.getText()).toString();
                 bookSummaryIntent.putExtra(EXTRA_SUMMARY, bookSummary);
                 startActivityForResult(bookSummaryIntent, ADD_BOOK_SUMMARY_REQUEST); } });
+
     }
 
     /**
@@ -235,10 +244,11 @@ public class ManualAddBookActivity extends AppCompatActivity {
         String publishDate = publishDateSQL;
         String summary = Objects.requireNonNull(textInputSummary.getText()).toString();
         String language = Objects.requireNonNull(textInputLanguage.getText()).toString();
-        String pages = Objects.requireNonNull(textInputPages.getText()).toString();
+        int pages = 0;
+        if (!Objects.requireNonNull(textInputPages.getText()).toString().isEmpty()) {
+            pages = Integer.parseInt(String.valueOf(textInputPages.getText())); }
 
         boolean isAcceptableISBN = isAcceptableISBN(ISBN);
-
         boolean isAcceptableTitle = isAcceptableTitle(title);
 
         if (!isAcceptableTitle) {
@@ -258,6 +268,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
             bookData.putExtra(EXTRA_SUMMARY, summary);
             bookData.putExtra(EXTRA_LANGUAGE, language);
             bookData.putExtra(EXTRA_PAGES, pages);
+            bookData.putExtra(EXTRA_READ, readRadioButton.isChecked());
 
             // Indicates whether the input was successful (save button was selected)
             setResult(RESULT_OK, bookData);
@@ -401,19 +412,19 @@ public class ManualAddBookActivity extends AppCompatActivity {
      * @return whether there is any entry into the activity
      */
     public boolean checkAddBookEmpty() {
-        ArrayList<EditText> textInputEditTexts = new ArrayList<>();
-        textInputEditTexts.add(textInputISBN);
-        textInputEditTexts.add(textInputTitle);
-        textInputEditTexts.add(textInputAuthors);
-        textInputEditTexts.add(textInputGenre);
-        textInputEditTexts.add(textInputPublisher);
-        textInputEditTexts.add(textInputPublishDate);
-        textInputEditTexts.add(textInputSummary);
-        textInputEditTexts.add(textInputLanguage);
-        textInputEditTexts.add(textInputPages);
+        ArrayList<EditText> editTexts = new ArrayList<>();
+        editTexts.add(textInputISBN);
+        editTexts.add(textInputTitle);
+        editTexts.add(textInputAuthors);
+        editTexts.add(textInputGenre);
+        editTexts.add(textInputPublisher);
+        editTexts.add(textInputPublishDate);
+        editTexts.add(textInputSummary);
+        editTexts.add(textInputLanguage);
+        editTexts.add(textInputPages);
 
         boolean isAddBookEmpty = true;
-            for(EditText bookAttribute : textInputEditTexts) {
+            for(EditText bookAttribute : editTexts) {
                 if (!Objects.requireNonNull(bookAttribute.getText()).toString().isEmpty()) {
                     isAddBookEmpty = false; } }
             return isAddBookEmpty; }

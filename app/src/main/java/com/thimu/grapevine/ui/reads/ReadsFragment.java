@@ -130,8 +130,8 @@ public class ReadsFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
+                adapter.notifyItemChanged(viewHolder.getAdapterPosition());
                 final Book swipedBook = adapter.getBookAt(viewHolder.getAdapterPosition());
-
                 final MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(requireContext());
                 alertDialogBuilder.setTitle(R.string.remove_book);
                 alertDialogBuilder.setMessage(getString(R.string.are_you_sure_you_want_to_remove)
@@ -162,13 +162,11 @@ public class ReadsFragment extends Fragment {
 
                 alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        adapter.notifyItemChanged(viewHolder.getAdapterPosition()); } });
+                    public void onClick(DialogInterface dialogInterface, int i) { } });
 
                 alertDialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        adapter.notifyItemChanged(viewHolder.getAdapterPosition()); } });
+                    public void onCancel(DialogInterface dialogInterface) { } });
 
                 alertDialogBuilder.show(); }
 
@@ -178,9 +176,9 @@ public class ReadsFragment extends Fragment {
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                     .addSwipeRightBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.white))
                     .addSwipeRightActionIcon(R.drawable.ic_outline_delete)
-                    .setSwipeRightActionIconTint(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
+                    .setSwipeRightActionIconTint(ContextCompat.getColor(requireContext(), R.color.colorError))
                     .addSwipeRightLabel(getString(R.string.remove))
-                    .setSwipeRightLabelColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
+                    .setSwipeRightLabelColor(ContextCompat.getColor(requireContext(), R.color.colorError))
                     .create()
                     .decorate();
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive); } };
@@ -215,12 +213,7 @@ public class ReadsFragment extends Fragment {
             super.onScrolled(recyclerView, dx, dy);
             // Show & remove elevation
             if (recyclerView.canScrollVertically(-1)) { setElevation(chipbar, 4); }
-            else { setElevation(chipbar,0); }
-
-            // Show & hide fab
-            if (dy > 0) { if (recyclerView.canScrollVertically(1)) { floatingActionButton.hide(); }
-            else { floatingActionButton.show(); } }
-            else { floatingActionButton.show(); } } }); }
+            else { setElevation(chipbar,0); } } }); }
 
     /**
      *
@@ -241,9 +234,13 @@ public class ReadsFragment extends Fragment {
             String genre = data.getStringExtra(ManualAddBookActivity.EXTRA_GENRE);
             String summary = data.getStringExtra(ManualAddBookActivity.EXTRA_SUMMARY);
             String language = data.getStringExtra(ManualAddBookActivity.EXTRA_LANGUAGE);
-            String pages = data.getStringExtra(ManualAddBookActivity.EXTRA_PAGES);
+            int pages = data.getIntExtra(ManualAddBookActivity.EXTRA_PAGES, 0);
+            boolean read = data.getBooleanExtra(ManualAddBookActivity.EXTRA_READ, false);
 
-            Book book = new Book(ISBN, R.drawable.ic_kenya_square, publisher, publishDate, Objects.requireNonNull(title), authors, genre, summary, language, pages, 0);
+            int pagesRead = 0;
+            if (read) { pagesRead = pages; }
+
+            Book book = new Book(ISBN, R.drawable.ic_kenya_square, publisher, publishDate, Objects.requireNonNull(title), authors, genre, summary, language, pages, pagesRead, read);
             bookViewModel.insert(book);
             adapter.notifyItemInserted(0);
             adapter.notifyDataSetChanged();

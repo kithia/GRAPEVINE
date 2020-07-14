@@ -36,6 +36,8 @@
     <string name="lc_was_saved_to">" was saved to"</string>
     <string name="lc_was_removed_from">" was removed from"</string>
     <string name="lc_your_library">" your library"</string>
+    <string name="read">Read</string>
+    <string name="reading">Reading</string>
     <string name="save">Save</string>
     <string name="remove">Remove</string>
     <string name="undo">Undo</string>
@@ -46,14 +48,15 @@
     <string name="discard">Discard</string>
     <string name="discard_book">Discard book</string>
     <string name="discard_changes">Discard changes</string>
-    <string name="book_discarded" tools:ignore="MissingTranslation">Book discarded</string>
+    <string name="book_discarded">Book discarded</string>
     <string name="select_publish_date">Select publish date</string>
     <string name="remove_book">Remove book</string>
     <string name="are_you_sure_you_want_to_remove">"Are you sure you want to remove "</string>
 
     <!-- Book genre array -->
     <string name="action_and_adventure" tools:ignore="MissingTranslation">Action &amp; Adventure</string>
-    <string name="autobiography_biography" tools:ignore="MissingTranslation">Autobiography/ Biography</string>
+    <string name="autobiography" tools:ignore="MissingTranslation">Autobiography</string>
+    <string name="biography" tools:ignore="MissingTranslation">Biography</string>
     <string name="classic" tools:ignore="MissingTranslation">Classic</string>
     <string name="comic_book_graphic_novel" tools:ignore="MissingTranslation">Comic Book/ Graphic Novel</string>
     <string name="cookbook" tools:ignore="MissingTranslation">Cookbook</string>
@@ -79,4 +82,5 @@
     <string name="travel" tools:ignore="MissingTranslation">Travel</string>
     <string name="true_crime" tools:ignore="MissingTranslation">True Crime</string>
     <string name="womens_fiction" tools:ignore="MissingTranslation">Women\'s Fiction</string>
+
 </resources>

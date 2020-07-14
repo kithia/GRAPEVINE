@@ -9,7 +9,6 @@
     android:checkable="true"
     android:clickable="true"
     android:focusable="true"
-    android:hapticFeedbackEnabled="true"
     app:cardCornerRadius="16dp">
 
     <RelativeLayout
@@ -93,8 +92,8 @@
             android:layout_alignParentEnd="true"
             android:fontFamily="@font/roboto"
             android:gravity="bottom"
-            android:minHeight="24dp"
             android:maxLines="1"
+            android:minHeight="24dp"
             android:text="@string/genre"
             android:textAlignment="gravity"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
@@ -109,8 +108,7 @@
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@+id/bookCover"
             android:fadingEdge="horizontal|vertical"
-            android:foregroundGravity="bottom"
-            android:progress="20" />
+            android:foregroundGravity="bottom" />
 
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

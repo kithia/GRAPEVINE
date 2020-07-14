@@ -50,7 +50,7 @@
     <string name="question_mark">\?</string>
     <string name="book_discarded">Book discarded</string>
     <string name="action_and_adventure">Action &amp; Adventure</string>
-    <string name="autobiography_biography">Autobiography/ Biography</string>
+    <string name="autobiography">Autobiography</string>
     <string name="classic">Classic</string>
     <string name="comic_book_graphic_novel">Comic Book/ Graphic Novel</string>
     <string name="cookbook">Cookbook</string>
@@ -76,4 +76,7 @@
     <string name="textbook">Textbook</string>
     <string name="travel">Travel</string>
     <string name="crime_fiction">Crime Fiction</string>
+    <string name="biography">Biography</string>
+    <string name="read">Read</string>
+    <string name="reading">Reading</string>
 </resources>

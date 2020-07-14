@@ -29,9 +29,10 @@ public class Book {
     private String genre;
     private String summary;
     private String language;
-    private String pages;
+    private int pages;
     @ColumnInfo(name = "pages_read")
     private int pagesRead;
+    private boolean read;
 
     /**
      * Create a book entity
@@ -46,8 +47,10 @@ public class Book {
      * @param language the language of the book
      * @param pages the number of pages of the book
      * @param pagesRead the number of pages the user has read
+     * @param read whether the user has read the book
      */
-    public Book(String ISBN, int cover, String publisher, String publishDate, @org.jetbrains.annotations.NotNull String title, String authors, String genre, String summary, String language, String pages, int pagesRead) {
+    public Book(String ISBN, int cover, String publisher, String publishDate, @org.jetbrains.annotations.NotNull String title
+            , String authors, String genre, String summary, String language, int pages, int pagesRead, boolean read) {
         this.ISBN = ISBN;
         this.cover = cover;
         this.publisher = publisher;
@@ -58,7 +61,8 @@ public class Book {
         this.summary = summary;
         this.language = language;
         this.pages = pages;
-        this.pagesRead = pagesRead; }
+        this.pagesRead = pagesRead;
+        this.read = read; }
 
     /**
      * Set the ID of the book
@@ -142,7 +146,7 @@ public class Book {
      * Return the number of pages of the book
      * @return the number of pages of the book
      */
-    public String getPages() {
+    public int getPages() {
         return pages; }
 
     /**
@@ -151,4 +155,11 @@ public class Book {
      */
     public int getPagesRead() {
         return pagesRead; }
+
+    /**
+     * Return whether the user has read the book
+     * @return whether the user has read the book
+     */
+    public boolean getRead() {
+        return read; }
 }
