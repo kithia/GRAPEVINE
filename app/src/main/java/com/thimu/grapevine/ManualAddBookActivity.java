@@ -44,7 +44,7 @@ import java.util.Objects;
  * An activity for the user to manually add a book to their library
  *
  * @author Obed Ngigi
- * @version 14.07.2020
+ * @version 15.07.2020
  */
 public class ManualAddBookActivity extends AppCompatActivity {
 
@@ -166,6 +166,8 @@ public class ManualAddBookActivity extends AppCompatActivity {
             dropdownGenre.add(getString(R.string.true_crime));
             dropdownGenre.add(getString(R.string.womens_fiction));
 
+            currentFocus = textInputISBN;
+
         ArrayAdapter<String> genreStringAdapter = new ArrayAdapter<>(ManualAddBookActivity.this,
                 R.layout.dropdown_menu_item, dropdownGenre);
 
@@ -189,11 +191,6 @@ public class ManualAddBookActivity extends AppCompatActivity {
         publishDatePickerBuilder.setSelection(MaterialDatePicker.todayInUtcMilliseconds());
         final MaterialDatePicker publishDatePicker = publishDatePickerBuilder.build();
 
-        publishDatePicker.addOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialogInterface) {
-                currentFocus.requestFocus(); } });
-
         publishDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
             @Override
             public void onPositiveButtonClick(Object selection) {
@@ -204,18 +201,26 @@ public class ManualAddBookActivity extends AppCompatActivity {
 
                 textInputLanguage.requestFocus(); } });
 
+        publishDatePicker.addOnNegativeButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentFocus.requestFocus(); } });
+
+        publishDatePicker.addOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                currentFocus.requestFocus(); } });
+
         textInputPublishDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 currentFocus = getCurrentFocus();
-                if (currentFocus == null) { currentFocus = textInputISBN; }
                 publishDatePicker.show(getSupportFragmentManager(), getString(R.string.enter_publish_date)); } });
 
         textInputSummary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 currentFocus = getCurrentFocus();
-                if (currentFocus == null) { currentFocus = textInputISBN; }
                 Intent bookSummaryIntent = new Intent(ManualAddBookActivity.this, ManualAddBookSummaryActivity.class);
                 String bookSummary = Objects.requireNonNull(textInputSummary.getText()).toString();
                 bookSummaryIntent.putExtra(EXTRA_SUMMARY, bookSummary);
