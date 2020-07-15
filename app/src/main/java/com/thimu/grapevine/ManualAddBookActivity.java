@@ -166,7 +166,8 @@ public class ManualAddBookActivity extends AppCompatActivity {
             dropdownGenre.add(getString(R.string.true_crime));
             dropdownGenre.add(getString(R.string.womens_fiction));
 
-            currentFocus = textInputISBN;
+            textInputISBN.requestFocus();
+            currentFocus = getCurrentFocus();
 
         ArrayAdapter<String> genreStringAdapter = new ArrayAdapter<>(ManualAddBookActivity.this,
                 R.layout.dropdown_menu_item, dropdownGenre);
