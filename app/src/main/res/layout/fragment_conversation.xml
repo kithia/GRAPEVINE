@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="false">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/conversationConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_anchorGravity="center|fill" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/conversationFloatingActionButton"
@@ -16,8 +22,9 @@
         android:contentDescription="@string/post"
         android:visibility="visible"
         app:fabSize="auto"
+        app:layout_anchor="@+id/conversationConstraintLayout"
+        app:layout_anchorGravity="end|bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_outline_message" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

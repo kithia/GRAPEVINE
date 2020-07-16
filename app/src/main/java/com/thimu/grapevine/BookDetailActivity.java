@@ -4,6 +4,12 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ *
+ *
+ * @author Kithia Ngigĩ
+ * @version 16.07.2020
+ */
 public class BookDetailActivity extends AppCompatActivity {
 
     @Override

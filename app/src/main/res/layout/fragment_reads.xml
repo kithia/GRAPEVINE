@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:hapticFeedbackEnabled="true">
+    android:animateLayoutChanges="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/readsConstraintLayout"
@@ -13,13 +13,22 @@
         app:layout_anchorGravity="center|fill">
 
         <include
+            android:id="@+id/readsSearchbar"
+            layout="@layout/fragment_reads_toolbar"
+            android:layout_width="fill_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
             android:id="@+id/readsChipbar"
             layout="@layout/fragment_reads_chipbar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/readsSearchbar" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/readsRecyclerView"

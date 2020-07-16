@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -14,8 +13,6 @@ import android.view.Window;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -46,8 +43,8 @@ import static androidx.core.content.ContextCompat.getColor;
 /**
  * A fragment to display the user's book library
  *
- * @author Obed Ngigi
- * @version 14.07.2020
+ * @author Kithia Ngigĩ
+ * @version 16.07.2020
  */
 public class ReadsFragment extends Fragment {
 
@@ -55,8 +52,9 @@ public class ReadsFragment extends Fragment {
     public static final int ADD_BOOK_REQUEST = 0;
 
     // Elements of the fragment
-    private SearchView searchView;
+    private View searchbar;
     private View chipbar;
+    private SearchView searchView;
     private Chip chipSort;
     private Chip chipGroup;
     private FloatingActionButton floatingActionButton;
@@ -77,15 +75,17 @@ public class ReadsFragment extends Fragment {
         window.setStatusBarColor(getColor(requireContext(), android.R.color.white));
 
         // Configure custom actionbar
-        ActionBar toolbar = Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar());
+        /* ActionBar toolbar = Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar());
+        toolbar.hide();
         toolbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         toolbar.setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), android.R.color.white)));
         toolbar.setDisplayShowCustomEnabled(true);
-        toolbar.setCustomView(R.layout.fragment_reads_toolbar);
+        toolbar.setCustomView(R.layout.fragment_reads_toolbar); */
 
         View view = inflater.inflate(R.layout.fragment_reads, container, false);
-        searchView = view.findViewById(R.id.readsSearchView);
+        searchbar = view.findViewById(R.id.readsSearchbar);
         chipbar = view.findViewById(R.id.readsChipbar);
+        searchView = view.findViewById(R.id.readsSearchView);
         chipSort = view.findViewById(R.id.readsChipSort);
         chipGroup = view.findViewById(R.id.readsChipGroup);
         floatingActionButton = view.findViewById(R.id.readsFloatingActionButton);
@@ -113,7 +113,7 @@ public class ReadsFragment extends Fragment {
 
         /* onBookDiscard(); */
 
-        /* searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 return false; }
@@ -121,7 +121,7 @@ public class ReadsFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
                 adapter.getFilter().filter(s);
-                return false; } }); */
+                return false; } });
 
         ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
@@ -156,8 +156,8 @@ public class ReadsFragment extends Fragment {
                                         adapter.notifyDataSetChanged(); } })
                                 .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                                 .setBackgroundTint(Color.WHITE)
-                                .setTextColor(getColor(requireContext(), R.color.colorPrimaryDark))
-                                .setActionTextColor(getColor(requireContext(), R.color.colorPrimaryDark))
+                                .setTextColor(getColor(requireContext(), R.color.colorPrimary))
+                                .setActionTextColor(getColor(requireContext(), R.color.colorPrimary))
                                 .show(); } });
 
                 alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -199,7 +199,7 @@ public class ReadsFragment extends Fragment {
                     , Snackbar.LENGTH_SHORT)
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setBackgroundTint(Color.WHITE)
-                    .setTextColor(getColor(requireContext(), R.color.colorPrimaryDark))
+                    .setTextColor(getColor(requireContext(), R.color.colorPrimary))
                     .show(); } } }
 
     /**
@@ -212,8 +212,12 @@ public class ReadsFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
             // Show & remove elevation
-            if (recyclerView.canScrollVertically(-1)) { setElevation(chipbar, 4); }
-            else { setElevation(chipbar,0); } } }); }
+            if (recyclerView.canScrollVertically(-1)) {
+                setElevation(searchbar, 4);
+                setElevation(chipbar, 4); }
+            else {
+                setElevation(searchbar, 0);
+                setElevation(chipbar,0); } } }); }
 
     /**
      *
@@ -249,7 +253,7 @@ public class ReadsFragment extends Fragment {
                 + getString(R.string.lc_your_library), Snackbar.LENGTH_SHORT)
                 .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                 .setBackgroundTint(Color.WHITE)
-                .setTextColor(getColor(requireContext(), R.color.colorPrimaryDark))
+                .setTextColor(getColor(requireContext(), R.color.colorPrimary))
                 .show(); }
 
          /* onBookDiscard(); */ }

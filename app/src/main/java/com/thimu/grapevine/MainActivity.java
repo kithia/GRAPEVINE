@@ -5,18 +5,15 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.Objects;
-
 /**
  * The main activity
  *
- * @author Android Studio, Obed Ngigi
- * @version 12.07.2020
+ * @author Android Studio, Kithia Ngigĩ
+ * @version 16.07.2020
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -31,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+        /* AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_reads, R.id.navigation_search, R.id.navigation_bookshops, R.id.navigation_conversation)
-                .build();
+                .build(); */
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        Objects.requireNonNull(getSupportActionBar()).setElevation(0);
+        /* NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        Objects.requireNonNull(getSupportActionBar()).setElevation(0); */
         NavigationUI.setupWithNavController(navView, navController);
     }
 

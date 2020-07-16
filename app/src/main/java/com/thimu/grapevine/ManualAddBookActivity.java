@@ -43,7 +43,7 @@ import java.util.Objects;
 /**
  * An activity for the user to manually add a book to their library
  *
- * @author Obed Ngigi
+ * @author Kithia Ngigĩ
  * @version 15.07.2020
  */
 public class ManualAddBookActivity extends AppCompatActivity {
