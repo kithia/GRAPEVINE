@@ -239,10 +239,8 @@ public class ReadsFragment extends Fragment {
             String summary = data.getStringExtra(ManualAddBookActivity.EXTRA_SUMMARY);
             String language = data.getStringExtra(ManualAddBookActivity.EXTRA_LANGUAGE);
             int pages = data.getIntExtra(ManualAddBookActivity.EXTRA_PAGES, 0);
+            int pagesRead = data.getIntExtra(ManualAddBookActivity.EXTRA_PAGES_READ, 0);
             boolean read = data.getBooleanExtra(ManualAddBookActivity.EXTRA_READ, false);
-
-            int pagesRead = 0;
-            if (read) { pagesRead = pages; }
 
             Book book = new Book(ISBN, R.drawable.ic_kenya_square, publisher, publishDate, Objects.requireNonNull(title), authors, genre, summary, language, pages, pagesRead, read);
             bookViewModel.insert(book);

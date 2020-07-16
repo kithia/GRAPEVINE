@@ -44,7 +44,7 @@ import java.util.Objects;
  * An activity for the user to manually add a book to their library
  *
  * @author Kithia Ngigĩ
- * @version 15.07.2020
+ * @version 16.07.2020
  */
 public class ManualAddBookActivity extends AppCompatActivity {
 
@@ -70,6 +70,8 @@ public class ManualAddBookActivity extends AppCompatActivity {
             "com.thimu.grapevine.EXTRA_LANGUAGE";
     public static final String EXTRA_PAGES =
             "com.thimu.grapevine.EXTRA_PAGES";
+    public static final String EXTRA_PAGES_READ =
+            "com.thimu.grapevine.EXTRA_PAGES_READ";
     public static final String EXTRA_READ =
             "com.thimu.grapevine.EXTRA_READ";
     public static final String EXTRA_BOOK_DISCARD =
@@ -254,6 +256,8 @@ public class ManualAddBookActivity extends AppCompatActivity {
         int pages = 0;
         if (!Objects.requireNonNull(textInputPages.getText()).toString().isEmpty()) {
             pages = Integer.parseInt(String.valueOf(textInputPages.getText())); }
+        int pagesRead = 0;
+        if (readRadioButton.isChecked()) { pagesRead = pages; }
 
         boolean isAcceptableISBN = isAcceptableISBN(ISBN);
         boolean isAcceptableTitle = isAcceptableTitle(title);
@@ -275,6 +279,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
             bookData.putExtra(EXTRA_SUMMARY, summary);
             bookData.putExtra(EXTRA_LANGUAGE, language);
             bookData.putExtra(EXTRA_PAGES, pages);
+            bookData.putExtra(EXTRA_PAGES_READ, pagesRead);
             bookData.putExtra(EXTRA_READ, readRadioButton.isChecked());
 
             // Indicates whether the input was successful (save button was selected)
