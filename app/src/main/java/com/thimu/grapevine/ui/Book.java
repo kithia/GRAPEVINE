@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A room library modelling a book entity
  *
- * @author Obed Ngigi
+ * @author Kithia Ngigĩ
  * @version 14.07.2020
  */
 @Entity(tableName = "BOOK_TABLE")

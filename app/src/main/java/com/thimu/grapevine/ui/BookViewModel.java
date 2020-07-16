@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * The book view model
  *
- * @author Obed Ngigi
+ * @author Kithia Ngigĩ
  * @version 04.07.2020
  */
 public class BookViewModel extends AndroidViewModel {

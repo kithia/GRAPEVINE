@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * An interface to define interactions with the database
  *
- * @author Obed Ngigi
+ * @author kithia Ngigĩ
  * @version 09.07.2020
  */
 @Dao

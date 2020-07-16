@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * The book adapter
  *
- * @author Obed Ngigi
+ * @author Kithia Ngigĩ
  * @version 14.07.2020
  */
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> implements Filterable {

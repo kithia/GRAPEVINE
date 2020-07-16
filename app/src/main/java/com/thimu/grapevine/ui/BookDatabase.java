@@ -14,7 +14,7 @@ import com.thimu.grapevine.R;
 /**
  * A database to hold the user's book library
  *
- * @author Obed Ngigi
+ * @author Kithia Ngigĩ
  * @version 16.07.2020
  */
 @Database(entities = {Book.class}, version = 2)

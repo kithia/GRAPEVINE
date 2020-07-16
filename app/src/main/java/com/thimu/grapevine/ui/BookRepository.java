@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * The book repository
  *
- * @author Obed Ngigi
+ * @author Kithia Ngigĩ
  * @version 03.07.2020
  */
 public class BookRepository {
