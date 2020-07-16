@@ -14,7 +14,7 @@
 
         <include
             android:id="@+id/searchSearchbar"
-            layout="@layout/fragment_search_toolbar"
+            layout="@layout/fragment_search_searchbar"
             android:layout_width="fill_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"

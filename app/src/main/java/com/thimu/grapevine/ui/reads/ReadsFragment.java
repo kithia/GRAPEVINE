@@ -80,7 +80,7 @@ public class ReadsFragment extends Fragment {
         toolbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         toolbar.setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), android.R.color.white)));
         toolbar.setDisplayShowCustomEnabled(true);
-        toolbar.setCustomView(R.layout.fragment_reads_toolbar); */
+        toolbar.setCustomView(R.layout.fragment_reads_searchbar); */
 
         View view = inflater.inflate(R.layout.fragment_reads, container, false);
         searchbar = view.findViewById(R.id.readsSearchbar);

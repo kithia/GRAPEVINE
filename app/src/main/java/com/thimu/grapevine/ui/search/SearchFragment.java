@@ -38,7 +38,7 @@ public class SearchFragment extends Fragment {
         toolbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         toolbar.setBackgroundDrawable(new ColorDrawable(getColor(requireContext(), android.R.color.white)));
         toolbar.setDisplayShowCustomEnabled(true);
-        toolbar.setCustomView(R.layout.fragment_search_toolbar); */
+        toolbar.setCustomView(R.layout.fragment_search_searchbar); */
 
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
