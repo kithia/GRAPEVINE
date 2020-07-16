@@ -160,14 +160,6 @@ public class ReadsFragment extends Fragment {
                                 .setActionTextColor(getColor(requireContext(), R.color.colorPrimary))
                                 .show(); } });
 
-                alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) { } });
-
-                alertDialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface) { } });
-
                 alertDialogBuilder.show(); }
 
             // Configure swipe decoration
