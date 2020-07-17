@@ -9,8 +9,8 @@
     <string name="post">Publier</string>
     <string name="group">Grouper</string>
     <string name="sort">Trier</string>
-    <string name="search_by_title_author_or_ISBN">Recherchez par titre, l\&apos;auteur ou l\&apos;ISBN</string>
-    <string name="search_your_books">Recherchez vos livres</string>
+    <string name="search_by_title_author_or_ISBN">Rechercher par titre, l\&apos;auteur ou l\&apos;ISBN</string>
+    <string name="search_your_books">Rechercher vos livres</string>
     <string name="title">Titre</string>
     <string name="publisher">Éditeur</string>
     <string name="author">Auteur</string>
