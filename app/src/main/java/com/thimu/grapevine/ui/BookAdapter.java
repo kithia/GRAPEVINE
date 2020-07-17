@@ -22,7 +22,7 @@ import java.util.List;
  * The book adapter
  *
  * @author Kithia Ngigĩ
- * @version 14.07.2020
+ * @version 17.07.2020
  */
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> implements Filterable {
 
@@ -87,11 +87,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
             if (charSequence.toString().trim().isEmpty()) {
                 filteredList.addAll(allBooks); }
             else {
-                String filterPattern = charSequence.toString().trim().toLowerCase();
+                String filterPattern = charSequence.toString().toLowerCase().trim();
 
                 for (Book book : allBooks) {
-                    if (book.getPublisher().toLowerCase().contains(filterPattern) ||
-                            book.getTitle().toLowerCase().contains(filterPattern) ||
+                    if (book.getTitle().toLowerCase().contains(filterPattern) ||
                             book.getAuthors().toLowerCase().contains(filterPattern)) {
                         filteredList.add(book); } } }
 
