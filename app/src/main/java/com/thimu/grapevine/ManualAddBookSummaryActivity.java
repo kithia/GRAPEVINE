@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * An activity for the user to attribute the summary of a book
  *
- * @author Kithia Ngigĩ
+ * @author Kĩthia Ngigĩ
  * @version 12.07.2020
  */
 public class ManualAddBookSummaryActivity extends AppCompatActivity {

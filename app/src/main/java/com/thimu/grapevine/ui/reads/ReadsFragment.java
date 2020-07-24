@@ -32,6 +32,8 @@ import com.thimu.grapevine.ui.Book;
 import com.thimu.grapevine.ui.BookAdapter;
 import com.thimu.grapevine.ui.BookViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -43,21 +45,21 @@ import static androidx.core.content.ContextCompat.getColor;
 /**
  * A fragment to display the user's book library
  *
- * @author Kithia Ngigĩ
- * @version 16.07.2020
+ * @author Kĩthia Ngigĩ
+ * @version 23.07.2020
  */
 public class ReadsFragment extends Fragment {
 
     //
     public static final int ADD_BOOK_REQUEST = 0;
 
+    // Intent key
+    public static final String EXTRA_BOOK =
+            "com.thimu.grapevine.EXTRA_BOOK";
+
     // Elements of the fragment
     private View searchbar;
     private View chipbar;
-    private SearchView searchView;
-    private Chip chipSort;
-    private Chip chipGroup;
-    private FloatingActionButton floatingActionButton;
 
     //
     private BookAdapter adapter;
@@ -85,10 +87,10 @@ public class ReadsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_reads, container, false);
         searchbar = view.findViewById(R.id.readsSearchbar);
         chipbar = view.findViewById(R.id.readsChipbar);
-        searchView = view.findViewById(R.id.readsSearchView);
-        chipSort = view.findViewById(R.id.readsChipSort);
-        chipGroup = view.findViewById(R.id.readsChipGroup);
-        floatingActionButton = view.findViewById(R.id.readsFloatingActionButton);
+        SearchView searchView = view.findViewById(R.id.readsSearchView);
+        Chip chipSort = view.findViewById(R.id.readsChipSort);
+        Chip chipGroup = view.findViewById(R.id.readsChipGroup);
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.readsFloatingActionButton);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,27 +98,13 @@ public class ReadsFragment extends Fragment {
                 Intent intent = new Intent(getContext(), ManualAddBookActivity.class);
                 startActivityForResult(intent, ADD_BOOK_REQUEST); } });
 
-        RecyclerView recyclerView = view.findViewById(R.id.readsRecyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(false);
-
-        adapter = new BookAdapter();
-        recyclerView.setAdapter(adapter);
-        recyclerViewScrollListener(recyclerView);
-
-        bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
-        bookViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
-            @Override
-            public void onChanged(List<Book> books) {
-                adapter.setBooks(books); } });
+        RecyclerView recyclerView = buildRecyclerView(view);
 
         /* onBookDiscard(); */
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false; }
+            public boolean onQueryTextSubmit(String s) { return false; }
 
             @Override
             public boolean onQueryTextChange(String s) {
@@ -186,6 +174,29 @@ public class ReadsFragment extends Fragment {
 
     /**
      *
+     * @param view
+     * @return the recyclerView
+     */
+    @NotNull
+    private RecyclerView buildRecyclerView(View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.readsRecyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(false);
+
+        adapter = new BookAdapter();
+        recyclerView.setAdapter(adapter);
+        recyclerViewScrollListener(recyclerView);
+
+        bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
+        bookViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
+            @Override
+            public void onChanged(List<Book> books) {
+                adapter.setBooks(books); } });
+        return recyclerView; }
+
+    /**
+     *
      */
     private void onBookDiscard() {
         if(getArguments() != null) {
@@ -238,7 +249,7 @@ public class ReadsFragment extends Fragment {
             int pagesRead = data.getIntExtra(ManualAddBookActivity.EXTRA_PAGES_READ, 0);
             boolean read = data.getBooleanExtra(ManualAddBookActivity.EXTRA_READ, false);
 
-            Book book = new Book(ISBN, R.drawable.ic_kenya_square, publisher, publishDate, Objects.requireNonNull(title), authors, genre, summary, language, pages, pagesRead, read);
+            Book book = new Book(ISBN, R.drawable.kenya_square, publisher, publishDate, Objects.requireNonNull(title), authors, genre, summary, language, pages, pagesRead, read);
             bookViewModel.insert(book);
             adapter.notifyItemInserted(0);
             adapter.notifyDataSetChanged();

@@ -29,7 +29,7 @@
             android:contentDescription="@string/book_cover"
             android:elevation="4dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_kenya_square" />
+            app:srcCompat="@drawable/kenya_square" />
 
         <TextView
             android:id="@+id/bookPublisher"
@@ -39,7 +39,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="9dp"
             android:layout_toEndOf="@+id/bookCover"
-            android:fontFamily="@font/roboto"
             android:gravity="bottom"
             android:maxLines="1"
             android:minHeight="12dp"
@@ -56,7 +55,6 @@
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@+id/bookCover"
             android:ellipsize="end"
-            android:fontFamily="@font/roboto"
             android:gravity="center_vertical"
             android:maxLines="2"
             android:minHeight="48dp"
@@ -76,7 +74,6 @@
             android:layout_toStartOf="@id/bookGenre"
             android:layout_toEndOf="@+id/bookCover"
             android:ellipsize="end"
-            android:fontFamily="@font/roboto"
             android:gravity="bottom"
             android:maxLines="1"
             android:minHeight="24dp"
@@ -91,7 +88,6 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/bookAuthor"
             android:layout_alignParentEnd="true"
-            android:fontFamily="@font/roboto"
             android:gravity="bottom"
             android:maxLines="1"
             android:minHeight="24dp"

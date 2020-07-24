@@ -16,7 +16,7 @@ import static androidx.core.content.ContextCompat.getColor;
 /**
  * A fragment for the user to converse with other users
  *
- * @author Kithia Ngigĩ
+ * @author Kĩthia Ngigĩ
  * @version 16.07.2020
  */
 public class ConversationFragment extends Fragment {

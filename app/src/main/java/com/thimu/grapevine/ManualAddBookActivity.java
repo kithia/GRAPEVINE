@@ -43,8 +43,8 @@ import java.util.Objects;
 /**
  * An activity for the user to manually add a book to their library
  *
- * @author Kithia Ngigĩ
- * @version 16.07.2020
+ * @author Kĩthia Ngigĩ
+ * @version 23.07.2020
  */
 public class ManualAddBookActivity extends AppCompatActivity {
 
@@ -88,7 +88,6 @@ public class ManualAddBookActivity extends AppCompatActivity {
     private TextInputEditText textInputTitle;
     private TextInputEditText textInputAuthors;
     private AutoCompleteTextView textInputGenre;
-    private ArrayList<String> dropdownGenre;
     private TextInputEditText textInputPublisher;
     private TextInputEditText textInputPublishDate;
     private String publishDateSQL;
@@ -137,7 +136,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
         textInputPages = findViewById(R.id.textInputEnterPages);
         readRadioButton = findViewById(R.id.radioButtonRead);
 
-        dropdownGenre = new ArrayList<>();
+        ArrayList<String> dropdownGenre = new ArrayList<>();
             dropdownGenre.add(getString(R.string.action_and_adventure));
             dropdownGenre.add(getString(R.string.autobiography));
             dropdownGenre.add(getString(R.string.biography));

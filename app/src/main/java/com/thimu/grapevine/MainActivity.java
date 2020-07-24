@@ -12,7 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 /**
  * The main activity
  *
- * @author Android Studio, Kithia Ngigĩ
+ * @author Android Studio, Kĩthia Ngigĩ
  * @version 16.07.2020
  */
 public class MainActivity extends AppCompatActivity {

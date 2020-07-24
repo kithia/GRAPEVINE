@@ -16,7 +16,7 @@ import static androidx.core.content.ContextCompat.getColor;
 /**
  * A fragment for the user to search local bookshops
  *
- * @author Kithia Ngigĩ
+ * @author Kĩthia Ngigĩ
  * @version 16.07.2020
  */
 public class BookshopsFragment extends Fragment {

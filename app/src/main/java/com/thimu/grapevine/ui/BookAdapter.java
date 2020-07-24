@@ -1,5 +1,7 @@
 package com.thimu.grapevine.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.thimu.grapevine.BookDetailActivity;
 import com.thimu.grapevine.R;
+import com.thimu.grapevine.ui.reads.ReadsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +25,8 @@ import java.util.List;
 /**
  * The book adapter
  *
- * @author Kithia Ngigĩ
- * @version 17.07.2020
+ * @author Kĩthia Ngigĩ
+ * @version 23.07.2020
  */
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> implements Filterable {
 
@@ -62,8 +66,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
 
     @Override
     public int getItemCount() {
-        return books.size();
-    }
+        return books.size(); }
 
     public void setBooks(List<Book> books) {
         this.books = books;
@@ -75,8 +78,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
 
     @Override
     public Filter getFilter() {
-        return bookFilter;
-    }
+        return bookFilter; }
 
     private Filter bookFilter = new Filter() {
         // Runs in background thread
@@ -106,7 +108,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
             books.addAll((List) filterResults.values);
             notifyDataSetChanged(); } };
 
-    static class BookHolder extends RecyclerView.ViewHolder {
+    class BookHolder extends RecyclerView.ViewHolder {
+
+        //
+        private final Context context;
+
         private MaterialCardView cardViewBook;
 
         private ImageView imageViewCover;
@@ -118,6 +124,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
 
         public BookHolder(@NonNull View itemView) {
             super(itemView);
+            context = itemView.getContext();
+
             cardViewBook = itemView.findViewById(R.id.readsCardView);
 
             imageViewCover = itemView.findViewById(R.id.bookCover);
@@ -131,13 +139,16 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
                 @Override
                 public void onClick(View view) {
                     // TODO
-                     } });
+                    Intent intent = new Intent(context, BookDetailActivity.class);
+                    intent.putExtra(ReadsFragment.EXTRA_BOOK, getBookAt(getAdapterPosition()));
+                    context.startActivity(intent); } });
 
             cardViewBook.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    cardViewBook.setChecked(!cardViewBook.isChecked());
-                    if(progressBar.isIndeterminate()) { progressBar.setIndeterminate(false); }
-                    else { progressBar.setIndeterminate(true); }
-                    return false; } }); } }
+                cardViewBook.setChecked(!cardViewBook.isChecked());
+                if(progressBar.isIndeterminate()) { progressBar.setIndeterminate(false); }
+                else { progressBar.setIndeterminate(true); }
+                return false; } }); }
+    }
 }

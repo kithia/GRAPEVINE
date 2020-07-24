@@ -1,5 +1,8 @@
 package com.thimu.grapevine.ui;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -7,14 +10,16 @@ import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 /**
  * A room library modelling a book entity
  *
- * @author Kithia Ngigĩ
- * @version 14.07.2020
+ * @author Kĩthia Ngigĩ
+ * @version 23.07.2020
  */
 @Entity(tableName = "BOOK_TABLE")
-public class Book {
+public class Book implements Parcelable {
 
     // Attributes of the entity
     @PrimaryKey(autoGenerate = true)
@@ -63,6 +68,30 @@ public class Book {
         this.pages = pages;
         this.pagesRead = pagesRead;
         this.read = read; }
+
+    protected Book(Parcel in) {
+        identification = in.readInt();
+        ISBN = in.readString();
+        cover = in.readInt();
+        publisher = in.readString();
+        publishDate = in.readString();
+        title = Objects.requireNonNull(in.readString());
+        authors = in.readString();
+        genre = in.readString();
+        summary = in.readString();
+        language = in.readString();
+        pages = in.readInt();
+        pagesRead = in.readInt();
+        read = in.readByte() != 0; }
+
+    public static final Creator<Book> CREATOR = new Creator<Book>() {
+        @Override
+        public Book createFromParcel(Parcel in) {
+            return new Book(in); }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[size]; } };
 
     /**
      * Set the ID of the book
@@ -162,4 +191,24 @@ public class Book {
      */
     public boolean getRead() {
         return read; }
+
+    @Override
+    public int describeContents() {
+        return 0; }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(identification);
+        parcel.writeString(ISBN);
+        parcel.writeInt(cover);
+        parcel.writeString(publisher);
+        parcel.writeString(publishDate);
+        parcel.writeString(title);
+        parcel.writeString(authors);
+        parcel.writeString(genre);
+        parcel.writeString(summary);
+        parcel.writeString(language);
+        parcel.writeInt(pages);
+        parcel.writeInt(pagesRead);
+        parcel.writeByte((byte) (read ? 1 : 0)); }
 }
