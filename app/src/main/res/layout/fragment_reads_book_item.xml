@@ -27,7 +27,7 @@
             android:layout_marginStart="0dp"
             android:background="@android:color/white"
             android:contentDescription="@string/book_cover"
-            android:elevation="4dp"
+            android:elevation="8dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/kenya_square" />
 
