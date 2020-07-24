@@ -78,11 +78,12 @@
                 android:id="@+id/textInputEnterAuthors"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:hint="@string/enter_authors"
                 android:imeOptions="actionNext"
                 android:inputType="textPersonName|textCapSentences"
-                android:scrollHorizontally="true"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:scrollHorizontally="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -106,6 +107,7 @@
                 android:id="@+id/textInputEnterGenre"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
+                android:fontFamily="@font/roboto"
                 android:gravity="center_vertical"
                 android:hint="@string/enter_genre"
                 android:imeOptions="actionNext"
@@ -135,11 +137,12 @@
                 android:id="@+id/textInputEnterPublisher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:hint="@string/enter_publisher"
                 android:imeOptions="actionNext"
                 android:inputType="text|textCapSentences"
-                android:scrollHorizontally="true"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:scrollHorizontally="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -162,10 +165,11 @@
                 android:id="@+id/textInputEnterPublishDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:hint="@string/enter_publish_date"
                 android:inputType="date"
-                android:scrollHorizontally="true"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:scrollHorizontally="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -189,6 +193,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
+                android:fontFamily="@font/roboto"
                 android:hint="@string/enter_summary"
                 android:maxLines="1"
                 android:scrollHorizontally="false" />
@@ -211,11 +216,12 @@
                 android:id="@+id/textInputEnterLanguage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:hint="@string/enter_language"
                 android:imeOptions="actionNext"
                 android:inputType="text|textCapSentences"
-                android:scrollHorizontally="true"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:scrollHorizontally="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -235,6 +241,7 @@
                 android:id="@+id/textInputEnterPages"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:hint="@string/enter_pages"
                 android:imeOptions="actionDone"
                 android:inputType="number"
@@ -261,12 +268,14 @@
                 android:id="@+id/radioButtonReading"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
                 android:text="@string/reading" />
 
             <RadioButton
                 android:id="@+id/radioButtonRead"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
                 android:text="@string/read" />
         </RadioGroup>
 

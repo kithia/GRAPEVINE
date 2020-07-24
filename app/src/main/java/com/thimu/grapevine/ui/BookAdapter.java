@@ -51,18 +51,13 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
     public void onBindViewHolder(@NonNull BookHolder holder, int position) {
         Book currentBook = books.get(position);
 
-        // Calculate the user's current reading progress
-        int readingProgress = 0;
-        if (currentBook.getRead()) { readingProgress = 100; }
-        else if (currentBook.getPages() != 0) { readingProgress = 100 * currentBook.getPagesRead()
-                / currentBook.getPages(); }
-
         holder.imageViewCover.setImageResource(currentBook.getCover());
         holder.textViewPublisher.setText(currentBook.getPublisher());
         holder.textViewTitle.setText(currentBook.getTitle());
         holder.textViewAuthor.setText(currentBook.getAuthors());
         holder.textViewGenre.setText(currentBook.getGenre());
-        holder.progressBar.setProgress(readingProgress, true); }
+        holder.progressBar.setMax(currentBook.getPages());
+        holder.progressBar.setProgress(currentBook.getPagesRead(), true);}
 
     @Override
     public int getItemCount() {
