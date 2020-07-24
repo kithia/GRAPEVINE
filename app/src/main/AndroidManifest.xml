@@ -25,7 +25,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".BookDetailActivity"
-            android:theme="@style/AppThemeNoActionBarDetail"
+            android:theme="@style/AppThemeNoActionBar"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />

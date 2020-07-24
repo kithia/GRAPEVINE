@@ -26,7 +26,7 @@ import java.util.List;
  * The book adapter
  *
  * @author Kĩthia Ngigĩ
- * @version 23.07.2020
+ * @version 24.07.2020
  */
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> implements Filterable {
 
@@ -138,7 +138,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
             cardViewBook.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO
                     Intent intent = new Intent(context, BookDetailActivity.class);
                     intent.putExtra(ReadsFragment.EXTRA_BOOK, getBookAt(getAdapterPosition()));
                     context.startActivity(intent); } });
@@ -146,9 +145,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
             cardViewBook.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                cardViewBook.setChecked(!cardViewBook.isChecked());
-                if(progressBar.isIndeterminate()) { progressBar.setIndeterminate(false); }
-                else { progressBar.setIndeterminate(true); }
-                return false; } }); }
+                    cardViewBook.setChecked(!cardViewBook.isChecked());
+                    if(progressBar.isIndeterminate()) { progressBar.setIndeterminate(false); }
+                    else { progressBar.setIndeterminate(true); }
+                    return true; } }); }
     }
 }

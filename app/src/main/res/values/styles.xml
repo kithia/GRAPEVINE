@@ -15,7 +15,7 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="AppThemeNoActionBarDetail" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <!-- <style name="AppThemeNoActionBarDetail" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -27,7 +27,7 @@
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-    </style>
+    </style> -->
 
     <style name="AppThemeActionBar" parent="Theme.MaterialComponents.Light">
         <item name="android:textColorPrimary">@color/colorPrimary</item>

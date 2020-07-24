@@ -40,7 +40,6 @@ public class BookDetailActivity extends AppCompatActivity {
 
         // Elements of the activity
         Toolbar toolbar = findViewById(R.id.bookDetailToolbar);
-        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
         ImageView imageViewCoverLarge = findViewById(R.id.bookDetailCoverLarge);
