@@ -16,7 +16,8 @@
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:clipToPadding="false"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/bookCover"
@@ -27,7 +28,7 @@
             android:layout_marginStart="0dp"
             android:background="@android:color/white"
             android:contentDescription="@string/book_cover"
-            android:elevation="8dp"
+            android:elevation="4dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/kenya_square" />
 

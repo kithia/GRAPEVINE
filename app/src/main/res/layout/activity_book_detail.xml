@@ -21,7 +21,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp">
 
                 <ImageView
                     android:id="@+id/bookDetailCoverLarge"
@@ -44,7 +46,7 @@
                     android:layout_marginTop="62dp"
                     android:background="@android:color/white"
                     android:contentDescription="@string/book_cover"
-                    android:elevation="8dp"
+                    android:elevation="4dp"
                     android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -56,20 +58,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:fontFamily="@font/roboto"
+                    android:fontFamily="@font/roboto_light_italic"
                     android:gravity="bottom"
                     android:maxLines="1"
+                    android:minHeight="24dp"
                     android:scrollHorizontally="true"
                     android:text="@string/genre"
                     android:textAlignment="gravity"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/bookDetailCover"
-                    app:layout_constraintTop_toTopOf="@+id/bookDetailCover"
-                    tools:ignore="SmallSp" />
+                    app:layout_constraintTop_toTopOf="@+id/bookDetailCover" />
 
                 <TextView
                     android:id="@+id/bookDetailTitle"
@@ -81,12 +82,12 @@
                     android:fontFamily="@font/roboto_medium"
                     android:gravity="center_vertical"
                     android:maxLines="2"
-                    android:minHeight="64dp"
+                    android:minHeight="53dp"
                     android:scrollHorizontally="true"
                     android:text="@string/title"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@android:color/white"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="@+id/bookDetailCoverLarge"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/bookDetailCover"
@@ -98,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:fontFamily="@font/roboto"
+                    android:fontFamily="@font/roboto_light"
                     android:gravity="bottom"
                     android:maxLines="1"
                     android:minHeight="24dp"
@@ -107,11 +108,12 @@
                     android:textAlignment="gravity"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/bookDetailCover"
                     app:layout_constraintTop_toBottomOf="@+id/bookDetailTitle" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.Toolbar

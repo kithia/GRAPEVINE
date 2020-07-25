@@ -10,7 +10,18 @@
         android:id="@+id/bookshopsConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_anchorGravity="center|fill" />
+        app:layout_anchorGravity="center|fill" >
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/bookshopsToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="@string/title_bookshops" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/bookshopsFloatingActionButton"
@@ -27,4 +38,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_outline_search" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

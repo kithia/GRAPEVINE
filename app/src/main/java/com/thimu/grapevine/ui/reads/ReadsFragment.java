@@ -160,9 +160,9 @@ public class ReadsFragment extends Fragment {
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                     .addSwipeRightBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.white))
                     .addSwipeRightActionIcon(R.drawable.ic_outline_delete)
-                    .setSwipeRightActionIconTint(ContextCompat.getColor(requireContext(), R.color.colorError))
+                    .setSwipeRightActionIconTint(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
                     .addSwipeRightLabel(getString(R.string.remove))
-                    .setSwipeRightLabelColor(ContextCompat.getColor(requireContext(), R.color.colorError))
+                    .setSwipeRightLabelColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
                     .create()
                     .decorate();
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive); } };
