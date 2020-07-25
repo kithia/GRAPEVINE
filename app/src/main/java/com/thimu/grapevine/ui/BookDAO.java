@@ -10,7 +10,7 @@ import androidx.room.Update;
 import java.util.List;
 
 /**
- * An interface to define interactions with the database
+ * A Data access object interface to define interactions with the BookDatabase
  *
  * @author kĩthia Ngigĩ
  * @version 09.07.2020

@@ -14,7 +14,7 @@ import com.thimu.grapevine.R;
 import static androidx.core.content.ContextCompat.getColor;
 
 /**
- * A fragment for the user to search ISBN books
+ * A fragment to search the ISBN book database
  *
  * @author Kĩthia Ngigĩ
  * @version 16.07.2020

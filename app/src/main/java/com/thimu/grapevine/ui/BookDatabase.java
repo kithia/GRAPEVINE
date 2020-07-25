@@ -25,6 +25,10 @@ public abstract class BookDatabase extends RoomDatabase {
 
     public abstract BookDAO bookDAO();
 
+    // Synchronized keyword prevents multiple threads from accessing this method at once;
+    // only one database is ever created
+    // .fallbackToDestructiveMigration() method prevents an illegalSateException when updating the version number;
+    // the schema is deleted and rebuilt at version incrementation
     public static synchronized BookDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),

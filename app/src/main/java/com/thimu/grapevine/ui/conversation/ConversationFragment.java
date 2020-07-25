@@ -14,7 +14,7 @@ import com.thimu.grapevine.R;
 import static androidx.core.content.ContextCompat.getColor;
 
 /**
- * A fragment for the user to converse with other users
+ * A fragment to display the user's forum conversations
  *
  * @author Kĩthia Ngigĩ
  * @version 16.07.2020

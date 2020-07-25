@@ -43,6 +43,7 @@ import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getColor;
 
 /**
+ * The main fragment of MainActivity
  * A fragment to display the user's book library
  *
  * @author Kĩthia Ngigĩ

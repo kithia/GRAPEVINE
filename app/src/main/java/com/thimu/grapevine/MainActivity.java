@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * The main activity
+ * A bottom navigation activity to display fragments
  *
  * @author Android Studio, Kĩthia Ngigĩ
  * @version 16.07.2020

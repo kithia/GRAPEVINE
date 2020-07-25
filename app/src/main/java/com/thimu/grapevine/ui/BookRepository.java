@@ -8,7 +8,8 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 /**
- * The book repository
+ * The mediator between all data sources and the ViewModel
+ * Abstracts the data source operations (BookDOA.java) and provides an API
  *
  * @author Kĩthia Ngigĩ
  * @version 03.07.2020
@@ -21,13 +22,14 @@ public class BookRepository {
 
     /**
      * Create the repository
-     * @param application
+     * @param application a subclass of context used as the context to create the database instance
      */
     public BookRepository(Application application) {
         BookDatabase database = BookDatabase.getInstance(application);
         bookDAO = database.bookDAO();
         allBooks = bookDAO.getAllBooksIdentificationDescending(); }
 
+    // These methods are the API the repository provides to the outside
     public void insert(Book book) {
         new InsertBookAsyncTask(bookDAO).execute(book); }
 
