@@ -14,7 +14,7 @@ import com.thimu.grapevine.ui.reads.ReadsFragment;
 import java.util.Objects;
 
 /**
- *
+ * An activity to display the details of a book
  *
  * @author Kĩthia Ngigĩ
  * @version 24.07.2020
