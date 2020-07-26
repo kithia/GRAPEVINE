@@ -32,9 +32,11 @@ import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.radiobutton.MaterialRadioButton;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -94,7 +96,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
     private TextInputEditText textInputSummary;
     private TextInputEditText textInputLanguage;
     private TextInputEditText textInputPages;
-    private MaterialRadioButton readRadioButton;
+    private SwitchMaterial readSwitch;
 
     private View currentFocus;
 
@@ -134,42 +136,12 @@ public class ManualAddBookActivity extends AppCompatActivity {
         textInputSummary = findViewById(R.id.textInputEnterSummary);
         textInputLanguage = findViewById(R.id.textInputEnterLanguage);
         textInputPages = findViewById(R.id.textInputEnterPages);
-        readRadioButton = findViewById(R.id.radioButtonRead);
+        readSwitch = findViewById(R.id.switchRead);
 
-        ArrayList<String> dropdownGenre = new ArrayList<>();
-            dropdownGenre.add(getString(R.string.action_and_adventure));
-            dropdownGenre.add(getString(R.string.autobiography));
-            dropdownGenre.add(getString(R.string.biography));
-            dropdownGenre.add(getString(R.string.classic));
-            dropdownGenre.add(getString(R.string.comic_book));
-            dropdownGenre.add(getString(R.string.cookbook));
-            dropdownGenre.add(getString(R.string.crime_fiction));
-            dropdownGenre.add(getString(R.string.detective_and_mystery));
-            dropdownGenre.add(getString(R.string.essay));
-            dropdownGenre.add(getString(R.string.fantasy));
-            dropdownGenre.add(getString(R.string.graphic_novel));
-            dropdownGenre.add(getString(R.string.historical_fiction));
-            dropdownGenre.add(getString(R.string.history));
-            dropdownGenre.add(getString(R.string.horror));
-            dropdownGenre.add(getString(R.string.journalism));
-            dropdownGenre.add(getString(R.string.literary_fiction));
-            dropdownGenre.add(getString(R.string.memoir));
-            dropdownGenre.add(getString(R.string.poetry));
-            dropdownGenre.add(getString(R.string.prayer));
-            dropdownGenre.add(getString(R.string.religion));
-            dropdownGenre.add(getString(R.string.romance));
-            dropdownGenre.add(getString(R.string.science_fiction));
-            dropdownGenre.add(getString(R.string.self_help));
-            dropdownGenre.add(getString(R.string.short_story));
-            dropdownGenre.add(getString(R.string.suspense_and_thriller));
-            dropdownGenre.add(getString(R.string.textbook));
-            dropdownGenre.add(getString(R.string.travel));
-            dropdownGenre.add(getString(R.string.true_crime));
-            dropdownGenre.add(getString(R.string.womens_fiction));
+        textInputISBN.requestFocus();
+        currentFocus = getCurrentFocus();
 
-            textInputISBN.requestFocus();
-            currentFocus = getCurrentFocus();
-
+        ArrayList<String> dropdownGenre = setDropdownGenreList();
         ArrayAdapter<String> genreStringAdapter = new ArrayAdapter<>(ManualAddBookActivity.this,
                 R.layout.dropdown_menu_item, dropdownGenre);
 
@@ -181,6 +153,62 @@ public class ManualAddBookActivity extends AppCompatActivity {
         textInputSummary.setInputType(InputType.TYPE_NULL);
 
         // Bug: UTC time, not local-time
+        setPublishDatePicker();
+
+        textInputSummary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentFocus = getCurrentFocus();
+                Intent bookSummaryIntent = new Intent(ManualAddBookActivity.this, ManualAddBookSummaryActivity.class);
+                String bookSummary = Objects.requireNonNull(textInputSummary.getText()).toString();
+                bookSummaryIntent.putExtra(EXTRA_SUMMARY, bookSummary);
+                startActivityForResult(bookSummaryIntent, ADD_BOOK_SUMMARY_REQUEST); } });
+
+    }
+
+    /**
+     *
+     * @return
+     */
+    @NotNull
+    private ArrayList<String> setDropdownGenreList() {
+        ArrayList<String> dropdownGenre = new ArrayList<>();
+        dropdownGenre.add(getString(R.string.action_and_adventure));
+        dropdownGenre.add(getString(R.string.autobiography));
+        dropdownGenre.add(getString(R.string.biography));
+        dropdownGenre.add(getString(R.string.classic));
+        dropdownGenre.add(getString(R.string.comic_book));
+        dropdownGenre.add(getString(R.string.cookbook));
+        dropdownGenre.add(getString(R.string.crime_fiction));
+        dropdownGenre.add(getString(R.string.detective_and_mystery));
+        dropdownGenre.add(getString(R.string.essay));
+        dropdownGenre.add(getString(R.string.fantasy));
+        dropdownGenre.add(getString(R.string.graphic_novel));
+        dropdownGenre.add(getString(R.string.historical_fiction));
+        dropdownGenre.add(getString(R.string.history));
+        dropdownGenre.add(getString(R.string.horror));
+        dropdownGenre.add(getString(R.string.journalism));
+        dropdownGenre.add(getString(R.string.literary_fiction));
+        dropdownGenre.add(getString(R.string.memoir));
+        dropdownGenre.add(getString(R.string.poetry));
+        dropdownGenre.add(getString(R.string.prayer));
+        dropdownGenre.add(getString(R.string.religion));
+        dropdownGenre.add(getString(R.string.romance));
+        dropdownGenre.add(getString(R.string.science_fiction));
+        dropdownGenre.add(getString(R.string.self_help));
+        dropdownGenre.add(getString(R.string.short_story));
+        dropdownGenre.add(getString(R.string.suspense_and_thriller));
+        dropdownGenre.add(getString(R.string.textbook));
+        dropdownGenre.add(getString(R.string.travel));
+        dropdownGenre.add(getString(R.string.true_crime));
+        dropdownGenre.add(getString(R.string.womens_fiction));
+        return dropdownGenre;
+    }
+
+    /**
+     *
+     */
+    private void setPublishDatePicker() {
         long currentDate = System.currentTimeMillis();
 
         CalendarConstraints.Builder publishDateConstraintsBuilder = new CalendarConstraints.Builder();
@@ -218,16 +246,6 @@ public class ManualAddBookActivity extends AppCompatActivity {
             public void onClick(View view) {
                 currentFocus = getCurrentFocus();
                 publishDatePicker.show(getSupportFragmentManager(), getString(R.string.enter_publish_date)); } });
-
-        textInputSummary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentFocus = getCurrentFocus();
-                Intent bookSummaryIntent = new Intent(ManualAddBookActivity.this, ManualAddBookSummaryActivity.class);
-                String bookSummary = Objects.requireNonNull(textInputSummary.getText()).toString();
-                bookSummaryIntent.putExtra(EXTRA_SUMMARY, bookSummary);
-                startActivityForResult(bookSummaryIntent, ADD_BOOK_SUMMARY_REQUEST); } });
-
     }
 
     /**
@@ -256,7 +274,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
         if (!Objects.requireNonNull(textInputPages.getText()).toString().isEmpty()) {
             pages = Integer.parseInt(String.valueOf(textInputPages.getText())); }
         int pagesRead = 0;
-        if (readRadioButton.isChecked()) { pagesRead = pages; }
+        if (readSwitch.isChecked()) { pagesRead = pages; }
 
         boolean isAcceptableISBN = isAcceptableISBN(ISBN);
         boolean isAcceptableTitle = isAcceptableTitle(title);
@@ -279,7 +297,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
             bookData.putExtra(EXTRA_LANGUAGE, language);
             bookData.putExtra(EXTRA_PAGES, pages);
             bookData.putExtra(EXTRA_PAGES_READ, pagesRead);
-            bookData.putExtra(EXTRA_READ, readRadioButton.isChecked());
+            bookData.putExtra(EXTRA_READ, readSwitch.isChecked());
 
             // Indicates whether the input was successful (save button was selected)
             setResult(RESULT_OK, bookData);
@@ -383,8 +401,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
      * Decide what to do when back button is pressed
      */
     @Override
-    public void onBackPressed() {
-        onExit(); }
+    public void onBackPressed() { onExit(); }
 
     /**
      * Decide what to do when the user tires to exit

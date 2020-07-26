@@ -39,6 +39,7 @@
     <string name="remove_book">Ondoa kitabu</string>
     <string name="are_you_sure_you_want_to_remove">"Una uhakika unataka kuondoa "</string>
     <string name="book_discarded">Kitabu kilitupwa</string>
-    <string name="reading">Kusoma</string>
-    <string name="read">Soma</string>
+    <string name="reading_condition">Kusoma</string>
+    <string name="read_condition">Soma</string>
+    <string name="not_read_condition">Sijasoma</string>
 </resources>

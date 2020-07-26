@@ -77,7 +77,8 @@
     <string name="travel">Travel</string>
     <string name="crime_fiction">Crime Fiction</string>
     <string name="biography">Biography</string>
-    <string name="read">Read</string>
-    <string name="reading">Reading</string>
+    <string name="read_condition">Read</string>
+    <string name="reading_condition">Reading</string>
     <string name="graphic_novel">Graphic Novel</string>
+    <string name="not_read_condition">Not read</string>
 </resources>

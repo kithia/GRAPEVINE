@@ -250,34 +250,24 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <RadioGroup
-            android:id="@+id/radioGroup"
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchRead"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="16dp"
-            android:checkedButton="@+id/radioButtonReading"
+            android:fontFamily="@font/roboto"
+            android:text="@string/read_condition"
+            android:textOff="@string/not_read_condition"
+            android:textOn="@string/read_condition"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline1"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPages">
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radioButtonReading"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/roboto"
-                android:text="@string/reading" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radioButtonRead"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/roboto"
-                android:text="@string/read" />
-        </RadioGroup>
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPages"
+            app:layout_constraintVertical_bias="1.0" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"
