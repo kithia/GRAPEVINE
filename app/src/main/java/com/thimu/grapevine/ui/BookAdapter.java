@@ -9,12 +9,12 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textview.MaterialTextView;
 import com.thimu.grapevine.BookDetailActivity;
 import com.thimu.grapevine.R;
 import com.thimu.grapevine.ui.reads.ReadsFragment;
@@ -26,7 +26,7 @@ import java.util.List;
  * The book adapter
  *
  * @author Kĩthia Ngigĩ
- * @version 24.07.2020
+ * @version 26.07.2020
  */
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> implements Filterable {
 
@@ -111,10 +111,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
         private MaterialCardView cardViewBook;
 
         private ImageView imageViewCover;
-        private TextView textViewPublisher;
-        private TextView textViewTitle;
-        private TextView textViewAuthor;
-        private TextView textViewGenre;
+        private MaterialTextView textViewPublisher;
+        private MaterialTextView textViewTitle;
+        private MaterialTextView textViewAuthor;
+        private MaterialTextView textViewGenre;
         private ProgressBar progressBar;
 
         public BookHolder(@NonNull View itemView) {

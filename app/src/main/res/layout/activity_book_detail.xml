@@ -25,7 +25,7 @@
                 android:clipToPadding="false"
                 android:paddingBottom="16dp">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/bookDetailCoverLarge"
                     android:layout_width="0dp"
                     android:layout_height="224dp"
@@ -38,7 +38,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/kenya_square" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/bookDetailCover"
                     android:layout_width="120dp"
                     android:layout_height="180dp"
@@ -52,7 +52,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/kenya_square" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/bookDetailGenre"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                     app:layout_constraintStart_toEndOf="@+id/bookDetailCover"
                     app:layout_constraintTop_toTopOf="@+id/bookDetailCover" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/bookDetailTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                     app:layout_constraintStart_toEndOf="@+id/bookDetailCover"
                     app:layout_constraintTop_toBottomOf="@+id/bookDetailGenre" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/bookDetailAuthors"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/bookDetailToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"

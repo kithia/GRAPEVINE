@@ -21,7 +21,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +32,7 @@ import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -44,7 +44,7 @@ import java.util.Objects;
  * An activity for the user to manually add a book to their library
  *
  * @author Kĩthia Ngigĩ
- * @version 23.07.2020
+ * @version 26.07.2020
  */
 public class ManualAddBookActivity extends AppCompatActivity {
 
@@ -94,7 +94,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
     private TextInputEditText textInputSummary;
     private TextInputEditText textInputLanguage;
     private TextInputEditText textInputPages;
-    private RadioButton readRadioButton;
+    private MaterialRadioButton readRadioButton;
 
     private View currentFocus;
 
