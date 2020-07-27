@@ -7,10 +7,10 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     android:checkable="true"
-    app:checkedIcon="@null"
     android:clickable="true"
     android:focusable="true"
-    app:cardCornerRadius="16dp">
+    app:cardCornerRadius="16dp"
+    app:checkedIcon="@null">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
