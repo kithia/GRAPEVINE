@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/readsCoordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:animateLayoutChanges="false">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/readsConstraintLayout"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/readsAppbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_anchorGravity="center|fill">
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
 
         <include
             android:id="@+id/readsSearchbar"
             layout="@layout/fragment_reads_searchbar"
             android:layout_width="fill_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_scrollFlags="scroll|enterAlways" />
 
         <include
             android:id="@+id/readsChipbar"
@@ -28,21 +26,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/readsSearchbar" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/readsRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:paddingTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/readsChipbar"
-            tools:listitem="@layout/fragment_reads_book_item" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/readsFloatingActionButton"
@@ -54,9 +40,28 @@
         android:contentDescription="@string/add_book"
         android:visibility="visible"
         app:fabSize="auto"
-        app:layout_anchor="@+id/readsConstraintLayout"
+        app:layout_anchor="@+id/readsNestedScrollView"
         app:layout_anchorGravity="end|bottom"
-        app:layout_constraintBottom_toTopOf="@+id/readsConstraintLayout"
-        app:layout_constraintEnd_toStartOf="@+id/readsConstraintLayout"
         app:srcCompat="@drawable/ic_outline_add" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/readsNestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/readsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/fragment_reads_book_item" />
+
+    </androidx.core.widget.NestedScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

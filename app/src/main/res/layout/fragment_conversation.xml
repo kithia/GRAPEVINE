@@ -6,22 +6,22 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="false">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/conversationConstraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_anchorGravity="center|fill" >
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/conversationToolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/searchAppbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:title="@string/title_conversation" />
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/conversationToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:title="@string/title_conversation" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/conversationFloatingActionButton"
@@ -33,10 +33,15 @@
         android:contentDescription="@string/post"
         android:visibility="visible"
         app:fabSize="auto"
-        app:layout_anchor="@+id/conversationConstraintLayout"
+        app:layout_anchor="@+id/conversationNestedScrollView"
         app:layout_anchorGravity="end|bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_outline_message" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/conversationNestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -6,22 +6,22 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="false">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bookshopsConstraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_anchorGravity="center|fill" >
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/bookshopsToolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/bookshopsAppbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:title="@string/title_bookshops" />
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/bookshopsToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:title="@string/title_bookshops" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/bookshopsFloatingActionButton"
@@ -33,10 +33,16 @@
         android:contentDescription="@string/search_shops"
         android:visibility="visible"
         app:fabSize="auto"
-        app:layout_anchor="@+id/bookshopsConstraintLayout"
+        app:layout_anchor="@+id/bookshopsNestedScrollView"
         app:layout_anchorGravity="end|bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_outline_search" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/bookshopsNestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

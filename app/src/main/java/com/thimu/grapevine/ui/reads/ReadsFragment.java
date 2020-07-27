@@ -14,6 +14,8 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,8 +34,6 @@ import com.thimu.grapevine.R;
 import com.thimu.grapevine.ui.Book;
 import com.thimu.grapevine.ui.BookAdapter;
 import com.thimu.grapevine.ui.BookViewModel;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -47,7 +48,7 @@ import static androidx.core.content.ContextCompat.getColor;
  * A fragment to display the user's book library
  *
  * @author Kĩthia Ngigĩ
- * @version 23.07.2020
+ * @version 27.07.2020
  */
 public class ReadsFragment extends Fragment {
 
@@ -59,8 +60,8 @@ public class ReadsFragment extends Fragment {
             "com.thimu.grapevine.EXTRA_BOOK";
 
     // Elements of the fragment
-    private View searchbar;
-    private View chipbar;
+    private AppBarLayout appbarLayout;
+    private NestedScrollView nestedScrollView;
 
     //
     private BookAdapter adapter;
@@ -86,12 +87,24 @@ public class ReadsFragment extends Fragment {
         toolbar.setCustomView(R.layout.fragment_reads_searchbar); */
 
         View view = inflater.inflate(R.layout.fragment_reads, container, false);
-        searchbar = view.findViewById(R.id.readsSearchbar);
-        chipbar = view.findViewById(R.id.readsChipbar);
+        appbarLayout = view.findViewById(R.id.readsAppbar);
         SearchView searchView = view.findViewById(R.id.readsSearchView);
         Chip chipSort = view.findViewById(R.id.readsChipSort);
         Chip chipGroup = view.findViewById(R.id.readsChipGroup);
+        nestedScrollView = view.findViewById(R.id.readsNestedScrollView);
+        RecyclerView recyclerView = view.findViewById(R.id.readsRecyclerView);
         FloatingActionButton floatingActionButton = view.findViewById(R.id.readsFloatingActionButton);
+
+        buildSearchView(searchView);
+
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+           @Override
+           public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+               if (nestedScrollView.canScrollVertically(-1)) {
+                   ViewCompat.setElevation(appbarLayout, floatValueOf(4)); }
+               else { ViewCompat.setElevation(appbarLayout, 0); } } });
+
+        buildRecyclerView(recyclerView);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,10 +112,16 @@ public class ReadsFragment extends Fragment {
                 Intent intent = new Intent(getContext(), ManualAddBookActivity.class);
                 startActivityForResult(intent, ADD_BOOK_REQUEST); } });
 
-        RecyclerView recyclerView = buildRecyclerView(view);
-
         /* onBookDiscard(); */
 
+        return view;
+    }
+
+    /**
+     * Build the SearchView
+     * @param searchView the SearchView
+     */
+    private void buildSearchView(SearchView searchView) {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) { return false; }
@@ -110,7 +129,24 @@ public class ReadsFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
                 adapter.getFilter().filter(s);
-                return false; } });
+                return false; } }); }
+
+    /**
+     * Build the RecyclerView
+     * @param recyclerView the RecyclerView
+     */
+    private void buildRecyclerView(RecyclerView recyclerView) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(false);
+
+        adapter = new BookAdapter();
+        recyclerView.setAdapter(adapter);
+
+        bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
+        bookViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
+            @Override
+            public void onChanged(List<Book> books) { adapter.setBooks(books); } });
 
         ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
@@ -169,32 +205,7 @@ public class ReadsFragment extends Fragment {
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive); } };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-
-        return view;
     }
-
-    /**
-     *
-     * @param view
-     * @return the recyclerView
-     */
-    @NotNull
-    private RecyclerView buildRecyclerView(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.readsRecyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(false);
-
-        adapter = new BookAdapter();
-        recyclerView.setAdapter(adapter);
-        recyclerViewScrollListener(recyclerView);
-
-        bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
-        bookViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
-            @Override
-            public void onChanged(List<Book> books) {
-                adapter.setBooks(books); } });
-        return recyclerView; }
 
     /**
      *
@@ -209,23 +220,6 @@ public class ReadsFragment extends Fragment {
                     .setBackgroundTint(Color.WHITE)
                     .setTextColor(getColor(requireContext(), R.color.colorPrimary))
                     .show(); } } }
-
-    /**
-     * Set custom onScrollListener
-     * @param recyclerView
-     */
-    private void recyclerViewScrollListener(RecyclerView recyclerView) {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            // Show & remove elevation
-            if (recyclerView.canScrollVertically(-1)) {
-                setElevation(searchbar, 4);
-                setElevation(chipbar, 4); }
-            else {
-                setElevation(searchbar, 0);
-                setElevation(chipbar,0); } } }); }
 
     /**
      *
@@ -265,12 +259,10 @@ public class ReadsFragment extends Fragment {
          /* onBookDiscard(); */ }
 
     /**
-     * Set the elevation of a view
-     * @param elevation the dp value of the elevation
-     * @param view the view to be de/elevated
+     * Convert a dp value to its float equivalent
+     * @param dp the dp value to be converted
      */
-    public void setElevation(View view, int elevation) {
-        float floatElevation = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, elevation,
-                requireContext().getResources().getDisplayMetrics());
-        view.setElevation(floatElevation); }
+    public float floatValueOf(int dp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                requireContext().getResources().getDisplayMetrics()); }
 }

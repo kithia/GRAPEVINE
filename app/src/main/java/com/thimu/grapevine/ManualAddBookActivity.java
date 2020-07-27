@@ -46,7 +46,7 @@ import java.util.Objects;
  * An activity for the user to manually add a book to their library
  *
  * @author Kĩthia Ngigĩ
- * @version 26.07.2020
+ * @version 27.07.2020
  */
 public class ManualAddBookActivity extends AppCompatActivity {
 
@@ -121,8 +121,8 @@ public class ManualAddBookActivity extends AppCompatActivity {
         scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                if(scrollView.canScrollVertically(-1)) { setActionBarElevation(4); }
-                else { setActionBarElevation(0); } } });
+                if(scrollView.canScrollVertically(-1)) { toolbar.setElevation(floatValueOf(4)); }
+                else { toolbar.setElevation(0); } } });
 
         textInputLayoutISBN = findViewById(R.id.textInputLayoutISBN);
         textInputLayoutTitle = findViewById(R.id.textInputLayoutTitle);
@@ -153,7 +153,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
         textInputSummary.setInputType(InputType.TYPE_NULL);
 
         // Bug: UTC time, not local-time
-        setPublishDatePicker();
+        buildPublishDatePicker();
 
         textInputSummary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,7 +208,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
     /**
      *
      */
-    private void setPublishDatePicker() {
+    private void buildPublishDatePicker() {
         long currentDate = System.currentTimeMillis();
 
         CalendarConstraints.Builder publishDateConstraintsBuilder = new CalendarConstraints.Builder();
@@ -249,13 +249,43 @@ public class ManualAddBookActivity extends AppCompatActivity {
     }
 
     /**
-     * Set the elevation of the actionbar
-     * @param elevation the dp value of the elevation
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
      */
-    public void setActionBarElevation (int elevation) {
-        float floatElevation = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, elevation,
-                this.getResources().getDisplayMetrics() );
-        toolbar.setElevation(floatElevation); }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ADD_BOOK_SUMMARY_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                String writeSummary = Objects.requireNonNull(data).getStringExtra(ManualAddBookSummaryActivity.EXTRA_WRITE_SUMMARY);
+                textInputSummary.setText(writeSummary);
+                textInputLanguage.requestFocus(); }
+            else { currentFocus.requestFocus(); } } }
+
+    /**
+     *
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.add_book_menu, menu);
+        return true; }
+
+    /**
+     *
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.save_book) { saveBook(); }
+        else { onExit(); }
+        return true; }
 
     /**
      * Pass the book in n intent
@@ -313,8 +343,8 @@ public class ManualAddBookActivity extends AppCompatActivity {
     private boolean isAcceptableTitle(String title) {
         boolean isAcceptableTitle = false;
         if (!title.trim().isEmpty()) {
-                textInputLayoutTitle.setError(null);
-                isAcceptableTitle = true; }
+            textInputLayoutTitle.setError(null);
+            isAcceptableTitle = true; }
         else {
             textInputLayoutTitle.setError(getString(R.string.please_enter_title));
             textInputTitle.addTextChangedListener(new TextWatcher() {
@@ -343,8 +373,8 @@ public class ManualAddBookActivity extends AppCompatActivity {
             String regex = getString(R.string.regex_ISBN);
             if (ISBN.matches(regex)) isAcceptableISBN = true;
             else {
-                 textInputLayoutISBN.setError(getString(R.string.please_enter_valid_ISBN));
-                 textInputISBN.addTextChangedListener(new TextWatcher() {
+                textInputLayoutISBN.setError(getString(R.string.please_enter_valid_ISBN));
+                textInputISBN.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
@@ -354,54 +384,9 @@ public class ManualAddBookActivity extends AppCompatActivity {
 
                     @Override
                     public void afterTextChanged(Editable editable) { } });
-                 textInputLayoutISBN.setErrorEnabled(true);
-                 isAcceptableISBN = false; } }
+                textInputLayoutISBN.setErrorEnabled(true);
+                isAcceptableISBN = false; } }
         return isAcceptableISBN; }
-
-    /**
-     *
-     * @param menu
-     * @return
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.add_book_menu, menu);
-        return true; }
-
-    /**
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == ADD_BOOK_SUMMARY_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                String writeSummary = Objects.requireNonNull(data).getStringExtra(ManualAddBookSummaryActivity.EXTRA_WRITE_SUMMARY);
-                textInputSummary.setText(writeSummary);
-                textInputLanguage.requestFocus(); }
-            else { currentFocus.requestFocus(); } } }
-
-    /**
-     *
-     * @param item
-     * @return
-     */
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.save_book) { saveBook(); }
-        else { onExit(); }
-        return true; }
-
-    /**
-     * Decide what to do when back button is pressed
-     */
-    @Override
-    public void onBackPressed() { onExit(); }
 
     /**
      * Decide what to do when the user tires to exit
@@ -436,6 +421,12 @@ public class ManualAddBookActivity extends AppCompatActivity {
     }
 
     /**
+     * Decide what to do when back button is pressed
+     */
+    @Override
+    public void onBackPressed() { onExit(); }
+
+    /**
      * Check if there is any entry into the activity
      * @return whether there is any entry into the activity
      */
@@ -452,10 +443,10 @@ public class ManualAddBookActivity extends AppCompatActivity {
         editTexts.add(textInputPages);
 
         boolean isAddBookEmpty = true;
-            for(EditText bookAttribute : editTexts) {
-                if (!Objects.requireNonNull(bookAttribute.getText()).toString().isEmpty()) {
-                    isAddBookEmpty = false; } }
-            return isAddBookEmpty; }
+        for(EditText bookAttribute : editTexts) {
+            if (!Objects.requireNonNull(bookAttribute.getText()).toString().isEmpty()) {
+                isAddBookEmpty = false; } }
+        return isAddBookEmpty; }
 
     /**
      * Hide soft keyboard
@@ -467,4 +458,12 @@ public class ManualAddBookActivity extends AppCompatActivity {
         if (view == null) {
             view = new View(activity); }
         IMM.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY); }
+
+    /**
+     * Convert a dp value to its float equivalent
+     * @param dp the dp value to be converted
+     */
+    public float floatValueOf(int dp) {
+        return TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, dp,
+                this.getResources().getDisplayMetrics() ); }
 }

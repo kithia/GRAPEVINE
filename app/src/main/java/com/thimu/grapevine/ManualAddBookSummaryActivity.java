@@ -25,7 +25,7 @@ import java.util.Objects;
  * An activity for the user to attribute the summary of a book
  *
  * @author Kĩthia Ngigĩ
- * @version 12.07.2020
+ * @version 27.07.2020
  */
 public class ManualAddBookSummaryActivity extends AppCompatActivity {
 
@@ -58,37 +58,14 @@ public class ManualAddBookSummaryActivity extends AppCompatActivity {
         nestedScrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                if (nestedScrollView.canScrollVertically(-1)) { setActionBarElevation(4); }
-                else { setActionBarElevation(0); } } });
+                if (nestedScrollView.canScrollVertically(-1)) { toolbar.setElevation(floatValueOf(4)); }
+                else { toolbar.setElevation(0); } } });
 
         Intent bookSummaryIntent = getIntent();
         previousSummary = bookSummaryIntent.getStringExtra(ManualAddBookActivity.EXTRA_SUMMARY);
         textInputWriteSummary = findViewById(R.id.textInputEnterWriteSummary);
         textInputWriteSummary.setText(previousSummary);
     }
-
-    /**
-     * Set the elevation of the actionbar
-     * @param elevation the dp value of the elevation
-     */
-    public void setActionBarElevation (int elevation) {
-        float floatElevation = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, elevation,
-                this.getResources().getDisplayMetrics() );
-        toolbar.setElevation(floatElevation); }
-
-    /**
-     * Add summary to book
-     */
-    public void saveBookSummary() {
-        String summary = Objects.requireNonNull(textInputWriteSummary.getText()).toString();
-
-        Intent bookSummaryResultIntent = new Intent();
-        bookSummaryResultIntent.putExtra(EXTRA_WRITE_SUMMARY, summary);
-
-        // Indicates whether the input was successful (save button was selected)
-        setResult(RESULT_OK, bookSummaryResultIntent);
-        // Close the activity
-        finish(); }
 
     /**
      *
@@ -113,11 +90,18 @@ public class ManualAddBookSummaryActivity extends AppCompatActivity {
         return true; }
 
     /**
-     * Decide what to do when back button is pressed
+     * Add summary to book
      */
-    @Override
-    public void onBackPressed() {
-        onExit(); }
+    public void saveBookSummary() {
+        String summary = Objects.requireNonNull(textInputWriteSummary.getText()).toString();
+
+        Intent bookSummaryResultIntent = new Intent();
+        bookSummaryResultIntent.putExtra(EXTRA_WRITE_SUMMARY, summary);
+
+        // Indicates whether the input was successful (save button was selected)
+        setResult(RESULT_OK, bookSummaryResultIntent);
+        // Close the activity
+        finish(); }
 
     /**
      * Decide what to do when the user tires to exit
@@ -141,4 +125,18 @@ public class ManualAddBookSummaryActivity extends AppCompatActivity {
 
             alertDialogBuilder.show(); }
         else { finish(); } }
+
+    /**
+     * Decide what to do when back button is pressed
+     */
+    @Override
+    public void onBackPressed() { onExit(); }
+
+    /**
+     * Convert a dp value to its float equivalent
+     * @param dp the dp value to be converted
+     */
+    public float floatValueOf(int dp) {
+        return TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, dp,
+                this.getResources().getDisplayMetrics() ); }
 }
