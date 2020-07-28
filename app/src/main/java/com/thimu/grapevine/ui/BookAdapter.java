@@ -137,7 +137,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
             cardViewBook.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (cardViewBook.isChecked()) { cardViewBook.setChecked(false); }
+                    if (cardViewBook.isChecked() || progressBar.isIndeterminate()) {
+                        cardViewBook.setChecked(false);
+                        progressBar.setIndeterminate(false); }
                     else {
                         Intent intent = new Intent(context, BookDetailActivity.class);
                         intent.putExtra(ReadsFragment.EXTRA_BOOK, getBookAt(getAdapterPosition()));
@@ -147,8 +149,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
                 @Override
                 public boolean onLongClick(View view) {
                     cardViewBook.setChecked(!cardViewBook.isChecked());
-                    if (progressBar.isIndeterminate()) { progressBar.setIndeterminate(false); }
-                    else { progressBar.setIndeterminate(true); }
+                    progressBar.setIndeterminate(!progressBar.isIndeterminate());
                     return true; } }); }
     }
 }
