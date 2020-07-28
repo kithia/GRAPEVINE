@@ -1,4 +1,35 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Book genre array -->
+    <string name="action_and_adventure" tools:ignore="MissingTranslation">Action &amp; Adventure</string>
+    <string name="autobiography" tools:ignore="MissingTranslation">Autobiography</string>
+    <string name="biography" tools:ignore="MissingTranslation">Biography</string>
+    <string name="classic" tools:ignore="MissingTranslation">Classic</string>
+    <string name="comic_book" tools:ignore="MissingTranslation">Comic Book</string>
+    <string name="cookbook" tools:ignore="MissingTranslation">Cookbook</string>
+    <string name="crime_fiction" tools:ignore="MissingTranslation">Crime Fiction</string>
+    <string name="detective_and_mystery" tools:ignore="MissingTranslation">Detective &amp; Mystery</string>
+    <string name="essay" tools:ignore="MissingTranslation">Essay</string>
+    <string name="fantasy" tools:ignore="MissingTranslation">Fantasy</string>
+    <string name="graphic_novel" tools:ignore="MissingTranslation">Graphic Novel</string>
+    <string name="historical_fiction" tools:ignore="MissingTranslation">Historical Fiction</string>
+    <string name="history" tools:ignore="MissingTranslation">History</string>
+    <string name="horror" tools:ignore="MissingTranslation">Horror</string>
+    <string name="journalism" tools:ignore="MissingTranslation">Journalism</string>
+    <string name="literary_fiction" tools:ignore="MissingTranslation">Literary Fiction</string>
+    <string name="memoir" tools:ignore="MissingTranslation">Memoir</string>
+    <string name="poetry" tools:ignore="MissingTranslation">Poetry</string>
+    <string name="prayer" tools:ignore="MissingTranslation">Prayer</string>
+    <string name="religion" tools:ignore="MissingTranslation">Religion</string>
+    <string name="romance" tools:ignore="MissingTranslation">Romance</string>
+    <string name="science_fiction" tools:ignore="MissingTranslation">Science Fiction</string>
+    <string name="self_help" tools:ignore="MissingTranslation">Self-Help</string>
+    <string name="short_story" tools:ignore="MissingTranslation">Short Story</string>
+    <string name="suspense_and_thriller" tools:ignore="MissingTranslation">Suspense &amp; Thriller</string>
+    <string name="textbook" tools:ignore="MissingTranslation">Textbook</string>
+    <string name="travel" tools:ignore="MissingTranslation">Travel</string>
+    <string name="true_crime" tools:ignore="MissingTranslation">True Crime</string>
+    <string name="womens_fiction" tools:ignore="MissingTranslation">Women\&apos;s Fiction</string>
+
     <string name="app_name" translatable="false">Grapevine</string>
     <string name="regex_ISBN" translatable="false">^(?:ISBN(?:-1[03])?:?●)?(?=[0-9X]{10}$|(?=(?:[0-9]+[-●]){3})[-●0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-●]){4})[-●0-9]{17}$)(?:97[89][-●]?)?[0-9]{1,5}[-●]?[0-9]+[-●]?[0-9]+[-●]?[0-9X]$</string>
     <string name="open_single_quotation_mark">\'</string>
@@ -53,36 +84,10 @@
     <string name="select_publish_date">Select publish date</string>
     <string name="remove_book">Remove book</string>
     <string name="are_you_sure_you_want_to_remove">"Are you sure you want to remove "</string>
-
-    <!-- Book genre array -->
-    <string name="action_and_adventure" tools:ignore="MissingTranslation">Action &amp; Adventure</string>
-    <string name="autobiography" tools:ignore="MissingTranslation">Autobiography</string>
-    <string name="biography" tools:ignore="MissingTranslation">Biography</string>
-    <string name="classic" tools:ignore="MissingTranslation">Classic</string>
-    <string name="comic_book" tools:ignore="MissingTranslation">Comic Book</string>
-    <string name="cookbook" tools:ignore="MissingTranslation">Cookbook</string>
-    <string name="crime_fiction" tools:ignore="MissingTranslation">Crime Fiction</string>
-    <string name="detective_and_mystery" tools:ignore="MissingTranslation">Detective &amp; Mystery</string>
-    <string name="essay" tools:ignore="MissingTranslation">Essay</string>
-    <string name="fantasy" tools:ignore="MissingTranslation">Fantasy</string>
-    <string name="graphic_novel" tools:ignore="MissingTranslation">Graphic Novel</string>
-    <string name="historical_fiction" tools:ignore="MissingTranslation">Historical Fiction</string>
-    <string name="history" tools:ignore="MissingTranslation">History</string>
-    <string name="horror" tools:ignore="MissingTranslation">Horror</string>
-    <string name="journalism" tools:ignore="MissingTranslation">Journalism</string>
-    <string name="literary_fiction" tools:ignore="MissingTranslation">Literary Fiction</string>
-    <string name="memoir" tools:ignore="MissingTranslation">Memoir</string>
-    <string name="poetry" tools:ignore="MissingTranslation">Poetry</string>
-    <string name="prayer" tools:ignore="MissingTranslation">Prayer</string>
-    <string name="religion" tools:ignore="MissingTranslation">Religion</string>
-    <string name="romance" tools:ignore="MissingTranslation">Romance</string>
-    <string name="science_fiction" tools:ignore="MissingTranslation">Science Fiction</string>
-    <string name="self_help" tools:ignore="MissingTranslation">Self-Help</string>
-    <string name="short_story" tools:ignore="MissingTranslation">Short Story</string>
-    <string name="suspense_and_thriller" tools:ignore="MissingTranslation">Suspense &amp; Thriller</string>
-    <string name="textbook" tools:ignore="MissingTranslation">Textbook</string>
-    <string name="travel" tools:ignore="MissingTranslation">Travel</string>
-    <string name="true_crime" tools:ignore="MissingTranslation">True Crime</string>
-    <string name="womens_fiction" tools:ignore="MissingTranslation">Women\&apos;s Fiction</string>
+    <string name="pages" tools:ignore="MissingTranslation">Pages</string>
+    <string name="format" tools:ignore="MissingTranslation">Format</string>
+    <string name="language" tools:ignore="MissingTranslation">Language</string>
+    <string name="publish_date" tools:ignore="MissingTranslation">Publish Date</string>
+    <string name="uc_n_a" tools:ignore="MissingTranslation">N/A</string>
 
 </resources>

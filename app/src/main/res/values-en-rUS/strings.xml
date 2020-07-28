@@ -81,4 +81,9 @@
     <string name="reading_condition">Reading</string>
     <string name="graphic_novel">Graphic Novel</string>
     <string name="not_read_condition">Not read</string>
+    <string name="pages">Pages</string>
+    <string name="format">Format</string>
+    <string name="language">Language</string>
+    <string name="publish_date">Publish Date</string>
+    <string name="uc_n_a">N/A</string>
 </resources>

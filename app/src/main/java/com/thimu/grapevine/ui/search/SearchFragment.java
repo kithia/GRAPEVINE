@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.thimu.grapevine.R;
 
 import static androidx.core.content.ContextCompat.getColor;

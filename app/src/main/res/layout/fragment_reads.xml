@@ -10,19 +10,20 @@
         android:id="@+id/readsAppbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/white"
         app:elevation="0dp">
 
         <include
             android:id="@+id/readsSearchbar"
             layout="@layout/fragment_reads_searchbar"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways" />
 
         <include
             android:id="@+id/readsChipbar"
             layout="@layout/fragment_reads_chipbar"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,5 +64,4 @@
             tools:listitem="@layout/fragment_reads_book_item" />
 
     </androidx.core.widget.NestedScrollView>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
