@@ -57,8 +57,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
         holder.textViewAuthor.setText(currentBook.getAuthors());
         holder.textViewGenre.setText(currentBook.getGenre());
         if (currentBook.getPages() == 0 && currentBook.getRead()) {
-            holder.progressBar.setMax(10);
-            holder.progressBar.setProgress(10, true); }
+            holder.progressBar.setMax(100);
+            holder.progressBar.setProgress(100, true); }
         else {
             holder.progressBar.setMax(currentBook.getPages());
             holder.progressBar.setProgress(currentBook.getPagesRead(), true); } }
