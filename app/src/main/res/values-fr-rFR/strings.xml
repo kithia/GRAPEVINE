@@ -52,8 +52,8 @@
     <string name="read_condition">J\&apos;ai lu</string>
     <string name="reading_condition">Je lis</string>
     <string name="not_read_condition">Je n\&apos;ai pas lu</string>
-    <string name="language">La Langue</string>
-    <string name="publish_date">Le Date de Publication</string>
-    <string name="pages">Le Nombre de Pages</string>
+    <string name="language">Langue</string>
+    <string name="publish_date">Date de Publication</string>
+    <string name="pages">Pages</string>
     <string name="uc_n_a">ND</string>
 </resources>

@@ -26,7 +26,7 @@ import java.util.List;
  * The book adapter
  *
  * @author Kĩthia Ngigĩ
- * @version 26.07.2020
+ * @version 28.07.2020
  */
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> implements Filterable {
 
@@ -57,8 +57,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
         holder.textViewAuthor.setText(currentBook.getAuthors());
         holder.textViewGenre.setText(currentBook.getGenre());
         if (currentBook.getPages() == 0 && currentBook.getRead()) {
-            holder.progressBar.setMax(1);
-            holder.progressBar.setProgress(1, true); }
+            holder.progressBar.setMax(10);
+            holder.progressBar.setProgress(10, true); }
         else {
             holder.progressBar.setMax(currentBook.getPages());
             holder.progressBar.setProgress(currentBook.getPagesRead(), true); } }
