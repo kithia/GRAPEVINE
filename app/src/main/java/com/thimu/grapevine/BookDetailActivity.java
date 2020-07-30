@@ -18,7 +18,7 @@ import java.util.Objects;
  * An activity to display the details of a book
  *
  * @author Kĩthia Ngigĩ
- * @version 24.07.2020
+ * @version 29.07.2020
  */
 public class BookDetailActivity extends AppCompatActivity {
 
@@ -40,6 +40,7 @@ public class BookDetailActivity extends AppCompatActivity {
         String bookDetailAuthors = book.getAuthors();
 
         int bookDetailPages = book.getPages();
+        int bookDetailFormat = book.getFormat();
         String bookDetailLanguage = book.getLanguage();
         String bookDetailPublishDate = book.getPublishDate();
 
@@ -54,10 +55,12 @@ public class BookDetailActivity extends AppCompatActivity {
         TextView textViewAuthors = findViewById(R.id.bookDetailAuthors);
 
         TextView textViewPages = findViewById(R.id.bookDetailPages);
+        TextView textViewFormat = findViewById(R.id.bookDetailFormat);
         TextView textViewLanguage = findViewById(R.id.bookDetailLanguage);
         TextView textViewPublishDate = findViewById(R.id.bookDetailPublishDate);
 
         /* TextView textViewPagesTitle = findViewById(R.id.bookDetailPagesTitle);
+        TextView textViewFormatTitle = findViewById(R.id.bookDetailFormatTitle);
         TextView textViewLanguageTitle = findViewById(R.id.bookDetailLanguageTitle);
         TextView textViewPublishDateTitle = findViewById(R.id.bookDetailPublishDateTitle); */
 
@@ -69,6 +72,20 @@ public class BookDetailActivity extends AppCompatActivity {
 
         if (bookDetailPages == 0) { textViewPages.setText(getString(R.string.uc_n_a)); }
         else { textViewPages.setText(String.valueOf(bookDetailPages)); }
+
+        if (bookDetailFormat == R.string.paperback) {
+            textViewFormat.setText(getString(R.string.paperback)); }
+        else if (bookDetailFormat == R.string.hardcover) {
+            textViewFormat.setText(getString(R.string.hardcover)); }
+        else if (bookDetailFormat == R.string.ebook) {
+            textViewFormat.setText(getString(R.string.ebook)); }
+        else if (bookDetailFormat == R.string.audiobook) {
+            textViewFormat.setText(getString(R.string.audiobook)); }
+        else if (bookDetailFormat == R.string.compact_disk) {
+            textViewFormat.setText(getString(R.string.compact_disk)); }
+        else if (bookDetailFormat == R.string.non_traditional) {
+            textViewFormat.setText(getString(R.string.non_traditional)); }
+        else { textViewFormat.setText(getString(R.string.uc_n_a)); }
 
         if (bookDetailLanguage.isEmpty()) { textViewLanguage.setText(getString(R.string.uc_n_a)); }
         else { textViewLanguage.setText(bookDetailLanguage); }

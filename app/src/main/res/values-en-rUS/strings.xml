@@ -86,4 +86,11 @@
     <string name="language">Language</string>
     <string name="publish_date">Publish Date</string>
     <string name="uc_n_a">N/A</string>
+    <string name="select_format">Select format</string>
+    <string name="paperback">Paperback</string>
+    <string name="hardcover">Hardcover</string>
+    <string name="ebook">eBook</string>
+    <string name="audiobook">Audiobook</string>
+    <string name="compact_disk">Compact-Disk</string>
+    <string name="non_traditional">Non-Traditional</string>
 </resources>

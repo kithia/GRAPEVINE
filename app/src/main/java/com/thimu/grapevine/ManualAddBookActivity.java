@@ -46,7 +46,7 @@ import java.util.Objects;
  * An activity for the user to manually add a book to their library
  *
  * @author Kĩthia Ngigĩ
- * @version 27.07.2020
+ * @version 30.07.2020
  */
 public class ManualAddBookActivity extends AppCompatActivity {
 
@@ -70,6 +70,8 @@ public class ManualAddBookActivity extends AppCompatActivity {
             "com.thimu.grapevine.EXTRA_SUMMARY";
     public static final String EXTRA_LANGUAGE =
             "com.thimu.grapevine.EXTRA_LANGUAGE";
+    public static final String EXTRA_FORMAT =
+            "com.thimu.grapevine.EXTRA_FORMAT";
     public static final String EXTRA_PAGES =
             "com.thimu.grapevine.EXTRA_PAGES";
     public static final String EXTRA_PAGES_READ =
@@ -95,6 +97,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
     private String publishDateSQL;
     private TextInputEditText textInputSummary;
     private TextInputEditText textInputLanguage;
+    private AutoCompleteTextView textInputFormat;
     private TextInputEditText textInputPages;
     private SwitchMaterial readSwitch;
 
@@ -135,6 +138,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
         textInputPublishDate = findViewById(R.id.textInputEnterPublishDate);
         textInputSummary = findViewById(R.id.textInputEnterSummary);
         textInputLanguage = findViewById(R.id.textInputEnterLanguage);
+        textInputFormat = findViewById(R.id.textInputEnterFormat);
         textInputPages = findViewById(R.id.textInputEnterPages);
         readSwitch = findViewById(R.id.switchRead);
 
@@ -142,15 +146,21 @@ public class ManualAddBookActivity extends AppCompatActivity {
         currentFocus = getCurrentFocus();
 
         ArrayList<String> dropdownGenre = setDropdownGenreList();
+        ArrayList<String> dropdownFormat = setDropdownFormatList();
         ArrayAdapter<String> genreStringAdapter = new ArrayAdapter<>(ManualAddBookActivity.this,
                 R.layout.dropdown_menu_item, dropdownGenre);
+        ArrayAdapter<String> formatStringAdapter = new ArrayAdapter<>(ManualAddBookActivity.this,
+                R.layout.dropdown_menu_item, dropdownFormat);
 
         AutoCompleteTextView editTextEnterGenreDropdown = findViewById(R.id.textInputEnterGenre);
+        AutoCompleteTextView editTextEnterFormatDropdown = findViewById(R.id.textInputEnterFormat);
         editTextEnterGenreDropdown.setAdapter(genreStringAdapter);
+        editTextEnterFormatDropdown.setAdapter(formatStringAdapter);
 
         // Hide soft keyboard
         textInputPublishDate.setInputType(InputType.TYPE_NULL);
         textInputSummary.setInputType(InputType.TYPE_NULL);
+        textInputFormat.setInputType(InputType.TYPE_NULL);
 
         // Bug: UTC time, not local-time
         buildPublishDatePicker();
@@ -163,7 +173,6 @@ public class ManualAddBookActivity extends AppCompatActivity {
                 String bookSummary = Objects.requireNonNull(textInputSummary.getText()).toString();
                 bookSummaryIntent.putExtra(EXTRA_SUMMARY, bookSummary);
                 startActivityForResult(bookSummaryIntent, ADD_BOOK_SUMMARY_REQUEST); } });
-
     }
 
     /**
@@ -202,8 +211,21 @@ public class ManualAddBookActivity extends AppCompatActivity {
         dropdownGenre.add(getString(R.string.travel));
         dropdownGenre.add(getString(R.string.true_crime));
         dropdownGenre.add(getString(R.string.womens_fiction));
-        return dropdownGenre;
-    }
+        return dropdownGenre; }
+
+    /**
+     *
+     * @return
+     */
+    private ArrayList<String> setDropdownFormatList() {
+        ArrayList<String> dropdownFormat = new ArrayList<>();
+        dropdownFormat.add(getString(R.string.paperback));
+        dropdownFormat.add(getString(R.string.hardcover));
+        dropdownFormat.add(getString(R.string.ebook));
+        dropdownFormat.add(getString(R.string.audiobook));
+        dropdownFormat.add(getString(R.string.compact_disk));
+        dropdownFormat.add(getString(R.string.non_traditional));
+        return dropdownFormat; }
 
     /**
      *
@@ -245,8 +267,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 currentFocus = getCurrentFocus();
-                publishDatePicker.show(getSupportFragmentManager(), getString(R.string.enter_publish_date)); } });
-    }
+                publishDatePicker.show(getSupportFragmentManager(), getString(R.string.enter_publish_date)); } }); }
 
     /**
      *
@@ -300,9 +321,20 @@ public class ManualAddBookActivity extends AppCompatActivity {
         String publishDate = publishDateSQL;
         String summary = Objects.requireNonNull(textInputSummary.getText()).toString();
         String language = Objects.requireNonNull(textInputLanguage.getText()).toString();
+
+        String format = Objects.requireNonNull(textInputFormat.getText()).toString();
+        int intFormat = 0;
+        if (format.equals(getString(R.string.paperback))) { intFormat = R.string.paperback; }
+        else if (format.equals(getString(R.string.hardcover))) { intFormat = R.string.hardcover; }
+        else if (format.equals(getString(R.string.ebook))) { intFormat = R.string.ebook; }
+        else if (format.equals(getString(R.string.audiobook))) { intFormat = R.string.audiobook; }
+        else if (format.equals(getString(R.string.compact_disk))) { intFormat = R.string.compact_disk; }
+        else if (format.equals(getString(R.string.non_traditional))) { intFormat = R.string.non_traditional; }
+
         int pages = 0;
         if (!Objects.requireNonNull(textInputPages.getText()).toString().isEmpty()) {
             pages = Integer.parseInt(String.valueOf(textInputPages.getText())); }
+
         int pagesRead = 0;
         if (readSwitch.isChecked()) { pagesRead = pages; }
 
@@ -325,6 +357,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
             bookData.putExtra(EXTRA_GENRE, genre);
             bookData.putExtra(EXTRA_SUMMARY, summary);
             bookData.putExtra(EXTRA_LANGUAGE, language);
+            bookData.putExtra(EXTRA_FORMAT, intFormat);
             bookData.putExtra(EXTRA_PAGES, pages);
             bookData.putExtra(EXTRA_PAGES_READ, pagesRead);
             bookData.putExtra(EXTRA_READ, readSwitch.isChecked());
@@ -440,6 +473,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
         editTexts.add(textInputPublishDate);
         editTexts.add(textInputSummary);
         editTexts.add(textInputLanguage);
+        // editTexts.add(textInputFormat);
         editTexts.add(textInputPages);
 
         boolean isAddBookEmpty = true;

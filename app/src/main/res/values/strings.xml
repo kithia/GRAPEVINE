@@ -30,6 +30,15 @@
     <string name="true_crime" tools:ignore="MissingTranslation">True Crime</string>
     <string name="womens_fiction" tools:ignore="MissingTranslation">Women\&apos;s Fiction</string>
 
+    <!-- Book format array -->
+    <string name="paperback" tools:ignore="MissingTranslation">Paperback</string>
+    <string name="hardcover" tools:ignore="MissingTranslation">Hardcover</string>
+    <string name="ebook" tools:ignore="MissingTranslation">eBook</string>
+    <string name="audiobook" tools:ignore="MissingTranslation">Audiobook</string>
+    <string name="compact_disk" tools:ignore="MissingTranslation">Compact-Disk</string>
+    <string name="non_traditional" tools:ignore="MissingTranslation">Non-Traditional</string>
+
+    <!-- Miscellaneous strings -->
     <string name="app_name" translatable="false">Grapevine</string>
     <string name="regex_ISBN" translatable="false">^(?:ISBN(?:-1[03])?:?●)?(?=[0-9X]{10}$|(?=(?:[0-9]+[-●]){3})[-●0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-●]){4})[-●0-9]{17}$)(?:97[89][-●]?)?[0-9]{1,5}[-●]?[0-9]+[-●]?[0-9]+[-●]?[0-9X]$</string>
     <string name="open_single_quotation_mark">\'</string>
@@ -59,6 +68,7 @@
     <string name="enter_publish_date" tools:ignore="MissingTranslation">Enter publish date</string>
     <string name="enter_summary" tools:ignore="MissingTranslation">Enter summary</string>
     <string name="enter_language" tools:ignore="MissingTranslation">Enter language</string>
+    <string name="select_format" tools:ignore="MissingTranslation">Select format</string>
     <string name="enter_pages" tools:ignore="MissingTranslation">Enter pages</string>
     <string name="write_summary" tools:ignore="MissingTranslation">Write summary</string>
     <string name="please_enter_valid_ISBN">Please enter valid ISBN</string>

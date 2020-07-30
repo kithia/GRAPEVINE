@@ -56,4 +56,12 @@
     <string name="publish_date">Date de Publication</string>
     <string name="pages">Pages</string>
     <string name="uc_n_a">ND</string>
+    <string name="format">Format</string>
+    <string name="select_format">Sélectionnez le format</string>
+    <string name="paperback">Broché</string>
+    <string name="hardcover">Relié</string>
+    <string name="ebook">Livre électronique</string>
+    <string name="audiobook">Livre audio</string>
+    <string name="compact_disk">Disque Compact</string>
+    <string name="non_traditional">Non Traditionnel</string>
 </resources>

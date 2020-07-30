@@ -16,7 +16,7 @@ import java.util.Objects;
  * A room library modelling a book entity
  *
  * @author Kĩthia Ngigĩ
- * @version 23.07.2020
+ * @version 30.07.2020
  */
 @Entity(tableName = "BOOK_TABLE")
 public class Book implements Parcelable {
@@ -34,6 +34,7 @@ public class Book implements Parcelable {
     private String genre;
     private String summary;
     private String language;
+    private int format;
     private int pages;
     @ColumnInfo(name = "pages_read")
     private int pagesRead;
@@ -50,12 +51,13 @@ public class Book implements Parcelable {
      * @param genre the genre of the book
      * @param summary the summary of the book
      * @param language the language of the book
+     * @param format the format of the book
      * @param pages the number of pages of the book
      * @param pagesRead the number of pages the user has read
      * @param read whether the user has read the book
      */
     public Book(String ISBN, int cover, String publisher, String publishDate, @org.jetbrains.annotations.NotNull String title
-            , String authors, String genre, String summary, String language, int pages, int pagesRead, boolean read) {
+            , String authors, String genre, String summary, String language, int format, int pages, int pagesRead, boolean read) {
         this.ISBN = ISBN;
         this.cover = cover;
         this.publisher = publisher;
@@ -65,6 +67,7 @@ public class Book implements Parcelable {
         this.genre = genre;
         this.summary = summary;
         this.language = language;
+        this.format = format;
         this.pages = pages;
         this.pagesRead = pagesRead;
         this.read = read; }
@@ -80,6 +83,7 @@ public class Book implements Parcelable {
         genre = in.readString();
         summary = in.readString();
         language = in.readString();
+        format = in.readInt();
         pages = in.readInt();
         pagesRead = in.readInt();
         read = in.readByte() != 0; }
@@ -172,6 +176,13 @@ public class Book implements Parcelable {
         return language; }
 
     /**
+     * Return the format of the book
+     * @return the format of the book
+     */
+    public int getFormat() {
+        return format; }
+
+    /**
      * Return the number of pages of the book
      * @return the number of pages of the book
      */
@@ -208,6 +219,7 @@ public class Book implements Parcelable {
         parcel.writeString(genre);
         parcel.writeString(summary);
         parcel.writeString(language);
+        parcel.writeInt(format);
         parcel.writeInt(pages);
         parcel.writeInt(pagesRead);
         parcel.writeByte((byte) (read ? 1 : 0)); }
