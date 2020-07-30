@@ -53,6 +53,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
 
         holder.imageViewCover.setImageResource(currentBook.getCover());
         holder.textViewPublisher.setText(currentBook.getPublisher());
+        holder.textViewPublishDate.setText(String.valueOf(currentBook.getPublishDate()));
         holder.textViewTitle.setText(currentBook.getTitle());
         holder.textViewAuthor.setText(currentBook.getAuthors());
         holder.textViewGenre.setText(currentBook.getGenre());
@@ -119,6 +120,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
 
         private ImageView imageViewCover;
         private MaterialTextView textViewPublisher;
+        private MaterialTextView textViewPublishDate;
         private MaterialTextView textViewTitle;
         private MaterialTextView textViewAuthor;
         private MaterialTextView textViewGenre;
@@ -132,6 +134,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
 
             imageViewCover = itemView.findViewById(R.id.bookCover);
             textViewPublisher = itemView.findViewById(R.id.bookPublisher);
+            textViewPublishDate = itemView.findViewById(R.id.bookPublishDate);
             textViewTitle = itemView.findViewById(R.id.bookTitle);
             textViewAuthor = itemView.findViewById(R.id.bookAuthor);
             textViewGenre = itemView.findViewById(R.id.bookGenre);

@@ -13,7 +13,7 @@
     app:checkedIcon="@null">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
+        android:id="@+id/relativeLayoutKeyInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
@@ -39,12 +39,32 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="16dp"
             android:layout_marginTop="9dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@+id/bookPublishDate"
             android:layout_toEndOf="@+id/bookCover"
+            android:ellipsize="end"
             android:fontFamily="@font/roboto"
             android:gravity="bottom"
             android:maxLines="1"
             android:minHeight="12dp"
             android:text="@string/publisher"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookPublishDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="0dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="bottom"
+            android:maxLines="1"
+            android:minHeight="12dp"
+            android:text="@string/publish_date"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
@@ -102,7 +122,7 @@
 
         <ProgressBar
             android:id="@+id/bookProgress"
-            style="?android:attr/progressBarStyleHorizontal"
+            style="@android:style/Widget.Material.ProgressBar.Horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/bookAuthor"

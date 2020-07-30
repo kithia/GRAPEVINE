@@ -98,7 +98,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="61dp"
                     android:fontFamily="@font/roboto_light"
                     android:gravity="bottom"
                     android:maxLines="1"
@@ -116,8 +115,33 @@
                     app:layout_constraintTop_toBottomOf="@+id/bookDetailTitle"
                     app:layout_constraintVertical_bias="0.0" />
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bookDetailPublisher"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_light_italic"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:minHeight="24dp"
+                    android:scrollHorizontally="true"
+                    android:text="@string/publisher"
+                    android:textAlignment="textEnd"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/bookDetailCoverLarge"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/bookDetailCover"
+                    app:layout_constraintTop_toBottomOf="@+id/bookDetailAuthors"
+                    app:layout_constraintVertical_bias="0.5"
+                    tools:ignore="RtlCompat" />
+
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/bookDetailCardView"
+                    android:id="@+id/bookDetailKeyInfoCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -127,14 +151,13 @@
                     app:layout_constraintTop_toBottomOf="@+id/bookDetailCover">
 
                     <RelativeLayout
-                        android:id="@+id/relativeLayout"
+                        android:id="@+id/relativeLayoutKeyInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clipToPadding="false"
                         android:padding="16dp">
 
                         <TableLayout
-                            android:id="@+id/bookDetailInfoTableLayout"
+                            android:id="@+id/bookDetailKeyInfoTableLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -153,20 +176,17 @@
                                     android:fontFamily="@font/roboto"
                                     android:gravity="center"
                                     android:text="@string/pages"
+                                    android:textAlignment="center"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
 
-                                <com.google.android.material.textview.MaterialTextView
+                                <androidx.appcompat.widget.AppCompatImageView
                                     android:id="@+id/bookDetailFormat"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_column="1"
                                     android:layout_weight="1"
-                                    android:fontFamily="@font/roboto"
-                                    android:gravity="center"
-                                    android:text="@string/format"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold" />
+                                    android:gravity="center" />
 
                                 <com.google.android.material.textview.MaterialTextView
                                     android:id="@+id/bookDetailLanguage"
@@ -177,6 +197,7 @@
                                     android:fontFamily="@font/roboto"
                                     android:gravity="center"
                                     android:text="@string/language"
+                                    android:textAlignment="center"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
 
@@ -189,6 +210,7 @@
                                     android:fontFamily="@font/roboto"
                                     android:gravity="center"
                                     android:text="@string/publish_date"
+                                    android:textAlignment="center"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
 
@@ -208,6 +230,7 @@
                                     android:fontFamily="@font/roboto_light"
                                     android:gravity="center"
                                     android:text="@string/pages"
+                                    android:textAlignment="center"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
 
@@ -220,6 +243,7 @@
                                     android:fontFamily="@font/roboto_light"
                                     android:gravity="center"
                                     android:text="@string/format"
+                                    android:textAlignment="center"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
 
@@ -232,6 +256,7 @@
                                     android:fontFamily="@font/roboto_light"
                                     android:gravity="center"
                                     android:text="@string/language"
+                                    android:textAlignment="center"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
 
@@ -244,10 +269,80 @@
                                     android:fontFamily="@font/roboto_light"
                                     android:gravity="center"
                                     android:text="@string/publish_date"
+                                    android:textAlignment="center"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
                             </TableRow>
                         </TableLayout>
+
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/bookDetailReadCardView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bookDetailKeyInfoCardView">
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayoutRead"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="16dp">
+
+                        <SeekBar
+                            android:id="@+id/bookDetailSeekBar"
+                            style="@android:style/Widget.Material.Light.SeekBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginEnd="16dp"
+                            android:layout_toStartOf="@id/bookDetailPagesReadSeekBar" />
+
+                        <TextView
+                            android:id="@+id/bookDetailPagesSeekBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:fontFamily="@font/roboto"
+                            android:text="@string/pages"
+                            android:textColor="@color/colorPrimary" />
+
+                        <TextView
+                            android:id="@+id/bookDetailPagesReadSeekBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_toStartOf="@+id/bookDetailPagesSeekBar"
+                            android:fontFamily="@font/roboto"
+                            android:text="@string/pages"
+                            android:textColor="@color/colorPrimary" />
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/bookDetailSummaryCardView"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="16dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bookDetailReadCardView">
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayoutSummary"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="16dp">
 
                     </RelativeLayout>
                 </com.google.android.material.card.MaterialCardView>
