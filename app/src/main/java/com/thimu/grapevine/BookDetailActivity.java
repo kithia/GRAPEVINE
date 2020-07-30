@@ -18,7 +18,7 @@ import java.util.Objects;
  * An activity to display the details of a book
  *
  * @author Kĩthia Ngigĩ
- * @version 29.07.2020
+ * @version 30.07.2020
  */
 public class BookDetailActivity extends AppCompatActivity {
 

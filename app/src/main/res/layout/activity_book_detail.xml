@@ -139,7 +139,7 @@
                             android:layout_height="wrap_content">
 
                             <TableRow
-                                android:id="@+id/bookDetailTableRow1"
+                                android:id="@+id/bookDetailTableRow"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal">
@@ -148,6 +148,7 @@
                                     android:id="@+id/bookDetailPages"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_column="0"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/roboto"
                                     android:gravity="center"
@@ -159,6 +160,7 @@
                                     android:id="@+id/bookDetailFormat"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_column="1"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/roboto"
                                     android:gravity="center"
@@ -170,6 +172,7 @@
                                     android:id="@+id/bookDetailLanguage"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_column="2"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/roboto"
                                     android:gravity="center"
@@ -181,6 +184,7 @@
                                     android:id="@+id/bookDetailPublishDate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_column="3"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/roboto"
                                     android:gravity="center"
@@ -191,7 +195,7 @@
                             </TableRow>
 
                             <TableRow
-                                android:id="@+id/bookDetailTableRow2"
+                                android:id="@+id/bookDetailTableRow1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
@@ -199,6 +203,7 @@
                                     android:id="@+id/bookDetailPagesTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_column="0"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/roboto_light"
                                     android:gravity="center"
@@ -210,6 +215,7 @@
                                     android:id="@+id/bookDetailFormatTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_column="1"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/roboto_light"
                                     android:gravity="center"
@@ -221,6 +227,7 @@
                                     android:id="@+id/bookDetailLanguageTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_column="2"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/roboto_light"
                                     android:gravity="center"
@@ -232,6 +239,7 @@
                                     android:id="@+id/bookDetailPublishDateTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_column="3"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/roboto_light"
                                     android:gravity="center"
