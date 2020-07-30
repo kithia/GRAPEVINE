@@ -41,8 +41,9 @@ public class BookDetailActivity extends AppCompatActivity {
         String bookDetailAuthors = book.getAuthors();
         String bookDetailPublisher = book.getPublisher();
 
-        int bookDetailPages = book.getPages();
+        final int bookDetailPages = book.getPages();
         final int bookDetailPagesRead = book.getPagesRead();
+        final boolean bookDetailRead = book.getRead();
         int bookDetailFormat = book.getFormat();
         String bookDetailLanguage = book.getLanguage();
         String bookDetailPublishDate = book.getPublishDate();
@@ -108,29 +109,39 @@ public class BookDetailActivity extends AppCompatActivity {
         else { textViewPublishDate.setText(bookDetailPublishDate); }
 
 
-        seekBarProgress.setMax(bookDetailPages);
-        seekBarProgress.setProgress(bookDetailPagesRead, true);
+        if (bookDetailPages == 0 && bookDetailRead) {
+            seekBarProgress.setMax(1000);
+            seekBarProgress.setProgress(1000, true);
+            seekBarProgress.cancelDragAndDrop(); }
+        else { seekBarProgress.setMax(bookDetailPages);
+            seekBarProgress.setProgress(bookDetailPagesRead, true); }
+
         if (bookDetailPages == 0) {
             textViewPagesReadProgress.setTextColor(getColor(android.R.color.tertiary_text_light));
             textViewPagesProgress.setTextColor(getColor(android.R.color.tertiary_text_light)); }
         else if (bookDetailPagesRead == 0) {
             textViewPagesReadProgress.setTextColor(getColor(android.R.color.tertiary_text_light)); }
+
         textViewPagesReadProgress.setText(String.valueOf(bookDetailPagesRead));
         String pagesProgressString = " /" + bookDetailPages;
         textViewPagesProgress.setText(pagesProgressString);
         seekBarProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                textViewPagesReadProgress.setText(String.valueOf(seekBar.getProgress()));
-            if (seekBar.getProgress() > 0) {
-                textViewPagesReadProgress.setTextColor(getColor(R.color.colorPrimary)); }
-            else { textViewPagesReadProgress.setTextColor(getColor(android.R.color.tertiary_text_light)); } }
+                if (!(bookDetailPages == 0 && bookDetailRead)) {
+                    textViewPagesReadProgress.setText(String.valueOf(seekBar.getProgress()));
+                    if (seekBar.getProgress() > 0) {
+                        textViewPagesReadProgress.setTextColor(getColor(R.color.colorPrimary)); }
+                    else { textViewPagesReadProgress.setTextColor(getColor(android.R.color.tertiary_text_light)); } } }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) { }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { } });
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if ((bookDetailPages == 0 && bookDetailRead)) {
+                    seekBarProgress.setMax(1000);
+                    seekBarProgress.setProgress(1000, true); } } });
     }
 
 }
