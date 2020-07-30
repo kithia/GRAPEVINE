@@ -53,16 +53,14 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
 
         holder.imageViewCover.setImageResource(currentBook.getCover());
         holder.textViewPublisher.setText(currentBook.getPublisher());
-        holder.textViewPublishDate.setText(String.valueOf(currentBook.getPublishDate()));
+        holder.textViewPublishDate.setText(currentBook.getPublishDate());
         holder.textViewTitle.setText(currentBook.getTitle());
         holder.textViewAuthor.setText(currentBook.getAuthors());
         holder.textViewGenre.setText(currentBook.getGenre());
-        if (currentBook.getPages() == 0 && !currentBook.getRead()) {
+        if (currentBook.getPages() == 0) {
             holder.progressBar.setMax(1000);
-            holder.progressBar.setProgress(0, true); }
-        else if (currentBook.getPages() == 0 && currentBook.getRead()) {
-            holder.progressBar.setMax(1000);
-            holder.progressBar.setProgress(1000, true); }
+            if (currentBook.getRead()) { holder.progressBar.setProgress(1000, true); }
+            else { holder.progressBar.setProgress(0, true); } }
         else {
             holder.progressBar.setMax(currentBook.getPages());
             holder.progressBar.setProgress(currentBook.getPagesRead(), true); } }
