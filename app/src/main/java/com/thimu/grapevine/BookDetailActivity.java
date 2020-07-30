@@ -114,7 +114,7 @@ public class BookDetailActivity extends AppCompatActivity {
             seekBarProgress.setProgress(0, true);
             textViewPagesProgress.setTextColor(getColor(android.R.color.tertiary_text_light));
             if (bookDetailRead) { seekBarProgress.setProgress(1000, true); } }
-        else if (!bookDetailRead) {
+        else {
             seekBarProgress.setMax(bookDetailPages);
             seekBarProgress.setProgress(bookDetailPagesRead, true); }
         if (bookDetailPagesRead == 0) { textViewPagesReadProgress.setTextColor(getColor(android.R.color.tertiary_text_light)); }
