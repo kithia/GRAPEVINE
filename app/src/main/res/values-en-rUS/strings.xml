@@ -17,7 +17,7 @@
     <string name="genre">Genre</string>
     <string name="enter_ISBN">Enter ISBN</string>
     <string name="enter_title">Enter title</string>
-    <string name="enter_authors">Enter authors</string>
+    <string name="enter_authors">Enter author(s)</string>
     <string name="enter_genre">Enter genre</string>
     <string name="enter_publisher">Enter publisher</string>
     <string name="enter_publish_date">Enter publish date</string>

@@ -62,7 +62,7 @@
     <string name="genre">Genre</string>
     <string name="enter_ISBN" tools:ignore="MissingTranslation">Enter ISBN</string>
     <string name="enter_title" tools:ignore="MissingTranslation">Enter title</string>
-    <string name="enter_authors" tools:ignore="MissingTranslation">Enter authors</string>
+    <string name="enter_authors" tools:ignore="MissingTranslation">Enter author(s)</string>
     <string name="enter_genre" tools:ignore="MissingTranslation">Enter genre</string>
     <string name="enter_publisher" tools:ignore="MissingTranslation">Enter publisher</string>
     <string name="enter_publish_date" tools:ignore="MissingTranslation">Enter publish date</string>

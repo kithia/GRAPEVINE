@@ -37,8 +37,10 @@ import com.thimu.grapevine.ui.Book;
 import com.thimu.grapevine.ui.BookAdapter;
 import com.thimu.grapevine.ui.BookViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -50,7 +52,7 @@ import static androidx.core.content.ContextCompat.getColor;
  * A fragment to display the user's book library
  *
  * @author Kĩthia Ngigĩ
- * @version 30.07.2020
+ * @version 31.07.2020
  */
 public class ReadsFragment extends Fragment {
 
@@ -247,7 +249,7 @@ public class ReadsFragment extends Fragment {
             int pagesRead = data.getIntExtra(ManualAddBookActivity.EXTRA_PAGES_READ, 0);
             boolean read = data.getBooleanExtra(ManualAddBookActivity.EXTRA_READ, false);
 
-            Book book = new Book(ISBN, R.drawable.kenya_square, publisher, publishDate, Objects.requireNonNull(title), authors, genre, summary, language, format, pages, pagesRead, read);
+            Book book = new Book(ISBN, getRandomFlag(), publisher, publishDate, Objects.requireNonNull(title), authors, genre, summary, language, format, pages, pagesRead, read);
             bookViewModel.insert(book);
             adapter.notifyItemInserted(0);
             adapter.notifyDataSetChanged();
@@ -260,6 +262,111 @@ public class ReadsFragment extends Fragment {
                 .show(); }
 
          /* onBookDiscard(); */ }
+
+    /**
+     * Get a random flag drawable
+     * All countries are apart of Africa or the Diaspora
+     * @return the drawable reference of the flag
+     */
+    public int getRandomFlag() {
+        ArrayList<Integer> countries = new ArrayList<Integer>();
+        countries.add(R.drawable.algeria_square);
+        countries.add(R.drawable.angola_square);
+        countries.add(R.drawable.anguilla_square);
+        countries.add(R.drawable.antigua_and_barbuda_square);
+        countries.add(R.drawable.aruba_square);
+        countries.add(R.drawable.bahamas_square);
+        countries.add(R.drawable.barbados_square);
+        countries.add(R.drawable.benin_square);
+        countries.add(R.drawable.bonaire_square);
+        countries.add(R.drawable.botswana_square);
+        countries.add(R.drawable.brazil_square);
+        countries.add(R.drawable.british_virgin_islands_square);
+        countries.add(R.drawable.burkina_faso_square);
+        countries.add(R.drawable.burundi_square);
+        countries.add(R.drawable.cabo_verde_square);
+        countries.add(R.drawable.cameroon_square);
+        countries.add(R.drawable.cayman_islands_square);
+        countries.add(R.drawable.central_african_republic_square);
+        countries.add(R.drawable.chad_square);
+        countries.add(R.drawable.colombia_square);
+        countries.add(R.drawable.comoros_square);
+        countries.add(R.drawable.cuba_square);
+        countries.add(R.drawable.curacao_square);
+        countries.add(R.drawable.democratic_republic_of_congo_square);
+        countries.add(R.drawable.djibouti_square);
+        countries.add(R.drawable.dominica_square);
+        countries.add(R.drawable.dominican_republic_square);
+        countries.add(R.drawable.egypt_square);
+        countries.add(R.drawable.equatorial_guinea_square);
+        countries.add(R.drawable.eritrea_square);
+        countries.add(R.drawable.ethiopia_square);
+        countries.add(R.drawable.france_square);
+        countries.add(R.drawable.gabon_square);
+        countries.add(R.drawable.gambia_square);
+        countries.add(R.drawable.ghana_square);
+        countries.add(R.drawable.grenada_square);
+        countries.add(R.drawable.guinea_bissau_square);
+        countries.add(R.drawable.guinea_square);
+        countries.add(R.drawable.haiti_square);
+        countries.add(R.drawable.ivory_coast_square);
+        countries.add(R.drawable.jamaica_square);
+        countries.add(R.drawable.kenya_square);
+        countries.add(R.drawable.lesotho_square);
+        countries.add(R.drawable.liberia_square);
+        countries.add(R.drawable.libya_square);
+        countries.add(R.drawable.madagascar_square);
+        countries.add(R.drawable.malawi_square);
+        // countries.add(R.drawable.malaysia_square);
+        countries.add(R.drawable.mali_square);
+        countries.add(R.drawable.martinique_square);
+        countries.add(R.drawable.mauritania_square);
+        countries.add(R.drawable.mauritius_square);
+        countries.add(R.drawable.mexico_square);
+        countries.add(R.drawable.montserrat_square);
+        countries.add(R.drawable.morocco_square);
+        countries.add(R.drawable.mozambique_square);
+        countries.add(R.drawable.namibia_square);
+        countries.add(R.drawable.niger_square);
+        countries.add(R.drawable.nigeria_square);
+        countries.add(R.drawable.puerto_rico_square);
+        countries.add(R.drawable.republic_of_the_congo_square);
+        countries.add(R.drawable.rwanda_square);
+        countries.add(R.drawable.saba_island_square);
+        countries.add(R.drawable.sahrawi_arab_democratic_republic_square);
+        countries.add(R.drawable.saint_kitts_and_nevis_square);
+        countries.add(R.drawable.sao_tome_and_principe_square);
+        countries.add(R.drawable.senegal_square);
+        countries.add(R.drawable.seychelles_square);
+        countries.add(R.drawable.sierra_leone_square);
+        countries.add(R.drawable.sint_eustatius_square);
+        countries.add(R.drawable.sint_maarten_square);
+        countries.add(R.drawable.somalia_square);
+        countries.add(R.drawable.somaliland_square);
+        countries.add(R.drawable.south_africa_sqaure);
+        countries.add(R.drawable.south_sudan_square);
+        countries.add(R.drawable.st_barts_square);
+        countries.add(R.drawable.st_lucia_square);
+        countries.add(R.drawable.st_vincent_and_the_grenadines_square);
+        countries.add(R.drawable.sudan_square);
+        // countries.add(R.drawable.taiwan_square);
+        countries.add(R.drawable.tanzania_square);
+        countries.add(R.drawable.togo_square);
+        countries.add(R.drawable.trinidad_and_tobago_square);
+        countries.add(R.drawable.tunisia_square);
+        countries.add(R.drawable.turks_and_caicos_square);
+        countries.add(R.drawable.uganda_square);
+        countries.add(R.drawable.united_kingdom_square);
+        countries.add(R.drawable.united_states_of_america_square);
+        countries.add(R.drawable.venezuela_square);
+        // countries.add(R.drawable.vietnam_square);
+        countries.add(R.drawable.virgin_islands_square);
+        countries.add(R.drawable.zambia_square);
+        countries.add(R.drawable.zimbabwe_square);
+
+        Random random = new Random();
+        int countryIndex = random.nextInt(countries.size());
+        return countries.get(countryIndex); }
 
     /**
      * Convert a dp value to its float equivalent

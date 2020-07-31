@@ -37,7 +37,7 @@
     <string name="select_publish_date">Sélectionnez la date de publication</string>
     <string name="enter_title">Entrez le titre</string>
     <string name="enter_ISBN">Entrez l\&apos;ISBN</string>
-    <string name="enter_authors">Entrez les auteurs</string>
+    <string name="enter_authors">Entrez les auteur(s)</string>
     <string name="enter_genre">Entrez le genre</string>
     <string name="enter_publisher">Entrez l\&apos;éditeur</string>
     <string name="enter_publish_date">Entrez la date de publication</string>
