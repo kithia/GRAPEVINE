@@ -92,7 +92,7 @@ public class ReadsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_reads, container, false);
         appbarLayout = view.findViewById(R.id.readsAppbar);
-        SearchView searchView = view.findViewById(R.id.readsSearchView);
+        final SearchView searchView = view.findViewById(R.id.readsSearchView);
         Chip chipSort = view.findViewById(R.id.readsChipSort);
         Chip chipGroup = view.findViewById(R.id.readsChipGroup);
         nestedScrollView = view.findViewById(R.id.readsNestedScrollView);
@@ -106,7 +106,9 @@ public class ReadsFragment extends Fragment {
            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                if (nestedScrollView.canScrollVertically(-1)) {
                    ViewCompat.setElevation(appbarLayout, floatValueOf(4)); }
-               else { ViewCompat.setElevation(appbarLayout, 0); } } });
+               else { ViewCompat.setElevation(appbarLayout, 0); }
+
+           if (searchView.hasFocus()) { searchView.clearFocus(); } } });
 
         buildRecyclerView(recyclerView);
 

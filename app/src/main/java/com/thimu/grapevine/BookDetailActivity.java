@@ -48,6 +48,8 @@ public class BookDetailActivity extends AppCompatActivity {
         String bookDetailLanguage = book.getLanguage();
         String bookDetailPublishDate = book.getPublishDate();
 
+        String bookDetailSummary = book.getSummary();
+
         // Elements of the activity
         Toolbar toolbar = findViewById(R.id.bookDetailToolbar);
         setSupportActionBar(toolbar);
@@ -67,6 +69,8 @@ public class BookDetailActivity extends AppCompatActivity {
         TextView textViewLanguage = findViewById(R.id.bookDetailLanguage);
         TextView textViewPublishDate = findViewById(R.id.bookDetailPublishDate);
 
+        TextView textViewSummary = findViewById(R.id.bookDetailSummary);
+
         // TextView textViewPagesTitle = findViewById(R.id.bookDetailPagesTitle);
         TextView textViewFormatTitle = findViewById(R.id.bookDetailFormatTitle);
         /* TextView textViewLanguageTitle = findViewById(R.id.bookDetailLanguageTitle);
@@ -78,6 +82,7 @@ public class BookDetailActivity extends AppCompatActivity {
         textViewTitle.setText(bookDetailTitle);
         textViewAuthors.setText(bookDetailAuthors);
         textViewPublisher.setText(bookDetailPublisher);
+
 
         if (bookDetailPages == 0) { textViewPages.setText(getString(R.string.uc_n_a)); }
         else { textViewPages.setText(String.valueOf(bookDetailPages)); }
@@ -140,6 +145,9 @@ public class BookDetailActivity extends AppCompatActivity {
                     if (bookDetailRead) {
                         seekBarProgress.setProgress(1000, true); }
                     else { seekBarProgress.setProgress(0, true); } } } });
+
+
+        textViewSummary.setText(bookDetailSummary);
     }
 
 }

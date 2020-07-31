@@ -64,4 +64,5 @@
     <string name="audiobook">Livre audio</string>
     <string name="compact_disk">Disque Compact</string>
     <string name="non_traditional">Non Traditionnel</string>
+    <string name="progress">Vos progrés</string>
 </resources>
