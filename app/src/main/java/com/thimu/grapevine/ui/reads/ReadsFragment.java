@@ -13,7 +13,6 @@ import android.view.Window;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
@@ -25,7 +24,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -66,6 +64,7 @@ public class ReadsFragment extends Fragment {
     // Elements of the fragment
     private AppBarLayout appbarLayout;
     private NestedScrollView nestedScrollView;
+    private SearchView searchView;
 
     //
     private BookAdapter adapter;
@@ -91,8 +90,8 @@ public class ReadsFragment extends Fragment {
         toolbar.setCustomView(R.layout.fragment_reads_searchbar); */
 
         View view = inflater.inflate(R.layout.fragment_reads, container, false);
-        appbarLayout = view.findViewById(R.id.readsAppbar);
-        final SearchView searchView = view.findViewById(R.id.readsSearchView);
+        appbarLayout = view.findViewById(R.id.readsAppBarLayout);
+        searchView = view.findViewById(R.id.readsSearchView);
         Chip chipSort = view.findViewById(R.id.readsChipSort);
         Chip chipGroup = view.findViewById(R.id.readsChipGroup);
         nestedScrollView = view.findViewById(R.id.readsNestedScrollView);

@@ -382,13 +382,22 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/bookDetailToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:navigationIcon="@drawable/ic_outline_arrow_back_white"
-                app:title=" " />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </ScrollView>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/bookDetailAppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/bookDetailToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_outline_arrow_back_white"
+            app:title=" " />
+    </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
