@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
+import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.thimu.grapevine.ui.Book;
@@ -35,14 +35,15 @@ public class BookDetailActivity extends AppCompatActivity {
     // Elements of activity
     private AppBarLayout appbarLayout;
     private Toolbar toolbar;
-    private ScrollView scrollView;
+    private NestedScrollView nestedScrollView;
 
-    private SeekBar seekBarProgress;
+    private SeekBar seekbarProgress;
     private TextView textViewPagesReadProgress;
     private TextView textViewPagesProgress;
 
     /**
      * Create the activity
+     *
      * @param savedInstanceState
      */
     @Override
@@ -71,20 +72,24 @@ public class BookDetailActivity extends AppCompatActivity {
         appbarLayout = findViewById(R.id.bookDetailAppBarLayout);
         toolbar = findViewById(R.id.bookDetailToolbar);
         setSupportActionBar(toolbar);
-        scrollView = findViewById(R.id.bookDetailScrollView);
+        nestedScrollView = findViewById(R.id.bookDetailNestedScrollView);
 
-        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+        nestedScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                if (scrollView.canScrollVertically(-1)) {
+                if (nestedScrollView.canScrollVertically(-1)) {
                     ViewCompat.setElevation(appbarLayout, floatValueOf(4));
                     toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_primary);
                     toolbar.setTitle(bookDetailTitle);
-                    toolbar.setBackgroundColor(getColor(android.R.color.white)); }
-                else { ViewCompat.setElevation(appbarLayout, 0);
+                    toolbar.setBackgroundColor(getColor(android.R.color.white));
+                } else {
+                    ViewCompat.setElevation(appbarLayout, 0);
                     toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_white);
                     toolbar.setTitle("");
-                    toolbar.setBackgroundColor(getColor(android.R.color.transparent)); } } });
+                    toolbar.setBackgroundColor(getColor(android.R.color.transparent));
+                }
+            }
+        });
 
         ImageView imageViewCoverLarge = findViewById(R.id.bookDetailCoverLarge);
         ImageView imageViewCover = findViewById(R.id.bookDetailCover);
@@ -94,7 +99,7 @@ public class BookDetailActivity extends AppCompatActivity {
         TextView textViewPublisher = findViewById(R.id.bookDetailPublisher);
 
         TextView textViewPages = findViewById(R.id.bookDetailPages);
-        seekBarProgress = findViewById(R.id.bookDetailSeekBar);
+        seekbarProgress = findViewById(R.id.bookDetailSeekBar);
         textViewPagesReadProgress = findViewById(R.id.bookDetailPagesReadSeekBar);
         textViewPagesProgress = findViewById(R.id.bookDetailPagesSeekBar);
         ImageView imageViewFormat = findViewById(R.id.bookDetailFormat);
@@ -129,28 +134,37 @@ public class BookDetailActivity extends AppCompatActivity {
         textViewPagesReadProgress.setText(String.valueOf(bookDetailPagesRead));
         String pagesProgressString = " /" + bookDetailPages;
         textViewPagesProgress.setText(pagesProgressString);
-        seekBarProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekbarProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (!(bookDetailPages == 0)) {
                     textViewPagesReadProgress.setText(String.valueOf(seekBar.getProgress()));
                     if (seekBar.getProgress() > 0) {
-                        textViewPagesReadProgress.setTextColor(getColor(R.color.colorPrimary)); }
-                    else { textViewPagesReadProgress.setTextColor(getColor(android.R.color.tertiary_text_light)); } } }
+                        textViewPagesReadProgress.setTextColor(getColor(R.color.colorPrimary));
+                    } else {
+                        textViewPagesReadProgress.setTextColor(getColor(android.R.color.tertiary_text_light));
+                    }
+                }
+            }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 if ((bookDetailPages == 0)) {
                     if (bookDetailRead) {
-                        seekBarProgress.setProgress(1000, true); }
-                    else { seekBarProgress.setProgress(0, true); } } } });
+                        seekbarProgress.setProgress(1000, true);
+                    } else {
+                        seekbarProgress.setProgress(0, true);
+                    }
+                }
+            }
+        });
     }
 
     /**
-     *
      * @param bookDetailFormat
      * @param bookDetailLanguage
      * @param bookDetailPublishDate
@@ -161,53 +175,69 @@ public class BookDetailActivity extends AppCompatActivity {
      * @param textViewFormatTitle
      */
     private void buildBookDetailInfo(int bookDetailFormat, String bookDetailLanguage, String bookDetailPublishDate, TextView textViewPages, ImageView imageViewFormat, TextView textViewLanguage, TextView textViewPublishDate, TextView textViewFormatTitle) {
-        if (bookDetailPages == 0) { textViewPages.setText(getString(R.string.uc_n_a)); }
-        else { textViewPages.setText(String.valueOf(bookDetailPages)); }
+        if (bookDetailPages == 0) {
+            textViewPages.setText(getString(R.string.uc_n_a));
+        } else {
+            textViewPages.setText(String.valueOf(bookDetailPages));
+        }
 
         if (bookDetailFormat == R.string.paperback) {
             imageViewFormat.setImageResource(R.drawable.ic_outline_book);
-            textViewFormatTitle.setText(getString(R.string.paperback)); }
-        else if (bookDetailFormat == R.string.hardcover) {
+            textViewFormatTitle.setText(getString(R.string.paperback));
+        } else if (bookDetailFormat == R.string.hardcover) {
             imageViewFormat.setImageResource(R.drawable.ic_outline_book);
-            textViewFormatTitle.setText(getString(R.string.hardcover)); }
-        else if (bookDetailFormat == R.string.ebook) {
+            textViewFormatTitle.setText(getString(R.string.hardcover));
+        } else if (bookDetailFormat == R.string.ebook) {
             imageViewFormat.setImageResource(R.drawable.ic_outline_book);
-            textViewFormatTitle.setText(getString(R.string.ebook)); }
-        else if (bookDetailFormat == R.string.audiobook) {
+            textViewFormatTitle.setText(getString(R.string.ebook));
+        } else if (bookDetailFormat == R.string.audiobook) {
             imageViewFormat.setImageResource(R.drawable.ic_outline_headset);
-            textViewFormatTitle.setText(getString(R.string.audiobook)); }
-        else if (bookDetailFormat == R.string.compact_disk) {
+            textViewFormatTitle.setText(getString(R.string.audiobook));
+        } else if (bookDetailFormat == R.string.compact_disk) {
             imageViewFormat.setImageResource(R.drawable.ic_outline_album);
-            textViewFormatTitle.setText(getString(R.string.compact_disk)); }
-        else if (bookDetailFormat == R.string.non_traditional) {
+            textViewFormatTitle.setText(getString(R.string.compact_disk));
+        } else if (bookDetailFormat == R.string.non_traditional) {
             imageViewFormat.setImageResource(R.drawable.ic_outline_menu_book);
-            textViewFormatTitle.setText(getString(R.string.non_traditional)); }
-        else { textViewFormatTitle.setText(getString(R.string.uc_n_a)); }
+            textViewFormatTitle.setText(getString(R.string.non_traditional));
+        } else {
+            textViewFormatTitle.setText(getString(R.string.uc_n_a));
+        }
 
-        if (bookDetailLanguage.isEmpty()) { textViewLanguage.setText(getString(R.string.uc_n_a)); }
-        else { textViewLanguage.setText(bookDetailLanguage); }
+        if (bookDetailLanguage.isEmpty()) {
+            textViewLanguage.setText(getString(R.string.uc_n_a));
+        } else {
+            textViewLanguage.setText(bookDetailLanguage);
+        }
 
-        if (bookDetailPublishDate == null) { textViewPublishDate.setText(getString(R.string.uc_n_a)); }
-        else { textViewPublishDate.setText(bookDetailPublishDate); }
+        if (bookDetailPublishDate == null) {
+            textViewPublishDate.setText(getString(R.string.uc_n_a));
+        } else {
+            textViewPublishDate.setText(bookDetailPublishDate);
+        }
 
 
         if (bookDetailPages == 0) {
-            seekBarProgress.setMax(1000);
-            seekBarProgress.setProgress(0, true);
+            seekbarProgress.setMax(1000);
+            seekbarProgress.setProgress(0, true);
             textViewPagesProgress.setTextColor(getColor(android.R.color.tertiary_text_light));
-            if (bookDetailRead) { seekBarProgress.setProgress(1000, true); } }
-        else {
-            seekBarProgress.setMax(bookDetailPages);
-            seekBarProgress.setProgress(bookDetailPagesRead, true); }
-        if (bookDetailPagesRead == 0) { textViewPagesReadProgress.setTextColor(getColor(android.R.color.tertiary_text_light)); }
+            if (bookDetailRead) {
+                seekbarProgress.setProgress(1000, true);
+            }
+        } else {
+            seekbarProgress.setMax(bookDetailPages);
+            seekbarProgress.setProgress(bookDetailPagesRead, true);
+        }
+        if (bookDetailPagesRead == 0) {
+            textViewPagesReadProgress.setTextColor(getColor(android.R.color.tertiary_text_light));
+        }
     }
 
     /**
      * Convert a dp value to its float equivalent
+     *
      * @param dp the dp value to be converted
      */
     public float floatValueOf(int dp) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 this.getResources().getDisplayMetrics()); }
-
 }

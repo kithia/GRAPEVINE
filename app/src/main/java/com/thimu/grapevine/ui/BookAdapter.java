@@ -26,7 +26,7 @@ import java.util.List;
  * The book adapter
  *
  * @author Kĩthia Ngigĩ
- * @version 30.07.2020
+ * @version 01.08.2020
  */
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> implements Filterable {
 
@@ -58,12 +58,12 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
         holder.textViewAuthor.setText(currentBook.getAuthors());
         holder.textViewGenre.setText(currentBook.getGenre());
         if (currentBook.getPages() == 0) {
-            holder.progressBar.setMax(1000);
-            if (currentBook.getRead()) { holder.progressBar.setProgress(1000, true); }
-            else { holder.progressBar.setProgress(0, true); } }
+            holder.progressbar.setMax(1000);
+            if (currentBook.getRead()) { holder.progressbar.setProgress(1000, true); }
+            else { holder.progressbar.setProgress(0, true); } }
         else {
-            holder.progressBar.setMax(currentBook.getPages());
-            holder.progressBar.setProgress(currentBook.getPagesRead(), true); } }
+            holder.progressbar.setMax(currentBook.getPages());
+            holder.progressbar.setProgress(currentBook.getPagesRead(), true); } }
 
     @Override
     public int getItemCount() {
@@ -122,7 +122,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
         private MaterialTextView textViewTitle;
         private MaterialTextView textViewAuthor;
         private MaterialTextView textViewGenre;
-        private ProgressBar progressBar;
+        private ProgressBar progressbar;
 
         public BookHolder(@NonNull View itemView) {
             super(itemView);
@@ -136,14 +136,14 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
             textViewTitle = itemView.findViewById(R.id.bookTitle);
             textViewAuthor = itemView.findViewById(R.id.bookAuthor);
             textViewGenre = itemView.findViewById(R.id.bookGenre);
-            progressBar = itemView.findViewById(R.id.bookProgress);
+            progressbar = itemView.findViewById(R.id.bookProgress);
 
             cardViewBook.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (cardViewBook.isChecked() || progressBar.isIndeterminate()) {
+                    if (cardViewBook.isChecked() || progressbar.isIndeterminate()) {
                         cardViewBook.setChecked(false);
-                        progressBar.setIndeterminate(false); }
+                        progressbar.setIndeterminate(false); }
                     else {
                         Intent intent = new Intent(context, BookDetailActivity.class);
                         intent.putExtra(ReadsFragment.EXTRA_BOOK, getBookAt(getAdapterPosition()));
@@ -153,7 +153,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
                 @Override
                 public boolean onLongClick(View view) {
                     cardViewBook.setChecked(!cardViewBook.isChecked());
-                    progressBar.setIndeterminate(!progressBar.isIndeterminate());
+                    progressbar.setIndeterminate(!progressbar.isIndeterminate());
                     return true; } }); }
     }
 }
