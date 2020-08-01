@@ -37,7 +37,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NestedScrollView nestedScrollView;
 
-    private ImageView imageViewCoverLarge;
+    private TextView textViewAuthors;
     private SeekBar seekbarProgress;
     private TextView textViewPagesReadProgress;
     private TextView textViewPagesProgress;
@@ -75,11 +75,11 @@ public class BookDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         nestedScrollView = findViewById(R.id.bookDetailNestedScrollView);
 
-        imageViewCoverLarge = findViewById(R.id.bookDetailCoverLarge);
+        ImageView imageViewCoverLarge = findViewById(R.id.bookDetailCoverLarge);
         ImageView imageViewCover = findViewById(R.id.bookDetailCover);
         TextView textViewGenre = findViewById(R.id.bookDetailGenre);
         TextView textViewTitle = findViewById(R.id.bookDetailTitle);
-        TextView textViewAuthors = findViewById(R.id.bookDetailAuthors);
+        textViewAuthors = findViewById(R.id.bookDetailAuthors);
         TextView textViewPublisher = findViewById(R.id.bookDetailPublisher);
 
         TextView textViewPages = findViewById(R.id.bookDetailPages);
@@ -100,7 +100,7 @@ public class BookDetailActivity extends AppCompatActivity {
         nestedScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                if (nestedScrollView.getScrollY() >= (imageViewCoverLarge.getHeight() - appbarLayout.getHeight())) {
+                if (nestedScrollView.getScrollY() >= (textViewAuthors.getY())) {
                     ViewCompat.setElevation(appbarLayout, floatValueOf(4));
                     toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_primary);
                     toolbar.setTitle(bookDetailTitle);
