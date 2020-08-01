@@ -40,7 +40,6 @@
 
     <!-- Miscellaneous strings -->
     <string name="app_name" translatable="false">Grapevine</string>
-    <string name="regex_ISBN" translatable="false">^(?:ISBN(?:-1[03])?:?●)?(?=[0-9X]{10}$|(?=(?:[0-9]+[-●]){3})[-●0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-●]){4})[-●0-9]{17}$)(?:97[89][-●]?)?[0-9]{1,5}[-●]?[0-9]+[-●]?[0-9]+[-●]?[0-9X]$</string>
     <string name="open_single_quotation_mark">\'</string>
     <string name="close_single_quotation_mark">\'</string>
     <string name="question_mark">\?</string>

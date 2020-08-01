@@ -35,6 +35,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.thimu.grapevine.ui.ISBNRegularExpression;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -46,9 +47,13 @@ import java.util.Objects;
  * An activity for the user to manually add a book to their library
  *
  * @author Kĩthia Ngigĩ
- * @version 30.07.2020
+ * @version 01.08.2020
  */
 public class ManualAddBookActivity extends AppCompatActivity {
+
+    //
+    public ISBNRegularExpression ISBNRegularExpression
+            = new ISBNRegularExpression();
 
     //
     public static final int ADD_BOOK_SUMMARY_REQUEST = 0;
@@ -403,9 +408,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
         boolean isAcceptableISBN = true;
         if (!ISBN.isEmpty()) {
             // Permit ISBN-10 and ISBN-13 only
-            String regex = getString(R.string.regex_ISBN);
-            if (ISBN.matches(regex)) isAcceptableISBN = true;
-            else {
+            if (!ISBN.matches(ISBNRegularExpression.getRegex())) {
                 textInputLayoutISBN.setError(getString(R.string.please_enter_valid_ISBN));
                 textInputISBN.addTextChangedListener(new TextWatcher() {
                     @Override
