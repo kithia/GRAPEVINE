@@ -37,6 +37,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NestedScrollView nestedScrollView;
 
+    private ImageView imageViewCoverLarge;
     private SeekBar seekbarProgress;
     private TextView textViewPagesReadProgress;
     private TextView textViewPagesProgress;
@@ -74,24 +75,7 @@ public class BookDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         nestedScrollView = findViewById(R.id.bookDetailNestedScrollView);
 
-        nestedScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                if (nestedScrollView.canScrollVertically(-1)) {
-                    ViewCompat.setElevation(appbarLayout, floatValueOf(4));
-                    toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_primary);
-                    toolbar.setTitle(bookDetailTitle);
-                    toolbar.setBackgroundColor(getColor(android.R.color.white));
-                } else {
-                    ViewCompat.setElevation(appbarLayout, 0);
-                    toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_white);
-                    toolbar.setTitle("");
-                    toolbar.setBackgroundColor(getColor(android.R.color.transparent));
-                }
-            }
-        });
-
-        ImageView imageViewCoverLarge = findViewById(R.id.bookDetailCoverLarge);
+        imageViewCoverLarge = findViewById(R.id.bookDetailCoverLarge);
         ImageView imageViewCover = findViewById(R.id.bookDetailCover);
         TextView textViewGenre = findViewById(R.id.bookDetailGenre);
         TextView textViewTitle = findViewById(R.id.bookDetailTitle);
@@ -112,6 +96,20 @@ public class BookDetailActivity extends AppCompatActivity {
         TextView textViewFormatTitle = findViewById(R.id.bookDetailFormatTitle);
         /* TextView textViewLanguageTitle = findViewById(R.id.bookDetailLanguageTitle);
         TextView textViewPublishDateTitle = findViewById(R.id.bookDetailPublishDateTitle); */
+
+        nestedScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+                if (nestedScrollView.getScrollY() >= (imageViewCoverLarge.getHeight() - appbarLayout.getHeight())) {
+                    ViewCompat.setElevation(appbarLayout, floatValueOf(4));
+                    toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_primary);
+                    toolbar.setTitle(bookDetailTitle);
+                    toolbar.setBackgroundColor(getColor(android.R.color.white)); }
+                else {
+                    ViewCompat.setElevation(appbarLayout, 0);
+                    toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_white);
+                    toolbar.setTitle("");
+                    toolbar.setBackgroundColor(getColor(android.R.color.transparent)); } } });
 
         imageViewCoverLarge.setImageResource(bookDetailCover);
         imageViewCover.setImageResource(bookDetailCover);
