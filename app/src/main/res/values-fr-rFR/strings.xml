@@ -60,9 +60,10 @@
     <string name="select_format">Sélectionnez le format</string>
     <string name="paperback">Broché</string>
     <string name="hardcover">Relié</string>
-    <string name="ebook">Livre électronique</string>
-    <string name="audiobook">Livre audio</string>
+    <string name="ebook">Livre Électronique</string>
+    <string name="audiobook">Livre Audio</string>
     <string name="compact_disk">Disque Compact</string>
     <string name="non_traditional">Non Traditionnel</string>
     <string name="progress">Vos progrés</string>
+    <string name="leather_bound">Relié en Cuir</string>
 </resources>

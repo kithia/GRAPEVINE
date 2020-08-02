@@ -48,9 +48,10 @@
     <string name="publish_date">Chapisha tarehe</string>
     <string name="paperback">Karatasi</string>
     <string name="hardcover">Ngumu</string>
-    <string name="ebook">Kitabu cha electroniki</string>
-    <string name="audiobook">Kitabu cha sauti</string>
-    <string name="compact_disk">Diski ya kompakt</string>
-    <string name="non_traditional">Isiyo ya jadi</string>
+    <string name="ebook">Kitabu cha Electroniki</string>
+    <string name="audiobook">Kitabu cha Sauti</string>
+    <string name="compact_disk">Diski ya Kompakt</string>
+    <string name="non_traditional">Isiyo ya Jadi</string>
     <string name="progress">Mwendo</string>
+    <string name="leather_bound">Amefungwa Ngozi</string>
 </resources>

@@ -33,6 +33,7 @@
     <!-- Book format array -->
     <string name="paperback" tools:ignore="MissingTranslation">Paperback</string>
     <string name="hardcover" tools:ignore="MissingTranslation">Hardcover</string>
+    <string name="leather_bound" tools:ignore="MissingTranslation">Leather-Bound</string>
     <string name="ebook" tools:ignore="MissingTranslation">eBook</string>
     <string name="audiobook" tools:ignore="MissingTranslation">Audiobook</string>
     <string name="compact_disk" tools:ignore="MissingTranslation">Compact-Disk</string>
