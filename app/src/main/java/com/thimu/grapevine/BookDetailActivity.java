@@ -23,7 +23,7 @@ import java.util.Objects;
  * An activity to display the details of a book
  *
  * @author Kĩthia Ngigĩ
- * @version 01.08.2020
+ * @version 02.08.2020
  */
 public class BookDetailActivity extends AppCompatActivity {
 
@@ -35,9 +35,10 @@ public class BookDetailActivity extends AppCompatActivity {
     // Elements of activity
     private AppBarLayout appbarLayout;
     private Toolbar toolbar;
+    private String bookDetailTitle;
     private NestedScrollView nestedScrollView;
 
-    private TextView textViewAuthors;
+    private ImageView imageViewCoverLarge;
     private SeekBar seekbarProgress;
     private TextView textViewPagesReadProgress;
     private TextView textViewPagesProgress;
@@ -57,7 +58,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
         int bookDetailCover = Objects.requireNonNull(book).getCover();
         String bookDetailGenre = book.getGenre();
-        final String bookDetailTitle = book.getTitle();
+        bookDetailTitle = book.getTitle();
         String bookDetailAuthors = book.getAuthors();
         String bookDetailPublisher = book.getPublisher();
 
@@ -75,11 +76,11 @@ public class BookDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         nestedScrollView = findViewById(R.id.bookDetailNestedScrollView);
 
-        ImageView imageViewCoverLarge = findViewById(R.id.bookDetailCoverLarge);
+        imageViewCoverLarge = findViewById(R.id.bookDetailCoverLarge);
         ImageView imageViewCover = findViewById(R.id.bookDetailCover);
         TextView textViewGenre = findViewById(R.id.bookDetailGenre);
         TextView textViewTitle = findViewById(R.id.bookDetailTitle);
-        textViewAuthors = findViewById(R.id.bookDetailAuthors);
+        TextView textViewAuthors = findViewById(R.id.bookDetailAuthors);
         TextView textViewPublisher = findViewById(R.id.bookDetailPublisher);
 
         TextView textViewPages = findViewById(R.id.bookDetailPages);
@@ -100,7 +101,7 @@ public class BookDetailActivity extends AppCompatActivity {
         nestedScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                if (nestedScrollView.getScrollY() >= (textViewAuthors.getY())) {
+                if (nestedScrollView.getScrollY() >= (imageViewCoverLarge.getHeight() - toolbar.getHeight())) {
                     ViewCompat.setElevation(appbarLayout, floatValueOf(4));
                     toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_primary);
                     toolbar.setTitle(bookDetailTitle);
