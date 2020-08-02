@@ -186,6 +186,9 @@ public class BookDetailActivity extends AppCompatActivity {
         } else if (bookDetailFormat == R.string.hardcover) {
             imageViewFormat.setImageResource(R.drawable.ic_outline_book);
             textViewFormatTitle.setText(getString(R.string.hardcover));
+        } else if (bookDetailFormat == R.string.leather_bound) {
+            imageViewFormat.setImageResource(R.drawable.ic_outline_book);
+            textViewFormatTitle.setText(getString(R.string.leather_bound));
         } else if (bookDetailFormat == R.string.ebook) {
             imageViewFormat.setImageResource(R.drawable.ic_outline_book);
             textViewFormatTitle.setText(getString(R.string.ebook));
