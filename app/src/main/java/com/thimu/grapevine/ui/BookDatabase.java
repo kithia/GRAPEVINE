@@ -15,7 +15,7 @@ import com.thimu.grapevine.R;
  * A database to hold the user's book library
  *
  * @author Kĩthia Ngigĩ
- * @version 31.07.2020
+ * @version 02.08.2020
  */
 @Database(entities = {Book.class}, version = 2)
 public abstract class BookDatabase extends RoomDatabase {
