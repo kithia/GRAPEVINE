@@ -47,7 +47,7 @@ import java.util.Objects;
  * An activity for the user to manually add a book to their library
  *
  * @author Kĩthia Ngigĩ
- * @version 01.08.2020
+ * @version 03.08.2020
  */
 public class ManualAddBookActivity extends AppCompatActivity {
 
@@ -226,6 +226,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
         ArrayList<String> dropdownFormat = new ArrayList<>();
         dropdownFormat.add(getString(R.string.paperback));
         dropdownFormat.add(getString(R.string.hardcover));
+        dropdownFormat.add(getString(R.string.leather_bound));
         dropdownFormat.add(getString(R.string.ebook));
         dropdownFormat.add(getString(R.string.audiobook));
         dropdownFormat.add(getString(R.string.compact_disk));

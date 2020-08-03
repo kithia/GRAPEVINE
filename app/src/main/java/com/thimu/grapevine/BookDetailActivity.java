@@ -1,6 +1,9 @@
 package com.thimu.grapevine;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 
@@ -23,7 +27,7 @@ import java.util.Objects;
  * An activity to display the details of a book
  *
  * @author Kĩthia Ngigĩ
- * @version 02.08.2020
+ * @version 03.08.2020
  */
 public class BookDetailActivity extends AppCompatActivity {
 
@@ -112,6 +116,14 @@ public class BookDetailActivity extends AppCompatActivity {
                     toolbar.setTitle("");
                     toolbar.setBackgroundColor(getColor(android.R.color.transparent)); } } });
 
+        /* ImageColour imageColour = null;
+        try { imageColour = new ImageColour(getBitmap(bookDetailCover)); }
+        catch (Exception e) { e.printStackTrace(); }
+        String mostCommonColour = imageColour.getColourHex();
+        if (mostCommonColour.isEmpty()) { imageViewCoverLarge.setImageResource(bookDetailCover); }
+        else {
+            int color = Color.parseColor(mostCommonColour);
+            imageViewCoverLarge.setColorFilter(color); } */
         imageViewCoverLarge.setImageResource(bookDetailCover);
         imageViewCover.setImageResource(bookDetailCover);
         textViewGenre.setText(bookDetailGenre);
@@ -125,6 +137,34 @@ public class BookDetailActivity extends AppCompatActivity {
 
         textViewSummary.setText(bookDetailSummary);
     }
+
+    /**
+     *
+     * @param image
+     * @return
+     */
+    public String getDominantColour(int image) {
+        Drawable drawable = ContextCompat.getDrawable(this, image);
+        Bitmap bitmap = Bitmap.createBitmap(Objects.requireNonNull(drawable).getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, 1, 1, true);
+        final int color = newBitmap.getPixel(0, 0);
+        newBitmap.recycle();
+        return "#" + color; }
+
+    /**
+     *
+     * @param image
+     * @return
+     */
+    private Bitmap getBitmap(int image) {
+        Drawable drawable = ContextCompat.getDrawable(this, image);
+        Bitmap bitmap = Bitmap.createBitmap(Objects.requireNonNull(drawable).getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap; }
 
     /**
      *
