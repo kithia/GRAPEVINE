@@ -26,7 +26,7 @@ import java.util.List;
  * The book adapter
  *
  * @author Kĩthia Ngigĩ
- * @version 01.08.2020
+ * @version 22.08.2020
  */
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> implements Filterable {
 
@@ -114,8 +114,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
         //
         private final Context context;
 
-        private MaterialCardView cardViewBook;
-
         private ImageView imageViewCover;
         private MaterialTextView textViewPublisher;
         private MaterialTextView textViewPublishDate;
@@ -128,7 +126,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
             super(itemView);
             context = itemView.getContext();
 
-            cardViewBook = itemView.findViewById(R.id.readsCardView);
+            MaterialCardView cardViewBook = itemView.findViewById(R.id.readsCardView);
 
             imageViewCover = itemView.findViewById(R.id.bookCover);
             textViewPublisher = itemView.findViewById(R.id.bookPublisher);
@@ -141,9 +139,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
             cardViewBook.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (cardViewBook.isChecked() || progressbar.isIndeterminate()) {
-                        cardViewBook.setChecked(false);
-                        progressbar.setIndeterminate(false); }
+                    if (progressbar.isIndeterminate()) { progressbar.setIndeterminate(false); }
                     else {
                         Intent intent = new Intent(context, BookDetailActivity.class);
                         intent.putExtra(ReadsFragment.EXTRA_BOOK, getBookAt(getAdapterPosition()));
@@ -152,7 +148,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
             cardViewBook.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    cardViewBook.setChecked(!cardViewBook.isChecked());
                     progressbar.setIndeterminate(!progressbar.isIndeterminate());
                     return true; } }); }
     }

@@ -49,9 +49,9 @@
     <string name="remove_book">Retirer le livre</string>
     <string name="are_you_sure_you_want_to_remove">"Êtes-vous sûr de vouloir suppimer "</string>
     <string name="book_discarded">Le livre a été jeté</string>
-    <string name="read_condition">J\&apos;ai lu</string>
-    <string name="reading_condition">Je lis</string>
-    <string name="not_read_condition">Je n\&apos;ai pas lu</string>
+    <string name="read_condition">Lu</string>
+    <string name="reading_condition">Lis</string>
+    <string name="not_read_condition">Pas lu</string>
     <string name="language">Langue</string>
     <string name="publish_date">Date de Publication</string>
     <string name="pages">Pages</string>
@@ -60,10 +60,10 @@
     <string name="select_format">Sélectionnez le format</string>
     <string name="paperback">Broché</string>
     <string name="hardcover">Relié</string>
-    <string name="ebook">Livre Électronique</string>
-    <string name="audiobook">Livre Audio</string>
-    <string name="compact_disk">Disque Compact</string>
-    <string name="non_traditional">Non Traditionnel</string>
+    <string name="ebook">Livre électronique</string>
+    <string name="audiobook">Livre audio</string>
+    <string name="compact_disk">Disque compact</string>
+    <string name="non_traditional">Non traditionnel</string>
     <string name="progress">Vos progrés</string>
-    <string name="leather_bound">Relié en Cuir</string>
+    <string name="leather_bound">Relié en cuir</string>
 </resources>
