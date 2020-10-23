@@ -6,11 +6,15 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -30,6 +34,9 @@ import java.util.Objects;
  * @version 03.08.2020
  */
 public class BookDetailActivity extends AppCompatActivity {
+
+    //
+    private Menu bookDetailMenu;
 
     // Attributes of book
     private int bookDetailPages;
@@ -59,6 +66,8 @@ public class BookDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Book book = intent.getParcelableExtra(ReadsFragment.EXTRA_BOOK);
+
+        bookDetailMenu = findViewById(R.id.edit_book_detail);
 
         int bookDetailCover = Objects.requireNonNull(book).getCover();
         String bookDetailGenre = book.getGenre();
@@ -137,6 +146,27 @@ public class BookDetailActivity extends AppCompatActivity {
 
         textViewSummary.setText(bookDetailSummary);
     }
+
+    /**
+     *
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.book_detail_menu, menu);
+        return true; }
+
+    /**
+     *
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.edit_book_detail) {  }
+        return true; }
 
     /**
      *

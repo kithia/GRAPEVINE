@@ -96,4 +96,8 @@
     <string name="progress">Progress</string>
     <string name="leather_bound">Leather-Bound</string>
     <string name="user_profile">User profile</string>
+    <string name="edit">Edit</string>
+    <string name="edit_book">Edit book</string>
+    <string name="lc_was_updated">" was updated"</string>
+    <string name="lc_could_not_be_saved">" could not be saved"</string>
 </resources>

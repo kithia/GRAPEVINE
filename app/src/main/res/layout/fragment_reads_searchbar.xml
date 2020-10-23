@@ -17,22 +17,7 @@
         android:queryBackground="@android:color/transparent"
         android:queryHint="@string/search_your_books"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/readsImageButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/readsImageButton"
-        style="@android:style/Widget.DeviceDefault.Light.ImageButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginVertical="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@null"
-        android:contentDescription="@string/user_profile"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/man_hoodie_medical_mask" />
 </androidx.constraintlayout.widget.ConstraintLayout>

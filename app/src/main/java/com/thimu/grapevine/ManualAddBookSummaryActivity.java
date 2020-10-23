@@ -62,7 +62,7 @@ public class ManualAddBookSummaryActivity extends AppCompatActivity {
                 else { toolbar.setElevation(0); } } });
 
         Intent bookSummaryIntent = getIntent();
-        previousSummary = bookSummaryIntent.getStringExtra(ManualAddBookActivity.EXTRA_SUMMARY);
+        previousSummary = bookSummaryIntent.getStringExtra(ManualAddEditBookActivity.EXTRA_SUMMARY);
         textInputWriteSummary = findViewById(R.id.textInputEnterWriteSummary);
         textInputWriteSummary.setText(previousSummary);
     }

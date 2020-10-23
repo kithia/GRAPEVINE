@@ -1,5 +1,6 @@
 package com.thimu.grapevine.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -16,23 +17,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.thimu.grapevine.BookDetailActivity;
+import com.thimu.grapevine.MainActivity;
+import com.thimu.grapevine.ManualAddEditBookActivity;
 import com.thimu.grapevine.R;
 import com.thimu.grapevine.ui.reads.ReadsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.thimu.grapevine.ui.reads.ReadsFragment.EDIT_BOOK_REQUEST;
+
 /**
  * The book adapter
  *
  * @author Kĩthia Ngigĩ
- * @version 22.08.2020
+ * @version 05.08.2020
  */
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> implements Filterable {
 
     //
     private List<Book> books = new ArrayList<>();
     private List<Book> allBooks;
+
+    // private OnItemClickListener listener;
 
     /**
      * Create the adapter
@@ -136,19 +143,56 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookHolder> im
             textViewGenre = itemView.findViewById(R.id.bookGenre);
             progressbar = itemView.findViewById(R.id.bookProgress);
 
+            /* itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(books.get(position));
+                    }
+                }
+            }); */
+
             cardViewBook.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (progressbar.isIndeterminate()) { progressbar.setIndeterminate(false); }
-                    else {
-                        Intent intent = new Intent(context, BookDetailActivity.class);
-                        intent.putExtra(ReadsFragment.EXTRA_BOOK, getBookAt(getAdapterPosition()));
-                        context.startActivity(intent); } } });
+                    if (getAdapterPosition() != RecyclerView.NO_POSITION) {
+                        if (progressbar.isIndeterminate()) { progressbar.setIndeterminate(false); }
+                        else {
+                            Intent intent = new Intent(context, BookDetailActivity.class);
+                            intent.putExtra(ReadsFragment.EXTRA_BOOK, getBookAt(getAdapterPosition()));
+                            context.startActivity(intent); } } } });
 
             cardViewBook.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
                     progressbar.setIndeterminate(!progressbar.isIndeterminate());
+
+                    /* Intent intent = new Intent(context, ManualAddEditBookActivity.class);
+                    Book book = getBookAt(getAdapterPosition());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_IDENTIFICATION, book.getIdentification());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_ISBN, book.getISBN());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_COVER, book.getCover());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_PUBLISHER, book.getPublisher());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_PUBLISH_DATE, book.getPublishDate());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_TITLE, book.getTitle());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_AUTHORS, book.getAuthors());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_GENRE, book.getGenre());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_SUMMARY, book.getSummary());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_LANGUAGE, book.getLanguage());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_FORMAT, book.getFormat());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_PAGES, book.getPages());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_PAGES_READ, book.getPagesRead());
+                    intent.putExtra(ManualAddEditBookActivity.EXTRA_READ, book.getRead());
+                    ((Activity) context).startActivityForResult(intent, EDIT_BOOK_REQUEST); */
                     return true; } }); }
     }
+
+    /* public interface OnItemClickListener {
+        void onItemClick(Book book);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    } */
 }

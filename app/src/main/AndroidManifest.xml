@@ -13,10 +13,10 @@
             android:name=".ManualAddBookSummaryActivity"
             android:label="@string/summary"
             android:theme="@style/AppThemeActionBar"
-            android:parentActivityName=".ManualAddBookActivity"
+            android:parentActivityName=".ManualAddEditBookActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ManualAddBookActivity"
+            android:name=".ManualAddEditBookActivity"
             android:label="@string/add_book"
             android:launchMode="singleTop"
             android:theme="@style/AppThemeActionBar"

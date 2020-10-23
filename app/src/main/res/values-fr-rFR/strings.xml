@@ -51,7 +51,7 @@
     <string name="book_discarded">Le livre a été jeté</string>
     <string name="read_condition">Lu</string>
     <string name="reading_condition">Lis</string>
-    <string name="not_read_condition">Pas lu</string>
+    <string name="not_read_condition">Ne pas lu</string>
     <string name="language">Langue</string>
     <string name="publish_date">Date de Publication</string>
     <string name="pages">Pages</string>
@@ -66,4 +66,8 @@
     <string name="non_traditional">Non traditionnel</string>
     <string name="progress">Vos progrés</string>
     <string name="leather_bound">Relié en cuir</string>
+    <string name="edit">Modifier</string>
+    <string name="edit_book">Modifier le livre</string>
+    <string name="lc_was_updated">" a été mis à jour"</string>
+    <string name="lc_could_not_be_saved">" n'a pas pu être sauvé"</string>
 </resources>

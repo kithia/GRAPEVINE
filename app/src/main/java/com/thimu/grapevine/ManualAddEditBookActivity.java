@@ -36,20 +36,22 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.thimu.grapevine.ui.ISBNRegularExpression;
+import com.thimu.grapevine.ui.reads.ReadsFragment;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * An activity for the user to manually add a book to their library
  *
  * @author Kĩthia Ngigĩ
- * @version 03.08.2020
+ * @version 05.08.2020
  */
-public class ManualAddBookActivity extends AppCompatActivity {
+public class ManualAddEditBookActivity extends AppCompatActivity {
 
     //
     public ISBNRegularExpression ISBNRegularExpression
@@ -59,8 +61,12 @@ public class ManualAddBookActivity extends AppCompatActivity {
     public static final int ADD_BOOK_SUMMARY_REQUEST = 0;
 
     // Intent keys
+    public static final String EXTRA_IDENTIFICATION =
+            "com.thimu.grapevine.EXTRA_IDENTIFICATION";
     public static final String EXTRA_ISBN =
             "com.thimu.grapevine.EXTRA_ISBN";
+    public static final String EXTRA_COVER =
+            "com.thimu.grapevine.EXTRA_COVER";
     public static final String EXTRA_PUBLISHER =
             "com.thimu.grapevine.EXTRA_PUBLISHER";
     public static final String EXTRA_PUBLISH_DATE =
@@ -94,6 +100,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
     private TextInputLayout textInputLayoutTitle;
 
     private TextInputEditText textInputISBN;
+    private int cover = 0;
     private TextInputEditText textInputTitle;
     private TextInputEditText textInputAuthors;
     private AutoCompleteTextView textInputGenre;
@@ -125,6 +132,25 @@ public class ManualAddBookActivity extends AppCompatActivity {
         toolbar.setHomeButtonEnabled(true);
         toolbar.setElevation(0);
 
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_IDENTIFICATION)) {
+            setTitle(getString(R.string.edit_book));
+            textInputISBN.setText(intent.getStringExtra(EXTRA_ISBN));
+            cover = intent.getIntExtra(EXTRA_COVER, 0);
+            textInputTitle.setText(intent.getStringExtra(EXTRA_TITLE));
+            textInputAuthors.setText(intent.getStringExtra(EXTRA_AUTHORS));
+            textInputGenre.setText(intent.getStringExtra(EXTRA_GENRE));
+            textInputPublisher.setText(intent.getStringExtra(EXTRA_PUBLISHER));
+            textInputPublishDate.setText(intent.getStringExtra(EXTRA_PUBLISH_DATE));
+            textInputSummary.setText(intent.getStringExtra(EXTRA_SUMMARY));
+            textInputLanguage.setText(intent.getStringExtra(EXTRA_LANGUAGE));
+            textInputFormat.setText(intent.getIntExtra(EXTRA_FORMAT, R.string.paperback));
+            textInputPages.setText(intent.getIntExtra(EXTRA_PAGES, 0));
+            readSwitch.setChecked(intent.getBooleanExtra(EXTRA_READ, false));
+
+            readSwitch.setEnabled(false); }
+        else { setTitle(getString(R.string.add_book)); }
+
         scrollView = findViewById(R.id.manualAddBookScrollView);
         scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
@@ -136,6 +162,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
         textInputLayoutTitle = findViewById(R.id.textInputLayoutTitle);
 
         textInputISBN = findViewById(R.id.textInputEnterISBN);
+        cover = getRandomFlag();
         textInputTitle = findViewById(R.id.textInputEnterTitle);
         textInputAuthors = findViewById(R.id.textInputEnterAuthors);
         textInputGenre = findViewById(R.id.textInputEnterGenre);
@@ -152,9 +179,9 @@ public class ManualAddBookActivity extends AppCompatActivity {
 
         ArrayList<String> dropdownGenre = setDropdownGenreList();
         ArrayList<String> dropdownFormat = setDropdownFormatList();
-        ArrayAdapter<String> genreStringAdapter = new ArrayAdapter<>(ManualAddBookActivity.this,
+        ArrayAdapter<String> genreStringAdapter = new ArrayAdapter<>(ManualAddEditBookActivity.this,
                 R.layout.dropdown_menu_item, dropdownGenre);
-        ArrayAdapter<String> formatStringAdapter = new ArrayAdapter<>(ManualAddBookActivity.this,
+        ArrayAdapter<String> formatStringAdapter = new ArrayAdapter<>(ManualAddEditBookActivity.this,
                 R.layout.dropdown_menu_item, dropdownFormat);
 
         AutoCompleteTextView editTextEnterGenreDropdown = findViewById(R.id.textInputEnterGenre);
@@ -174,7 +201,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 currentFocus = getCurrentFocus();
-                Intent bookSummaryIntent = new Intent(ManualAddBookActivity.this, ManualAddBookSummaryActivity.class);
+                Intent bookSummaryIntent = new Intent(ManualAddEditBookActivity.this, ManualAddBookSummaryActivity.class);
                 String bookSummary = Objects.requireNonNull(textInputSummary.getText()).toString();
                 bookSummaryIntent.putExtra(EXTRA_SUMMARY, bookSummary);
                 startActivityForResult(bookSummaryIntent, ADD_BOOK_SUMMARY_REQUEST); } });
@@ -355,7 +382,11 @@ public class ManualAddBookActivity extends AppCompatActivity {
             textInputISBN.requestFocus(); }
         else {
             Intent bookData = new Intent();
+            int identification = getIntent().getIntExtra(EXTRA_IDENTIFICATION, -1);
+            if (identification != 1) { bookData.putExtra(EXTRA_IDENTIFICATION, identification); }
+
             bookData.putExtra(EXTRA_ISBN, ISBN);
+            bookData.putExtra(EXTRA_COVER, cover);
             bookData.putExtra(EXTRA_PUBLISHER, publisher);
             bookData.putExtra(EXTRA_PUBLISH_DATE, publishDate);
             bookData.putExtra(EXTRA_TITLE, title);
@@ -371,7 +402,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
             // Indicates whether the input was successful (save button was selected)
             setResult(RESULT_OK, bookData);
             // Hide the soft keyboard and close the activity
-            hideSoftKeyboard(ManualAddBookActivity.this);
+            hideSoftKeyboard(ManualAddEditBookActivity.this);
             finish(); } }
 
     /**
@@ -431,7 +462,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
     private void onExit() {
         currentFocus = getCurrentFocus();
         if(!checkAddBookEmpty()) {
-            final MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(ManualAddBookActivity.this);
+            final MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(ManualAddEditBookActivity.this);
             alertDialogBuilder.setMessage(getString(R.string.discard_book) + getString(R.string.question_mark));
             alertDialogBuilder.setPositiveButton(getString(R.string.discard), new DialogInterface.OnClickListener() {
                 @Override
@@ -440,7 +471,7 @@ public class ManualAddBookActivity extends AppCompatActivity {
                     bookDiscardBundle.putBoolean(EXTRA_BOOK_DISCARD, true);
                     ReadsFragment readsFragmentObject = new ReadsFragment();
                     readsFragmentObject.setArguments(bookDiscardBundle); */
-                    hideSoftKeyboard(ManualAddBookActivity.this);
+                    hideSoftKeyboard(ManualAddEditBookActivity.this);
                     finish(); } });
 
             alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -504,4 +535,109 @@ public class ManualAddBookActivity extends AppCompatActivity {
     public float floatValueOf(int dp) {
         return TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, dp,
                 this.getResources().getDisplayMetrics() ); }
+
+    /**
+     * Get a random flag drawable
+     * All countries are apart of Africa or the Diaspora
+     * @return the drawable reference of the flag
+     */
+    public int getRandomFlag() {
+        ArrayList<Integer> countries = new ArrayList<Integer>();
+        countries.add(R.drawable.algeria_square);
+        countries.add(R.drawable.angola_square);
+        countries.add(R.drawable.anguilla_square);
+        countries.add(R.drawable.antigua_and_barbuda_square);
+        countries.add(R.drawable.aruba_square);
+        countries.add(R.drawable.bahamas_square);
+        countries.add(R.drawable.barbados_square);
+        countries.add(R.drawable.benin_square);
+        countries.add(R.drawable.bonaire_square);
+        countries.add(R.drawable.botswana_square);
+        countries.add(R.drawable.brazil_square);
+        countries.add(R.drawable.british_virgin_islands_square);
+        countries.add(R.drawable.burkina_faso_square);
+        countries.add(R.drawable.burundi_square);
+        countries.add(R.drawable.cabo_verde_square);
+        countries.add(R.drawable.cameroon_square);
+        countries.add(R.drawable.cayman_islands_square);
+        countries.add(R.drawable.central_african_republic_square);
+        countries.add(R.drawable.chad_square);
+        countries.add(R.drawable.colombia_square);
+        countries.add(R.drawable.comoros_square);
+        countries.add(R.drawable.cuba_square);
+        countries.add(R.drawable.curacao_square);
+        countries.add(R.drawable.democratic_republic_of_congo_square);
+        countries.add(R.drawable.djibouti_square);
+        countries.add(R.drawable.dominica_square);
+        countries.add(R.drawable.dominican_republic_square);
+        countries.add(R.drawable.egypt_square);
+        countries.add(R.drawable.equatorial_guinea_square);
+        countries.add(R.drawable.eritrea_square);
+        countries.add(R.drawable.ethiopia_square);
+        countries.add(R.drawable.france_square);
+        countries.add(R.drawable.gabon_square);
+        countries.add(R.drawable.gambia_square);
+        countries.add(R.drawable.ghana_square);
+        countries.add(R.drawable.grenada_square);
+        countries.add(R.drawable.guinea_bissau_square);
+        countries.add(R.drawable.guinea_square);
+        countries.add(R.drawable.haiti_square);
+        countries.add(R.drawable.ivory_coast_square);
+        countries.add(R.drawable.jamaica_square);
+        countries.add(R.drawable.kenya_square);
+        countries.add(R.drawable.lesotho_square);
+        countries.add(R.drawable.liberia_square);
+        countries.add(R.drawable.libya_square);
+        countries.add(R.drawable.madagascar_square);
+        countries.add(R.drawable.malawi_square);
+        // countries.add(R.drawable.malaysia_square);
+        countries.add(R.drawable.mali_square);
+        countries.add(R.drawable.martinique_square);
+        countries.add(R.drawable.mauritania_square);
+        countries.add(R.drawable.mauritius_square);
+        countries.add(R.drawable.mexico_square);
+        countries.add(R.drawable.montserrat_square);
+        countries.add(R.drawable.morocco_square);
+        countries.add(R.drawable.mozambique_square);
+        countries.add(R.drawable.namibia_square);
+        countries.add(R.drawable.niger_square);
+        countries.add(R.drawable.nigeria_square);
+        countries.add(R.drawable.puerto_rico_square);
+        countries.add(R.drawable.republic_of_the_congo_square);
+        countries.add(R.drawable.rwanda_square);
+        countries.add(R.drawable.saba_island_square);
+        countries.add(R.drawable.sahrawi_arab_democratic_republic_square);
+        countries.add(R.drawable.saint_kitts_and_nevis_square);
+        countries.add(R.drawable.sao_tome_and_principe_square);
+        countries.add(R.drawable.senegal_square);
+        countries.add(R.drawable.seychelles_square);
+        countries.add(R.drawable.sierra_leone_square);
+        countries.add(R.drawable.sint_eustatius_square);
+        countries.add(R.drawable.sint_maarten_square);
+        countries.add(R.drawable.somalia_square);
+        countries.add(R.drawable.somaliland_square);
+        countries.add(R.drawable.south_africa_sqaure);
+        countries.add(R.drawable.south_sudan_square);
+        countries.add(R.drawable.st_barts_square);
+        countries.add(R.drawable.st_lucia_square);
+        countries.add(R.drawable.st_vincent_and_the_grenadines_square);
+        countries.add(R.drawable.sudan_square);
+        // countries.add(R.drawable.taiwan_square);
+        countries.add(R.drawable.tanzania_square);
+        countries.add(R.drawable.togo_square);
+        countries.add(R.drawable.trinidad_and_tobago_square);
+        countries.add(R.drawable.tunisia_square);
+        countries.add(R.drawable.turks_and_caicos_square);
+        countries.add(R.drawable.uganda_square);
+        countries.add(R.drawable.united_kingdom_square);
+        countries.add(R.drawable.united_states_of_america_square);
+        countries.add(R.drawable.venezuela_square);
+        // countries.add(R.drawable.vietnam_square);
+        countries.add(R.drawable.virgin_islands_square);
+        countries.add(R.drawable.zambia_square);
+        countries.add(R.drawable.zimbabwe_square);
+
+        Random random = new Random();
+        int countryIndex = random.nextInt(countries.size());
+        return countries.get(countryIndex); }
 }

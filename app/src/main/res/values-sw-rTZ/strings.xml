@@ -54,4 +54,8 @@
     <string name="non_traditional">Isiyo ya Jadi</string>
     <string name="progress">Mwendo</string>
     <string name="leather_bound">Amefungwa Ngozi</string>
+    <string name="edit">Hariri</string>
+    <string name="edit_book">Hariri kitabu</string>
+    <string name="lc_was_updated">" kilisashiwa"</string>
+    <string name="lc_could_not_be_saved">" hakiwezi "</string>
 </resources>
