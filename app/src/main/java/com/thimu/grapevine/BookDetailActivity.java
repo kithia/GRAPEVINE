@@ -165,8 +165,8 @@ public class BookDetailActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.edit_book_detail) {  }
-        return true; }
+        if (item.getItemId() == R.id.edit_book_detail) { return true; }
+        else { return false; } }
 
     /**
      *
